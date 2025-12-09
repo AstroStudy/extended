@@ -31,7 +31,7 @@ jobs:
       # Probability for a random run on any given day: 1/MAX_DAYS = 1/5 = 20%
       RANDOM_THRESHOLD: 20
 
-    steps:
+      steps:
         - name: 🎲 Calculate Random Decision
         id: random_check
         run: |
