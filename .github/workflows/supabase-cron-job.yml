@@ -71,7 +71,8 @@ jobs:
           echo "Setting run status to proceed."
           echo "::set-output name=final_run_decision::true"
         id: final_decision
-      - name: 📞 Call Supabase Edge Function
+        
+        - name: 📞 Call Supabase Edge Function
         # Only run this step if the final decision was to proceed.
         if: steps.final_decision.outputs.final_run_decision == 'true'
         run: |
