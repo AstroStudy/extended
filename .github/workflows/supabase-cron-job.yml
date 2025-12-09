@@ -1,0 +1,43 @@
+name: Supabase Function Scheduler
+
+on:
+  schedule:
+    # Runs every 10 hours.
+    # The cron expression '0 */10 * * *' means:
+    # At minute 0 (the start of the hour), every 10th hour.
+    - cron: '0 */10 * * *'
+  workflow_dispatch:
+    # Allows manual triggering from the GitHub Actions tab
+
+jobs:
+  trigger_search_function:
+    runs-on: ubuntu-latest
+    
+    # Define environment variables for secrets and the search term
+    env:
+      SUPABASE_URL: https://jusjpremtvalmqqtaoth.supabase.co
+      FUNCTION_NAME: search-videos
+      SEARCH_TERM: "GS2025BK2519879"
+
+    steps:
+      - name: 📞 Call Supabase Edge Function
+        run: |
+          # The Authorization Bearer token is securely retrieved from GitHub Secrets.
+          # The Supabase Anon Key from your HTML:
+          # eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp1c2pwcmVtdHZhbG1xcXRhb3RoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjIyODQyNzksImV4cCI6MjA3Nzg2MDI3OX0.XzE8MFLHhjcKKFJ4TqNX3NNhVyGEiytxufWx8IywTqU
+          
+          SUPABASE_ANON_KEY="${{ secrets.SUPABASE_ANON_KEY }}"
+          FUNCTION_ENDPOINT="${{ env.SUPABASE_URL }}/functions/v1/${{ env.FUNCTION_NAME }}"
+          
+          # Construct the JSON body
+          PAYLOAD="{\"searchTerm\": \"${{ env.SEARCH_TERM }}\"}"
+          
+          echo "Triggering function: ${FUNCTION_ENDPOINT}"
+          echo "With payload: ${PAYLOAD}"
+          
+          # Use curl to make the POST request
+          curl -s -X POST "${FUNCTION_ENDPOINT}" \
+            -H "Content-Type: application/json" \
+            -H "Authorization: Bearer ${SUPABASE_ANON_KEY}" \
+            --data-raw "${PAYLOAD}" \
+            --fail-with-body # Fail the step if the response is not 2xx
