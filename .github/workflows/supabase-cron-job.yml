@@ -1,3 +1,8 @@
+steps:
+  -name: Checkout code
+  uses : actions/checkout@v3
+#Steps for autoupdate
+
 name: Randomly Scheduled Supabase Function Trigger
 
 on:
@@ -6,6 +11,10 @@ on:
     - cron: '0 5 * * *'
   workflow_dispatch:
     # Allows manual triggering
+
+Permissions:
+  contents: write
+#Permission to update
 
 jobs:
   trigger_search_function:
@@ -79,3 +88,23 @@ jobs:
             --data-raw "${PAYLOAD}" \
             --fail-with-body
         shell: bash
+
+        - name: Auto-commit to prevent inactivity
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          
+          last_commit=$(git log -1 --format=%ct)
+          now=$(date +%s)
+          seconds_since=$((now - last_commit))
+          days_since=$((seconds_since / 86400))
+          
+          echo "Days since last commit: $days_since"
+
+          if [ "$days_since" -gt 50 ]; then
+            echo "Limit approaching. Pushing empty keep-alive commit..."
+            git commit --allow-empty -m "Automated keep-alive to prevent 60-day inactivity"
+            git push
+          else
+            echo "No keep-alive needed yet."
+          fi
