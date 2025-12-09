@@ -32,7 +32,7 @@ jobs:
       RANDOM_THRESHOLD: 20
 
     steps:
-      - name: 🎲 Calculate Random Decision
+        - name: 🎲 Calculate Random Decision
         id: random_check
         run: |
           # The current run number can be used to simulate a random number
