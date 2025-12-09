@@ -24,7 +24,7 @@ jobs:
         run: |
           # The Authorization Bearer token is securely retrieved from GitHub Secrets.
           # The Supabase Anon Key from your HTML:
-          # eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp1c2pwcmVtdHZhbG1xcXRhb3RoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjIyODQyNzksImV4cCI6MjA3Nzg2MDI3OX0.XzE8MFLHhjcKKFJ4TqNX3NNhVyGEiytxufWx8IywTqU
+         
           
           SUPABASE_ANON_KEY="${{ secrets.SUPABASE_ANON_KEY }}"
           FUNCTION_ENDPOINT="${{ env.SUPABASE_URL }}/functions/v1/${{ env.FUNCTION_NAME }}"
