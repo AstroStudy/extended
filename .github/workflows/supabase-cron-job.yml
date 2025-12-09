@@ -56,7 +56,7 @@ jobs:
           fi
         shell: bash
 
-      - name: 🕰️ Check Minimum Interval and Decide
+        - name: 🕰️ Check Minimum Interval and Decide
         # The 'if' condition here ensures the step runs if the random check passed OR
         # if the last run was more than MAX_DAYS ago.
         # NOTE: GitHub Actions doesn't provide a native "days since last run" feature
