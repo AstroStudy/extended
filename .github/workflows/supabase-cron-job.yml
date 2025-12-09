@@ -1,8 +1,3 @@
-steps:
-  -name: Checkout code
-  uses : actions/checkout@v3
-#Steps for autoupdate
-
 name: Randomly Scheduled Supabase Function Trigger
 
 on:
@@ -12,9 +7,9 @@ on:
   workflow_dispatch:
     # Allows manual triggering
 
-Permissions:
+# REQUIRED: Permission to commit the keep-alive change
+permissions:
   contents: write
-#Permission to update
 
 jobs:
   trigger_search_function:
@@ -25,71 +20,55 @@ jobs:
       SUPABASE_URL: https://jusjpremtvalmqqtaoth.supabase.co
       FUNCTION_NAME: search-videos
       SEARCH_TERM: "GS2025BK2519879"
-      # Configuration for the random run:
-      # Max days between runs is 5 (guaranteed minimum interval)
-      MAX_DAYS: 5
-      # Probability for a random run on any given day: 1/MAX_DAYS = 1/5 = 20%
-      RANDOM_THRESHOLD: 20
+      RANDOM_THRESHOLD: 20 # 20% chance = approx once every 5 days
 
-  steps:
-        - name: 🎲 Calculate Random Decision
+    steps:
+      # 1. Checkout is required FIRST so we can access git history later
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # 2. Calculate if we should run the Supabase function today
+      - name: 🎲 Calculate Random Decision
         id: random_check
         run: |
-          # The current run number can be used to simulate a random number
-          # since the last digit is typically random enough for this purpose.
-          # Alternatively, you can use $RANDOM if running in bash.
-          
           # Generate a random number between 1 and 100
           RANDOM_NUM=$((1 + $RANDOM % 100))
           
           echo "Random Number: $RANDOM_NUM"
           echo "Probability Threshold: ${{ env.RANDOM_THRESHOLD }}"
           
-          # Check if the random number is less than or equal to the threshold (20%)
-          # If true, the job will proceed. If false, it will skip (unless required).
-          if [ $RANDOM_NUM -le ${{ env.RANDOM_THRESHOLD }} ]; then
-            echo "::set-output name=should_run::true"
+          # Logic: If Random Number <= 20, we run.
+          if [ "$RANDOM_NUM" -le "${{ env.RANDOM_THRESHOLD }}" ]; then
+            echo "should_run=true" >> $GITHUB_OUTPUT
             echo "Random check passed. Proceeding with function call."
           else
-            echo "::set-output name=should_run::false"
-            echo "Random check failed. Checking minimum required interval..."
+            echo "should_run=false" >> $GITHUB_OUTPUT
+            echo "Random check failed. Skipping function call."
           fi
-        shell: bash
 
-        - name: 🕰️ Check Minimum Interval and Decide
-        # The 'if' condition here ensures the step runs if the random check passed OR
-        # if the last run was more than MAX_DAYS ago.
-        # NOTE: GitHub Actions doesn't provide a native "days since last run" feature
-        # for a job. A perfect implementation would require external state (like a database
-        # or a file in the repository), but for simplicity, we will rely primarily on the random check.
-        # To strictly enforce the 5-day minimum, you would need to fetch the history.
-        
-        # For a simple, reliable random execution with an **average** frequency of 1/5 days:
+      # 3. Call Supabase (Only if Random Check passed OR Manual Trigger)
+      - name: 📞 Call Supabase Edge Function
         if: steps.random_check.outputs.should_run == 'true' || github.event_name == 'workflow_dispatch'
+        env:
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
         run: |
-          echo "The workflow is running now (either by random chance or manual dispatch)."
-          echo "Setting run status to proceed."
-          echo "::set-output name=final_run_decision::true"
-        id: final_decision
-        
-        - name: 📞 Call Supabase Edge Function
-        # Only run this step if the final decision was to proceed.
-        if: steps.final_decision.outputs.final_run_decision == 'true'
-        run: |
-          SUPABASE_ANON_KEY="${{ secrets.SUPABASE_ANON_KEY }}"
           FUNCTION_ENDPOINT="${{ env.SUPABASE_URL }}/functions/v1/${{ env.FUNCTION_NAME }}"
+          
+          # Construct JSON payload securely
+          # We escape the quotes for the JSON string
           PAYLOAD="{\"searchTerm\": \"${{ env.SEARCH_TERM }}\"}"
           
-          echo "Executing scheduled function call with search term: ${{ env.SEARCH_TERM }}"
+          echo "Executing scheduled function call..."
           
           curl -s -X POST "${FUNCTION_ENDPOINT}" \
             -H "Content-Type: application/json" \
-            -H "Authorization: Bearer ${SUPABASE_ANON_KEY}" \
-            --data-raw "${PAYLOAD}" \
+            -H "Authorization: Bearer $SUPABASE_ANON_KEY" \
+            --data-raw "$PAYLOAD" \
             --fail-with-body
-        shell: bash
 
-        - name: Auto-commit to prevent inactivity
+      # 4. Keepalive Logic (Runs ALWAYS to prevent 60-day disable)
+      - name: Auto-commit to prevent inactivity
+        if: always() # Ensures this runs even if the Supabase step is skipped
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -101,6 +80,7 @@ jobs:
           
           echo "Days since last commit: $days_since"
 
+          # If more than 50 days have passed, push a dummy update
           if [ "$days_since" -gt 50 ]; then
             echo "Limit approaching. Pushing empty keep-alive commit..."
             git commit --allow-empty -m "Automated keep-alive to prevent 60-day inactivity"
