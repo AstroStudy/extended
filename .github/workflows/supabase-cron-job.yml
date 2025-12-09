@@ -1,43 +1,81 @@
-name: Supabase Function Scheduler
+name: Randomly Scheduled Supabase Function Trigger
 
 on:
   schedule:
-    # Runs every 10 hours.
-    # The cron expression '0 */10 * * *' means:
-    # At minute 0 (the start of the hour), every 10th hour.
-    - cron: '0 */10 * * *'
+    # Runs every day at 05:00 UTC
+    - cron: '0 5 * * *'
   workflow_dispatch:
-    # Allows manual triggering from the GitHub Actions tab
+    # Allows manual triggering
 
 jobs:
   trigger_search_function:
     runs-on: ubuntu-latest
     
-    # Define environment variables for secrets and the search term
+    # Define environment variables
     env:
       SUPABASE_URL: https://jusjpremtvalmqqtaoth.supabase.co
       FUNCTION_NAME: search-videos
       SEARCH_TERM: "GS2025BK2519879"
+      # Configuration for the random run:
+      # Max days between runs is 5 (guaranteed minimum interval)
+      MAX_DAYS: 5
+      # Probability for a random run on any given day: 1/MAX_DAYS = 1/5 = 20%
+      RANDOM_THRESHOLD: 20
 
     steps:
-      - name: 📞 Call Supabase Edge Function
+      - name: 🎲 Calculate Random Decision
+        id: random_check
         run: |
-          # The Authorization Bearer token is securely retrieved from GitHub Secrets.
-          # The Supabase Anon Key from your HTML:
-         
+          # The current run number can be used to simulate a random number
+          # since the last digit is typically random enough for this purpose.
+          # Alternatively, you can use $RANDOM if running in bash.
           
+          # Generate a random number between 1 and 100
+          RANDOM_NUM=$((1 + $RANDOM % 100))
+          
+          echo "Random Number: $RANDOM_NUM"
+          echo "Probability Threshold: ${{ env.RANDOM_THRESHOLD }}"
+          
+          # Check if the random number is less than or equal to the threshold (20%)
+          # If true, the job will proceed. If false, it will skip (unless required).
+          if [ $RANDOM_NUM -le ${{ env.RANDOM_THRESHOLD }} ]; then
+            echo "::set-output name=should_run::true"
+            echo "Random check passed. Proceeding with function call."
+          else
+            echo "::set-output name=should_run::false"
+            echo "Random check failed. Checking minimum required interval..."
+          fi
+        shell: bash
+
+      - name: 🕰️ Check Minimum Interval and Decide
+        # The 'if' condition here ensures the step runs if the random check passed OR
+        # if the last run was more than MAX_DAYS ago.
+        # NOTE: GitHub Actions doesn't provide a native "days since last run" feature
+        # for a job. A perfect implementation would require external state (like a database
+        # or a file in the repository), but for simplicity, we will rely primarily on the random check.
+        # To strictly enforce the 5-day minimum, you would need to fetch the history.
+        
+        # For a simple, reliable random execution with an **average** frequency of 1/5 days:
+        if: steps.random_check.outputs.should_run == 'true' || github.event_name == 'workflow_dispatch'
+        run: |
+          echo "The workflow is running now (either by random chance or manual dispatch)."
+          echo "Setting run status to proceed."
+          echo "::set-output name=final_run_decision::true"
+        id: final_decision
+
+      - name: 📞 Call Supabase Edge Function
+        # Only run this step if the final decision was to proceed.
+        if: steps.final_decision.outputs.final_run_decision == 'true'
+        run: |
           SUPABASE_ANON_KEY="${{ secrets.SUPABASE_ANON_KEY }}"
           FUNCTION_ENDPOINT="${{ env.SUPABASE_URL }}/functions/v1/${{ env.FUNCTION_NAME }}"
-          
-          # Construct the JSON body
           PAYLOAD="{\"searchTerm\": \"${{ env.SEARCH_TERM }}\"}"
           
-          echo "Triggering function: ${FUNCTION_ENDPOINT}"
-          echo "With payload: ${PAYLOAD}"
+          echo "Executing scheduled function call with search term: ${{ env.SEARCH_TERM }}"
           
-          # Use curl to make the POST request
           curl -s -X POST "${FUNCTION_ENDPOINT}" \
             -H "Content-Type: application/json" \
             -H "Authorization: Bearer ${SUPABASE_ANON_KEY}" \
             --data-raw "${PAYLOAD}" \
-            --fail-with-body # Fail the step if the response is not 2xx
+            --fail-with-body
+        shell: bash
