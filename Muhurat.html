@@ -1,0 +1,1478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vedic Auspicious Timing Finder - Panchanga</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #fff;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .main-container {
+            display: flex;
+            max-width: 1600px;
+            margin: 0 auto;
+            gap: 20px;
+            padding: 20px;
+        }
+        
+        .content-wrapper {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* Navigation Menu Styles */
+        nav {
+            margin-bottom: 30px;
+            background: rgba(20, 20, 40, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            padding: 15px 0;
+        }
+        
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            padding: 0 20px;
+        }
+        
+        nav ul li {
+            position: relative;
+            margin: 0 15px;
+        }
+        
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 15px;
+            display: flex;
+            align-items: center;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        nav ul li a:hover, nav ul li a.active {
+            background: rgba(233, 69, 96, 0.2);
+            color: #0fccce;
+        }
+        
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: rgba(30, 30, 60, 0.95);
+            min-width: 200px;
+            border-radius: 10px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            padding: 10px 0;
+        }
+        
+        .dropdown-menu a {
+            padding: 10px 20px;
+            display: block;
+            color: #fff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .dropdown-menu a:hover {
+            background: rgba(15, 204, 206, 0.2);
+            color: #e94560;
+        }
+        
+        nav ul li:hover .dropdown-menu {
+            display: block;
+        }
+        
+        /* Purpose Selector Section */
+        .purpose-selector {
+            background: rgba(20, 20, 40, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            margin-bottom: 30px;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .purpose-header {
+            margin-bottom: 20px;
+        }
+        
+        .purpose-header h2 {
+            color: #0fccce;
+            font-size: 1.4rem;
+            margin-bottom: 5px;
+        }
+        
+        .purpose-header p {
+            color: #b8b8b8;
+            font-size: 0.9rem;
+        }
+        
+        /* Custom Dropdown */
+        .custom-dropdown {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .dropdown-trigger {
+            background: rgba(40, 40, 80, 0.5);
+            border-radius: 10px;
+            padding: 15px 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+        
+        .dropdown-trigger:hover {
+            border-color: rgba(233, 69, 96, 0.5);
+        }
+        
+        .dropdown-trigger.active {
+            border-color: #e94560;
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+        
+        .selected-purpose {
+            display: flex;
+            align-items: center;
+            flex: 1;
+        }
+        
+        .selected-icon {
+            font-size: 1.5rem;
+            margin-right: 15px;
+            width: 40px;
+            text-align: center;
+        }
+        
+        .selected-text h3 {
+            font-size: 1.1rem;
+            margin-bottom: 3px;
+            text-align: left;
+        }
+        
+        .selected-text p {
+            font-size: 0.8rem;
+            color: #b8b8b8;
+            text-align: left;
+        }
+        
+        .dropdown-arrow {
+            transition: transform 0.3s ease;
+        }
+        
+        .dropdown-arrow.rotated {
+            transform: rotate(180deg);
+        }
+        
+        .dropdown-options {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background: rgba(30, 30, 60, 0.95);
+            border-radius: 0 0 10px 10px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            max-height: 400px;
+            overflow-y: auto;
+            border: 2px solid #e94560;
+            border-top: none;
+        }
+        
+        .dropdown-options.active {
+            display: block;
+        }
+        
+        /* Custom scrollbar for dropdown */
+        .dropdown-options::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .dropdown-options::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 3px;
+        }
+        
+        .dropdown-options::-webkit-scrollbar-thumb {
+            background: rgba(233, 69, 96, 0.5);
+            border-radius: 3px;
+        }
+        
+        .dropdown-options::-webkit-scrollbar-thumb:hover {
+            background: rgba(233, 69, 96, 0.7);
+        }
+        
+        .purpose-option {
+            padding: 12px 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .purpose-option:last-child {
+            border-bottom: none;
+        }
+        
+        .purpose-option:hover {
+            background: rgba(233, 69, 96, 0.1);
+        }
+        
+        .purpose-option.active {
+            background: rgba(233, 69, 96, 0.2);
+        }
+        
+        .option-icon {
+            font-size: 1.3rem;
+            margin-right: 15px;
+            width: 30px;
+            text-align: center;
+        }
+        
+        .option-text {
+            flex: 1;
+            text-align: left;
+        }
+        
+        .option-text h3 {
+            font-size: 0.95rem;
+            margin-bottom: 3px;
+        }
+        
+        .option-text p {
+            font-size: 0.75rem;
+            color: #b8b8b8;
+        }
+        
+        /* Advertisement Sidebar - Single Large Banner */
+        .ad-sidebar {
+            width: 300px;
+            min-width: 300px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .ad-banner {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            border: 3px solid #0fccce;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            height: 100%;
+            min-height: 600px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .ad-banner:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(15, 204, 206, 0.3);
+            border-color: #e94560;
+        }
+        
+        .ad-banner:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #e94560, #0fccce, #e94560);
+        }
+        
+        .ad-banner:after {
+            content: 'ADVERTISEMENT';
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(233, 69, 96, 0.2);
+            color: #b8b8b8;
+            font-size: 0.7rem;
+            padding: 3px 8px;
+            border-radius: 3px;
+            letter-spacing: 1px;
+        }
+        
+        .ad-header {
+            text-align: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .ad-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            color: #0fccce;
+        }
+        
+        .ad-header h3 {
+            color: #e94560;
+            font-size: 1.6rem;
+            margin-bottom: 8px;
+        }
+        
+        .ad-header p {
+            color: #b8b8b8;
+            font-size: 0.9rem;
+        }
+        
+        .ad-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .ad-image {
+            width: 100%;
+            height: 400px;
+            background: linear-gradient(135deg, rgba(233, 69, 96, 0.1), rgba(15, 204, 206, 0.1));
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 25px;
+            border: 2px dashed rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ad-image:hover {
+            border-color: #0fccce;
+            background: linear-gradient(135deg, rgba(233, 69, 96, 0.2), rgba(15, 204, 206, 0.2));
+        }
+        
+        .ad-placeholder {
+            font-size: 4rem;
+            color: #0fccce;
+            margin-bottom: 15px;
+        }
+        
+        .ad-image p {
+            color: #b8b8b8;
+            font-size: 1rem;
+            text-align: center;
+            padding: 0 10px;
+        }
+        
+        .ad-image .size {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-size: 0.8rem;
+        }
+        
+        .ad-description {
+            color: #b8b8b8;
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            text-align: center;
+            flex: 1;
+        }
+        
+        .ad-button {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #e94560, #c62a4a);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            text-decoration: none;
+            margin-top: auto;
+        }
+        
+        .ad-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(233, 69, 96, 0.6);
+            background: linear-gradient(135deg, #0fccce, #0a9c9e);
+        }
+        
+        .ad-footer {
+            text-align: center;
+            font-size: 0.8rem;
+            color: #777;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Main Content Sections */
+        .input-section {
+            background: rgba(30, 30, 60, 0.7);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            margin-bottom: 30px;
+            display: none;
+        }
+        
+        .input-section.active {
+            display: block;
+        }
+        
+        .input-section h2 {
+            margin-bottom: 20px;
+            color: #0fccce;
+            text-align: center;
+        }
+        
+        .selection-area {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        
+        .star-selector {
+            flex: 1;
+            min-width: 300px;
+            background: rgba(40, 40, 80, 0.5);
+            padding: 20px;
+            border-radius: 10px;
+        }
+        
+        .star-selector h3 {
+            margin-bottom: 15px;
+            color: #0fccce;
+            text-align: center;
+        }
+        
+        select {
+            width: 100%;
+            padding: 12px 15px;
+            border-radius: 10px;
+            border: none;
+            background: #1a1a2e;
+            color: #fff;
+            font-size: 1rem;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        select:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px #e94560;
+        }
+        
+        .star-info {
+            margin-top: 15px;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            display: none;
+        }
+        
+        .star-info h4 {
+            color: #0fccce;
+            margin-bottom: 10px;
+        }
+        
+        .result-section {
+            background: rgba(30, 30, 60, 0.7);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            margin-bottom: 30px;
+            display: none;
+        }
+        
+        .result-section.active {
+            display: block;
+        }
+        
+        .result-title {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: #e94560;
+        }
+        
+        .relationship-type {
+            font-size: 2.5rem;
+            margin: 20px 0;
+            font-weight: bold;
+            color: #0fccce;
+            text-shadow: 0 0 10px rgba(15, 204, 206, 0.5);
+        }
+        
+        .relationship-description {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #b8b8b8;
+            margin-bottom: 20px;
+        }
+        
+        .auspicious-info {
+            background: rgba(40, 40, 80, 0.5);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        
+        .auspicious-info h3 {
+            color: #0fccce;
+            margin-bottom: 15px;
+        }
+        
+        .tara-system-info {
+            background: rgba(30, 30, 60, 0.7);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+        
+        .tara-system-info h2 {
+            color: #0fccce;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .tara-types {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .tara-type {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 15px;
+            border-radius: 10px;
+        }
+        
+        .tara-type h4 {
+            color: #e94560;
+            margin-bottom: 8px;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: #b8b8b8;
+            font-size: 0.9rem;
+        }
+        
+        .check-button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .check-button {
+            background: linear-gradient(135deg, #e94560, #c62a4a);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(233, 69, 96, 0.4);
+        }
+        
+        .check-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(233, 69, 96, 0.6);
+        }
+        
+        .check-button:active {
+            transform: translateY(1px);
+        }
+        
+        .check-button:disabled {
+            background: #6c757d;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .main-container {
+                flex-direction: column;
+            }
+            
+            .ad-sidebar {
+                width: 100%;
+                min-width: 100%;
+                flex-direction: row;
+                justify-content: center;
+            }
+            
+            .ad-banner {
+                width: 100%;
+                max-width: 300px;
+                min-height: 500px;
+                margin: 0 auto;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .custom-dropdown {
+                max-width: 100%;
+            }
+            
+            .selection-area {
+                flex-direction: column;
+            }
+            
+            .star-selector {
+                min-width: 100%;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            nav ul li {
+                margin: 5px 0;
+                width: 100%;
+                text-align: center;
+            }
+            
+            .dropdown-menu {
+                width: 100%;
+            }
+            
+            .dropdown-options {
+                max-height: 300px;
+            }
+            
+            .ad-banner {
+                min-height: 450px;
+            }
+            
+            .ad-image {
+                height: 300px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .ad-banner {
+                padding: 20px;
+            }
+            
+            .ad-image {
+                height: 250px;
+            }
+            
+            .ad-header h3 {
+                font-size: 1.4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <div class="content-wrapper">
+            <!-- Navigation Menu -->
+            <nav>
+                <ul>
+                    <li><a href="https://parishodana.xyz" class="active">Home</a></li>
+                    <li>
+                        <a href="#">AstroTechnics<i class="fas fa-chevron-down" style="margin-left: 5px; font-size: 12px;"></i></a>
+                        <div class="dropdown-menu">
+                            <a href="https://youtube.com/@astrotechnicstelugu?feature=shared"><i class="fab fa-youtube" style="color: #FF0000;"></i> YouTube</a>
+                            <a href="https://www.instagram.com/astrotechnicstelugu?igsh=MWNrcWRiODJicjVzeA=="><i class="fab fa-instagram" style="color: #E4405F;"></i> Instagram</a>
+                            <a href="https://www.facebook.com/share/1BnVTb8Nvw/"><i class="fab fa-facebook" style="color: #1877F2;"></i> Facebook</a>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="#">Digital Reliability<i class="fas fa-chevron-down" style="margin-left: 5px; font-size: 12px;"></i></a>
+                        <div class="dropdown-menu">
+                            <a href="https://youtube.com/@kishoredvr-k5k?feature=shared"><i class="fab fa-youtube" style="color: #FF0000;"></i> YouTube</a>
+                            <a href="https://www.instagram.com/digital.reliability.dvrk/"><i class="fab fa-instagram" style="color: #E4405F;"></i> Instagram</a>
+                            <a href="https://www.facebook.com/share/1517LvArKRL/?mibextid=qi2Omg"><i class="fab fa-facebook" style="color: #1877F2;"></i> Facebook</a>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="#">National Economies<i class="fas fa-chevron-down" style="margin-left: 5px; font-size: 12px;"></i></a>
+                        <div class="dropdown-menu">
+                            <a href="https://www.youtube.com/@NationalEconomies"><i class="fab fa-youtube" style="color: #FF0000;"></i> YouTube</a>
+                            <a href="https://www.instagram.com/studyoneconomy?igsh=MXJ2dWduajN2bXRvdA=="><i class="fab fa-instagram" style="color: #E4405F;"></i> Instagram</a>
+                            <a href="https://www.facebook.com/share/16KYrHXEJb/"><i class="fab fa-facebook" style="color: #1877F2;"></i> Facebook</a>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="#">Resources<i class="fas fa-chevron-down" style="margin-left: 5px; font-size: 12px;"></i></a>
+                        <div class="dropdown-menu">
+                            <a href="https://parishodana.xyz/Articles.html"> My Articles</a>
+                            <a href="https://github.com/digitalreliability/Sharing"> Github</a>
+                            <a href="https://kishoredvr.github.io/Antharyami-DataBank/"> Astrology Data Bank</a>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+            
+            <!-- Purpose Selector (Dropdown) -->
+            <div class="purpose-selector">
+                <div class="purpose-header">
+                    <h2>Select Purpose</h2>
+                    <p>Choose a purpose to find favorable timings</p>
+                </div>
+                <div class="custom-dropdown">
+                    <div class="dropdown-trigger" id="dropdown-trigger">
+                        <div class="selected-purpose">
+                            <div class="selected-icon">💑</div>
+                            <div class="selected-text">
+                                <h3>Compatibility</h3>
+                                <p>Check relationship between people</p>
+                            </div>
+                        </div>
+                        <div class="dropdown-arrow">
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                    </div>
+                    <div class="dropdown-options" id="dropdown-options">
+                        <!-- Options will be populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Main Content Area -->
+            <div class="main-content">
+                <!-- Compatibility Input Section -->
+                <div class="input-section active" id="compatibility-input">
+                    <h2>Check Compatibility Between Two People</h2>
+                    <div class="selection-area">
+                        <div class="star-selector">
+                            <h3>First Person's Birth Star</h3>
+                            <select id="star1">
+                                <option value="">Select a star</option>
+                                <option value="ashwini">Ashwini</option>
+                                <option value="bharani">Bharani</option>
+                                <option value="krittika">Krittika</option>
+                                <option value="rohini">Rohini</option>
+                                <option value="mrigashira">Mrigashira</option>
+                                <option value="ardra">Ardra</option>
+                                <option value="punarvasu">Punarvasu</option>
+                                <option value="pushya">Pushya</option>
+                                <option value="ashlesha">Ashlesha</option>
+                                <option value="magha">Magha</option>
+                                <option value="purva-phalguni">Purva Phalguni</option>
+                                <option value="uttara-phalguni">Uttara Phalguni</option>
+                                <option value="hasta">Hasta</option>
+                                <option value="chitra">Chitra</option>
+                                <option value="swati">Swati</option>
+                                <option value="vishakha">Vishakha</option>
+                                <option value="anuradha">Anuradha</option>
+                                <option value="jyestha">Jyestha</option>
+                                <option value="mula">Mula</option>
+                                <option value="purva-ashadha">Purva Ashadha</option>
+                                <option value="uttara-ashadha">Uttara Ashadha</option>
+                                <option value="shravana">Shravana</option>
+                                <option value="dhanishta">Dhanishta</option>
+                                <option value="shatabhisha">Shatabhisha</option>
+                                <option value="purva-bhadrapada">Purva Bhadrapada</option>
+                                <option value="uttara-bhadrapada">Uttara Bhadrapada</option>
+                                <option value="revati">Revati</option>
+                            </select>
+                            <div class="star-info" id="star1-info">
+                                <h4>About <span id="star1-name"></span></h4>
+                                <p id="star1-desc"></p>
+                            </div>
+                        </div>
+                        
+                        <div class="star-selector">
+                            <h3>Second Person's Birth Star</h3>
+                            <select id="star2">
+                                <option value="">Select a star</option>
+                                <option value="ashwini">Ashwini</option>
+                                <option value="bharani">Bharani</option>
+                                <option value="krittika">Krittika</option>
+                                <option value="rohini">Rohini</option>
+                                <option value="mrigashira">Mrigashira</option>
+                                <option value="ardra">Ardra</option>
+                                <option value="punarvasu">Punarvasu</option>
+                                <option value="pushya">Pushya</option>
+                                <option value="ashlesha">Ashlesha</option>
+                                <option value="magha">Magha</option>
+                                <option value="purva-phalguni">Purva Phalguni</option>
+                                <option value="uttara-phalguni">Uttara Phalguni</option>
+                                <option value="hasta">Hasta</option>
+                                <option value="chitra">Chitra</option>
+                                <option value="swati">Swati</option>
+                                <option value="vishakha">Vishakha</option>
+                                <option value="anuradha">Anuradha</option>
+                                <option value="jyestha">Jyestha</option>
+                                <option value="mula">Mula</option>
+                                <option value="purva-ashadha">Purva Ashadha</option>
+                                <option value="uttara-ashadha">Uttara Ashadha</option>
+                                <option value="shravana">Shravana</option>
+                                <option value="dhanishta">Dhanishta</option>
+                                <option value="shatabhisha">Shatabhisha</option>
+                                <option value="purva-bhadrapada">Purva Bhadrapada</option>
+                                <option value="uttara-bhadrapada">Uttara Bhadrapada</option>
+                                <option value="revati">Revati</option>
+                            </select>
+                            <div class="star-info" id="star2-info">
+                                <h4>About <span id="star2-name"></span></h4>
+                                <p id="star2-desc"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="check-button-container">
+                        <button id="check-compatibility" class="check-button" disabled>Check Compatibility</button>
+                    </div>
+                </div>
+                
+                <!-- Compatibility Result Section -->
+                <div class="result-section" id="compatibility-result">
+                    <h2 class="result-title">Compatibility Analysis</h2>
+                    <div class="relationship-type" id="relationship-type">Please select both stars and click "Check Compatibility"</div>
+                    <p class="relationship-description" id="relationship-desc">
+                        Your compatibility analysis will appear here after you select both stars and click the check button.
+                    </p>
+                    <div class="auspicious-info">
+                        <h3>Compatibility Insights</h3>
+                        <p id="compatibility-insights">Detailed insights about your relationship compatibility will be displayed here.</p>
+                    </div>
+                </div>
+                
+                <!-- Tara System Info -->
+                <div class="tara-system-info">
+                    <h2>The Tara System in Vedic Astrology</h2>
+                    <p>The Tara (star) system in Vedic astrology determines the relationship between two stars based on their positions in the 27 Nakshatras (lunar mansions). This system is used to find auspicious timings for various life events.</p>
+                    
+                    <div class="tara-types">
+                        <div class="tara-type">
+                            <h4>Janma Tara</h4>
+                            <p>Indicates birth, health, and vitality. Can be challenging but also transformative.</p>
+                        </div>
+                        <div class="tara-type">
+                            <h4>Sampat Tara</h4>
+                            <p>Represents wealth, prosperity, and material gains. Generally favorable.</p>
+                        </div>
+                        <div class="tara-type">
+                            <h4>Vipat Tara</h4>
+                            <p>Signifies obstacles, dangers, and challenges. Requires caution.</p>
+                        </div>
+                        <div class="tara-type">
+                            <h4>Kshema Tara</h4>
+                            <p>Indicates well-being, prosperity, and success in ventures.</p>
+                        </div>
+                        <div class="tara-type">
+                            <h4>Pratyak Tara</h4>
+                            <p>Suggests opposition, obstacles, and need for perseverance.</p>
+                        </div>
+                        <div class="tara-type">
+                            <h4>Sadhana Tara</h4>
+                            <p>Represents accomplishment through effort and spiritual practices.</p>
+                        </div>
+                        <div class="tara-type">
+                            <h4>Naidhana Tara</h4>
+                            <p>Associated with loss, destruction, and endings. Requires careful handling.</p>
+                        </div>
+                        <div class="tara-type">
+                            <h4>Mitra Tara</h4>
+                            <p>Indicates friendship, support, and beneficial connections.</p>
+                        </div>
+                        <div class="tara-type">
+                            <h4>Ati Mitra Tara</h4>
+                            <p>Represents deep friendship, great support, and highly favorable conditions.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <footer>
+                    <p>Note: This is a simplified representation for educational purposes. For accurate astrological consultations, please consult a professional Vedic astrologer.</p>
+                </footer>
+            </div>
+        </div>
+        
+        <!-- Advertisement Sidebar - Single Large Banner -->
+        <div class="ad-sidebar">
+            <div class="ad-banner">
+                <div class="ad-header">
+                    <div class="ad-icon">✨</div>
+                    <h3>Premium Ad Space</h3>
+                    <p>Your advertisement here</p>
+                </div>
+                <div class="ad-content">
+                    <div class="ad-image">
+                        <div class="ad-placeholder">📢</div>
+                        <p>Advertisement Banner</p>
+                        <div class="size">300x600</div>
+                    </div>
+                    <p class="ad-description">
+                        This premium advertising space is available for partners. 
+                        Reach thousands of astrology enthusiasts daily with your message.
+                        Perfect for astrology services, spiritual products, or related offerings.
+                    </p>
+                    <a href="#" class="ad-button">Partner With Us</a>
+                </div>
+                <div class="ad-footer">
+                    Contact for advertising opportunities
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Purpose data with icons and descriptions
+        const purposeOptions = [
+            { id: 'compatibility', icon: '💑', title: 'Compatibility', subtitle: 'Check relationship between people' },
+            { id: 'marriage', icon: '💒', title: 'Marriage', subtitle: 'Find auspicious marriage timing' },
+            { id: 'engagement', icon: '💍', title: 'Engagement', subtitle: 'Nischitartham Muhurtham' },
+            { id: 'gruhapravesam', icon: '🏠', title: 'Gruha Pravesam', subtitle: 'House warming ceremony' },
+            { id: 'namakaranam', icon: '👶', title: 'Namakaranam', subtitle: 'Baby naming ceremony' },
+            { id: 'annaprasana', icon: '🍚', title: 'Annaprasana', subtitle: 'First solid food for baby' },
+            { id: 'upanayanam', icon: '📿', title: 'Upanayanam', subtitle: 'Sacred thread ceremony' },
+            { id: 'seemantham', icon: '🤰', title: 'Seemantham', subtitle: 'Baby shower ceremony' },
+            { id: 'vahana', icon: '🚗', title: 'Vahana Purchase', subtitle: 'Vehicle purchase muhurtham' },
+            { id: 'business', icon: '💼', title: 'Business Start', subtitle: 'New business inauguration' },
+            { id: 'education', icon: '📚', title: 'Vidyarambham', subtitle: 'Start of education' },
+            { id: 'travel', icon: '✈️', title: 'Travel', subtitle: 'Yatra shubha muhurtham' },
+            { id: 'property', icon: '🏡', title: 'Property', subtitle: 'Property registration' },
+            { id: 'vastu', icon: '🔨', title: 'Vastu', subtitle: 'Construction start' },
+            { id: 'medical', icon: '🏥', title: 'Medical', subtitle: 'Surgery or treatment start' },
+            { id: 'investment', icon: '💰', title: 'Investment', subtitle: 'Financial investments' },
+            { id: 'legal', icon: '⚖️', title: 'Legal Matters', subtitle: 'Court cases & agreements' },
+            { id: 'puja', icon: '🛕', title: 'Puja', subtitle: 'Religious ceremonies' },
+            { id: 'fasting', icon: '🙏', title: 'Vrata Arambham', subtitle: 'Start of fasting' },
+            { id: 'yagnya', icon: '🔥', title: 'Yagnya', subtitle: 'Sacrificial ceremonies' }
+        ];
+
+        // Star information
+        const starData = {
+            "ashwini": {
+                name: "Ashwini",
+                description: "Ashwini is the first Nakshatra in Vedic astrology, ruled by the Ashwini Kumaras. It represents speed, healing, and new beginnings."
+            },
+            "bharani": {
+                name: "Bharani",
+                description: "Bharani is the second Nakshatra, ruled by Yama. It symbolizes bearing, sustaining, and transformation through challenges."
+            },
+            "krittika": {
+                name: "Krittika",
+                description: "Krittika is the third Nakshatra, ruled by Agni. It represents cutting, purification, and the power to burn away impurities."
+            },
+            "rohini": {
+                name: "Rohini",
+                description: "Rohini is the fourth Nakshatra, ruled by Brahma. It signifies growth, fertility, and the creative principle."
+            },
+            "mrigashira": {
+                name: "Mrigashira",
+                description: "Mrigashira is the fifth Nakshatra, ruled by Soma. It represents searching, exploring, and the quest for fulfillment."
+            },
+            "ardra": {
+                name: "Ardra",
+                description: "Ardra is the sixth Nakshatra, ruled by Rudra. It symbolizes transformation through hardship, storms, and eventual renewal."
+            },
+            "punarvasu": {
+                name: "Punarvasu",
+                description: "Punarvasu is the seventh Nakshatra, ruled by Aditi. It represents renewal, return, and the restoration of harmony."
+            },
+            "pushya": {
+                name: "Pushya",
+                description: "Pushya is the eighth Nakshatra, ruled by Brihaspati. It signifies nourishment, protection, and spiritual growth."
+            },
+            "ashlesha": {
+                name: "Ashlesha",
+                description: "Ashlesha is the ninth Nakshatra, ruled by the Nagas. It represents clinging, entanglement, and deep psychological patterns."
+            },
+            "magha": {
+                name: "Magha",
+                description: "Magha is the tenth Nakshatra, ruled by the Pitris. It symbolizes ancestry, tradition, and connection to the past."
+            },
+            "purva-phalguni": {
+                name: "Purva Phalguni",
+                description: "Purva Phalguni is the eleventh Nakshatra, ruled by Bhaga. It represents love, creativity, and celebration."
+            },
+            "uttara-phalguni": {
+                name: "Uttara Phalguni",
+                description: "Uttara Phalguni is the twelfth Nakshatra, ruled by Aryaman. It signifies patronage, support, and social connections."
+            },
+            "hasta": {
+                name: "Hasta",
+                description: "Hasta is the thirteenth Nakshatra, ruled by Savitr. It represents skill, dexterity, and the ability to manifest."
+            },
+            "chitra": {
+                name: "Chitra",
+                description: "Chitra is the fourteenth Nakshatra, ruled by Vishvakarma. It symbolizes artistry, brilliance, and cosmic order."
+            },
+            "swati": {
+                name: "Swati",
+                description: "Swati is the fifteenth Nakshatra, ruled by Vayu. It represents independence, movement, and adaptability."
+            },
+            "vishakha": {
+                name: "Vishakha",
+                description: "Vishakha is the sixteenth Nakshatra, ruled by Indra and Agni. It signifies determination, purpose, and achievement."
+            },
+            "anuradha": {
+                name: "Anuradha",
+                description: "Anuradha is the seventeenth Nakshatra, ruled by Mitra. It represents friendship, devotion, and success through alliances."
+            },
+            "jyestha": {
+                name: "Jyestha",
+                description: "Jyestha is the eighteenth Nakshatra, ruled by Indra. It symbolizes seniority, power, and protection."
+            },
+            "mula": {
+                name: "Mula",
+                description: "Mula is the nineteenth Nakshatra, ruled by Nirriti. It represents roots, foundation, and deep inquiry."
+            },
+            "purva-ashadha": {
+                name: "Purva Ashadha",
+                description: "Purva Ashadha is the twentieth Nakshatra, ruled by Apas. It signifies invincibility, purification, and universal appeal."
+            },
+            "uttara-ashadha": {
+                name: "Uttara Ashadha",
+                description: "Uttara Ashadha is the twenty-first Nakshatra, ruled by Vishvedevas. It represents universal victory, righteousness, and firm determination."
+            },
+            "shravana": {
+                name: "Shravana",
+                description: "Shravana is the twenty-second Nakshatra, ruled by Vishnu. It symbolizes listening, learning, and understanding."
+            },
+            "dhanishta": {
+                name: "Dhanishta",
+                description: "Dhanishta is the twenty-third Nakshatra, ruled by Vasus. It represents wealth, fame, and musical ability."
+            },
+            "shatabhisha": {
+                name: "Shatabhisha",
+                description: "Shatabhisha is the twenty-fourth Nakshatra, ruled by Varuna. It signifies healing, concealment, and cosmic secrets."
+            },
+            "purva-bhadrapada": {
+                name: "Purva Bhadrapada",
+                description: "Purva Bhadrapada is the twenty-fifth Nakshatra, ruled by Aja Ekapada. It represents transformation, spiritual fire, and purification."
+            },
+            "uttara-bhadrapada": {
+                name: "Uttara Bhadrapada",
+                description: "Uttara Bhadrapada is the twenty-sixth Nakshatra, ruled by Ahir Budhnya. It symbolizes stability, compassion, and spiritual wisdom."
+            },
+            "revati": {
+                name: "Revati",
+                description: "Revati is the twenty-seventh Nakshatra, ruled by Pushan. It represents nourishment, completion, and safe journeys."
+            }
+        };
+
+        // Relationship data
+        const relationshipData = {
+            "janma": {
+                name: "Janma Tara",
+                description: "This relationship indicates birth, health, and vitality. It can bring challenges but also opportunities for transformation and growth."
+            },
+            "sampat": {
+                name: "Sampat Tara",
+                description: "This relationship represents wealth, prosperity, and material gains. It is generally favorable for financial and business matters."
+            },
+            "vipat": {
+                name: "Vipat Tara",
+                description: "This relationship signifies obstacles, dangers, and challenges. It requires caution and careful planning in all endeavors."
+            },
+            "kshema": {
+                name: "Kshema Tara",
+                description: "This relationship indicates prosperity, well-being, and success in ventures. It brings stability and favorable outcomes."
+            },
+            "pratyak": {
+                name: "Pratyak Tara",
+                description: "This relationship suggests opposition, obstacles, and the need for perseverance. Success comes through determined effort."
+            },
+            "sadhana": {
+                name: "Sadhana Tara",
+                description: "This relationship represents accomplishment through effort and spiritual practices. It favors self-development and discipline."
+            },
+            "naidhana": {
+                name: "Naidhana Tara",
+                description: "This relationship is associated with loss, destruction, and endings. It requires careful handling and spiritual perspective."
+            },
+            "mitra": {
+                name: "Mitra Tara",
+                description: "This relationship indicates friendship, support, and beneficial connections. It brings harmony and cooperative energy."
+            },
+            "ati-mitra": {
+                name: "Ati Mitra Tara",
+                description: "This relationship represents deep friendship, great support, and highly favorable conditions. It brings exceptional harmony and success."
+            }
+        };
+
+        // Purpose data for input sections
+        const purposeData = {
+            "compatibility": {
+                name: "Compatibility",
+                inputId: "compatibility-input",
+                resultId: "compatibility-result",
+                type: "two-star"
+            },
+            "marriage": {
+                name: "Marriage",
+                inputId: "marriage-input",
+                resultId: "marriage-result",
+                type: "two-star"
+            },
+            "engagement": {
+                name: "Engagement",
+                inputId: "marriage-input",
+                resultId: "marriage-result",
+                type: "two-star"
+            },
+            "gruhapravesam": {
+                name: "Gruha Pravesam",
+                inputId: "general-input",
+                resultId: "general-result",
+                type: "one-star"
+            },
+            "namakaranam": {
+                name: "Namakaranam",
+                inputId: "general-input",
+                resultId: "general-result",
+                type: "one-star"
+            },
+            "annaprasana": {
+                name: "Annaprasana",
+                inputId: "general-input",
+                resultId: "general-result",
+                type: "one-star"
+            },
+            "upanayanam": {
+                name: "Upanayanam",
+                inputId: "general-input",
+                resultId: "general-result",
+                type: "one-star"
+            },
+            "seemantham": {
+                name: "Seemantham",
+                inputId: "general-input",
+                resultId: "general-result",
+                type: "one-star"
+            },
+            "vahana": {
+                name: "Vahana Purchase",
+                inputId: "general-input",
+                resultId: "general-result",
+                type: "one-star"
+            },
+            "business": {
+                name: "Business Start",
+                inputId: "general-input",
+                resultId: "general-result",
+                type: "one-star"
+            },
+            "education": {
+                name: "Vidyarambham",
+                inputId: "general-input",
+                resultId: "general-result",
+                type: "one-star"
+            },
+            "travel": {
+                name: "Travel",
+                inputId: "general-input",
+                resultId: "general-result",
+                type: "one-star"
+            },
+            "property": {
+                name: "Property",
+                inputId: "general-input",
+                resultId: "general-result",
+                type: "one-star"
+            },
+            "vastu": {
+                name: "Vastu",
+                inputId: "general-input",
+                resultId: "general-result",
+                type: "one-star"
+            },
+            "medical": {
+                name: "Medical",
+                inputId: "general-input",
+                resultId: "general-result",
+                type: "one-star"
+            },
+            "investment": {
+                name: "Investment",
+                inputId: "general-input",
+                resultId: "general-result",
+                type: "one-star"
+            },
+            "legal": {
+                name: "Legal Matters",
+                inputId: "general-input",
+                resultId: "general-result",
+                type: "one-star"
+            },
+            "puja": {
+                name: "Puja",
+                inputId: "general-input",
+                resultId: "general-result",
+                type: "one-star"
+            },
+            "fasting": {
+                name: "Vrata Arambham",
+                inputId: "general-input",
+                resultId: "general-result",
+                type: "one-star"
+            },
+            "yagnya": {
+                name: "Yagnya",
+                inputId: "general-input",
+                resultId: "general-result",
+                type: "one-star"
+            }
+        };
+
+        // DOM elements
+        const dropdownTrigger = document.getElementById('dropdown-trigger');
+        const dropdownOptions = document.getElementById('dropdown-options');
+        const dropdownArrow = dropdownTrigger.querySelector('.dropdown-arrow');
+        const selectedIcon = document.querySelector('.selected-icon');
+        const selectedTitle = document.querySelector('.selected-text h3');
+        const selectedSubtitle = document.querySelector('.selected-text p');
+        const inputSections = document.querySelectorAll('.input-section');
+        const resultSections = document.querySelectorAll('.result-section');
+        const star1Select = document.getElementById('star1');
+        const star2Select = document.getElementById('star2');
+        const star1Info = document.getElementById('star1-info');
+        const star2Info = document.getElementById('star2-info');
+        const relationshipType = document.getElementById('relationship-type');
+        const relationshipDesc = document.getElementById('relationship-desc');
+        const compatibilityInsights = document.getElementById('compatibility-insights');
+        const checkButton = document.getElementById('check-compatibility');
+
+        let currentPurpose = 'compatibility';
+        let isDropdownOpen = false;
+
+        // Initialize dropdown with options
+        function initializeDropdown() {
+            // Clear existing options
+            dropdownOptions.innerHTML = '';
+            
+            // Add each purpose as an option
+            purposeOptions.forEach(purpose => {
+                const option = document.createElement('div');
+                option.className = 'purpose-option';
+                if (purpose.id === currentPurpose) {
+                    option.classList.add('active');
+                }
+                option.setAttribute('data-purpose', purpose.id);
+                
+                option.innerHTML = `
+                    <div class="option-icon">${purpose.icon}</div>
+                    <div class="option-text">
+                        <h3>${purpose.title}</h3>
+                        <p>${purpose.subtitle}</p>
+                    </div>
+                `;
+                
+                option.addEventListener('click', () => selectPurpose(purpose));
+                dropdownOptions.appendChild(option);
+            });
+            
+            // Set initial selected purpose
+            updateSelectedPurpose(currentPurpose);
+        }
+
+        // Update selected purpose display
+        function updateSelectedPurpose(purposeId) {
+            const purpose = purposeOptions.find(p => p.id === purposeId);
+            if (purpose) {
+                selectedIcon.textContent = purpose.icon;
+                selectedTitle.textContent = purpose.title;
+                selectedSubtitle.textContent = purpose.subtitle;
+            }
+        }
+
+        // Select purpose from dropdown
+        function selectPurpose(purpose) {
+            currentPurpose = purpose.id;
+            updateSelectedPurpose(purpose.id);
+            closeDropdown();
+            
+            // Remove active class from all purpose options
+            document.querySelectorAll('.purpose-option').forEach(option => {
+                option.classList.remove('active');
+            });
+            
+            // Add active class to selected option
+            document.querySelector(`.purpose-option[data-purpose="${purpose.id}"]`).classList.add('active');
+            
+            // Hide all input and result sections
+            inputSections.forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            resultSections.forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Show the appropriate input section
+            const inputId = purposeData[currentPurpose].inputId;
+            document.getElementById(inputId).classList.add('active');
+            
+            // Show the appropriate result section
+            document.getElementById(purposeData[currentPurpose].resultId).classList.add('active');
+        }
+
+        // Toggle dropdown
+        function toggleDropdown() {
+            isDropdownOpen = !isDropdownOpen;
+            if (isDropdownOpen) {
+                dropdownOptions.classList.add('active');
+                dropdownTrigger.classList.add('active');
+                dropdownArrow.classList.add('rotated');
+            } else {
+                closeDropdown();
+            }
+        }
+
+        // Close dropdown
+        function closeDropdown() {
+            isDropdownOpen = false;
+            dropdownOptions.classList.remove('active');
+            dropdownTrigger.classList.remove('active');
+            dropdownArrow.classList.remove('rotated');
+        }
+
+        // Event listeners
+        dropdownTrigger.addEventListener('click', toggleDropdown);
+        
+        // Close dropdown when clicking outside
+        document.addEventListener('click', (event) => {
+            if (!dropdownTrigger.contains(event.target) && !dropdownOptions.contains(event.target)) {
+                closeDropdown();
+            }
+        });
+
+        // Star selection event listeners
+        star1Select.addEventListener('change', updateStarInfo);
+        star2Select.addEventListener('change', updateStarInfo);
+        checkButton.addEventListener('click', checkCompatibility);
+
+        // Initialize
+        initializeDropdown();
+
+        function updateStarInfo() {
+            // Update star 1 info
+            if (star1Select.value && starData[star1Select.value]) {
+                document.getElementById('star1-name').textContent = starData[star1Select.value].name;
+                document.getElementById('star1-desc').textContent = starData[star1Select.value].description;
+                star1Info.style.display = 'block';
+            } else {
+                star1Info.style.display = 'none';
+            }
+
+            // Update star 2 info
+            if (star2Select.value && starData[star2Select.value]) {
+                document.getElementById('star2-name').textContent = starData[star2Select.value].name;
+                document.getElementById('star2-desc').textContent = starData[star2Select.value].description;
+                star2Info.style.display = 'block';
+            } else {
+                star2Info.style.display = 'none';
+            }
+
+            // Enable/disable check button based on selections
+            if (star1Select.value && star2Select.value) {
+                checkButton.disabled = false;
+            } else {
+                checkButton.disabled = true;
+            }
+        }
+
+        function checkCompatibility() {
+            const star1 = star1Select.value;
+            const star2 = star2Select.value;
+            
+            if (!star1 || !star2) {
+                alert("Please select both stars to check compatibility.");
+                return;
+            }
+            
+            // Calculate and display relationship
+            calculateRelationship(star1, star2);
+        }
+
+        function calculateRelationship(star1, star2) {
+            // In a real implementation, this would calculate based on actual Vedic astrology rules
+            // For this example, we'll use a simplified approach
+            
+            // Get indices of selected stars
+            const stars = Object.keys(starData);
+            
+            const index1 = stars.indexOf(star1);
+            const index2 = stars.indexOf(star2);
+            
+            if (index1 === -1 || index2 === -1) return;
+            
+            // Calculate the difference in positions
+            let difference = Math.abs(index2 - index1);
+            
+            // In Vedic astrology, the relationship is determined by the count from one star to another
+            // This is a simplified representation for demonstration
+            const relationshipTypes = [
+                "janma", "sampat", "vipat", "kshema", "pratyak", 
+                "sadhana", "naidhana", "mitra", "ati-mitra"
+            ];
+            
+            // Determine relationship based on difference
+            const relationshipIndex = difference % 9;
+            const relationshipKey = relationshipTypes[relationshipIndex];
+            
+            // Display the relationship
+            relationshipType.textContent = relationshipData[relationshipKey].name;
+            relationshipDesc.textContent = relationshipData[relationshipKey].description;
+            
+            // Update compatibility insights based on relationship
+            updateCompatibilityInsights(relationshipKey);
+        }
+
+        function updateCompatibilityInsights(relationshipKey) {
+            const insights = {
+                "janma": "This relationship indicates a karmic connection. There may be challenges initially, but these can lead to profound personal growth if both parties are willing to work through them.",
+                "sampat": "This pairing shows potential for material prosperity and mutual benefit. Financial and practical matters tend to work out well when you collaborate.",
+                "vipat": "This relationship may face obstacles and challenges. Careful planning and open communication are essential to navigate difficulties successfully.",
+                "kshema": "This is a harmonious relationship that promotes well-being and success. You support each other's growth and find stability together.",
+                "pratyak": "This relationship may involve some opposition or differences in approach. With patience and understanding, these can be resolved constructively.",
+                "sadhana": "This relationship encourages spiritual growth and self-development. You inspire each other to reach higher potentials through discipline and practice.",
+                "naidhana": "This relationship may involve significant transformations and endings. It's important to approach changes with wisdom and detachment.",
+                "mitra": "This is a friendly and supportive relationship. You enjoy each other's company and work well together in various situations.",
+                "ati-mitra": "This is an exceptionally harmonious relationship with deep friendship and mutual support. You understand each other well and create positive outcomes together."
+            };
+            
+            compatibilityInsights.textContent = insights[relationshipKey] || "Relationship analysis is not available for this combination.";
+        }
+    </script>
+</body>
+</html>
