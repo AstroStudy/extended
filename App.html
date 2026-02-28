@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Astro Engine v5 | Data Caching</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body, html { height: 100%; overflow: hidden; font-family: 'Segoe UI', system-ui, sans-serif; background: #0f172a; color: #f8fafc; }
+        .app-wrapper { display: flex; flex-direction: column; height: 100vh; padding: 8px; gap: 8px; }
+
+        /* Compact Header */
+        header { 
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); 
+            gap: 10px; background: #1e293b; padding: 12px; border-radius: 8px; border: 1px solid #334155;
+        }
+        .field { display: flex; flex-direction: column; gap: 3px; }
+        label { font-size: 0.65rem; font-weight: 700; color: #38bdf8; text-transform: uppercase; }
+        input, select { background: #0f172a; border: 1px solid #475569; color: white; padding: 5px; border-radius: 4px; font-size: 0.85rem; }
+
+        /* Buttons */
+        .btn-group { display: flex; gap: 5px; align-self: end; }
+        button { padding: 8px 12px; border: none; font-weight: bold; cursor: pointer; border-radius: 4px; font-size: 0.7rem; transition: 0.2s; }
+        .btn-sync { background: #475569; color: white; }
+        .btn-run { background: #38bdf8; color: #0f172a; }
+        .btn-cache { background: #8b5cf6; color: white; width: 100%; margin-top: 5px; }
+        .btn-save { background: #10b981; color: white; width: 100%; margin-top: 5px; }
+
+        /* Main View */
+        main { flex-grow: 1; display: flex; flex-direction: column; background: #020617; border-radius: 8px; border: 1px solid #1e293b; overflow: hidden; }
+        .top-status { padding: 5px 15px; background: #1e293b; font-size: 0.7rem; color: #94a3b8; display: flex; justify-content: space-between; }
+        .split-container { display: flex; flex: 1; overflow: hidden; }
+        #output { flex: 2; padding: 15px; overflow-y: auto; font-family: monospace; font-size: 0.9rem; white-space: pre-wrap; border-right: 1px solid #1e293b; }
+        .notes-panel { flex: 1; display: flex; flex-direction: column; padding: 10px; background: #0f172a; min-width: 280px; }
+        textarea { flex-grow: 1; background: #1e293b; color: #e2e8f0; border: 1px solid #334155; padding: 10px; border-radius: 4px; font-size: 0.8rem; resize: none; }
+    </style>
+</head>
+<body>
+
+<div class="app-wrapper">
+    <header>
+        <div class="field"><label>Name / ID</label><input type="text" id="userName"></div>
+        <div class="field"><label>Date/Time</label><input type="datetime-local" id="birthDatetime"></div>
+        <div class="field"><label>Lat</label><input type="number" step="any" id="lat"></div>
+        <div class="field"><label>Long</label><input type="number" step="any" id="lng"></div>
+        <div class="field"><label>Program</label><select id="programSelect"></select></div>
+        <div class="btn-group">
+            <button class="btn-sync" onclick="syncFromCache()">SYNC</button>
+            <button class="btn-run" onclick="runSupabaseProgram()">RUN</button>
+        </div>
+    </header>
+
+    <main>
+        <div class="top-status"><span>OUTPUT WINDOW</span><span id="statusMsg">Ready</span></div>
+        <div class="split-container">
+            <div id="output">Run a program to see results...</div>
+            <div class="notes-panel">
+                <label style="font-size: 0.65rem; color: #38bdf8;">TECHNICAL CACHE & NOTES</label>
+                <textarea id="chartNotes" placeholder="Calculated data blocks will be stored here for faster future runs..."></textarea>
+                <button class="btn-cache" onclick="appendOutputToNotes()">↓ COPY OUTPUT TO NOTES</button>
+                <button class="btn-save" onclick="saveToSupabase()">SAVE ALL TO DB</button>
+            </div>
+        </div>
+    </main>
+</div>
+
+<script>
+    const SB_URL = "YOUR_SUPABASE_URL";
+    const SB_KEY = "YOUR_SUPABASE_ANON_KEY";
+    const supabase = supabase.createClient(SB_URL, SB_KEY);
+
+    async function loadPrograms() {
+        const { data } = await supabase.from('astrology_programs').select('id, program_name');
+        if (data) document.getElementById('programSelect').innerHTML = data.map(p => `<option value="${p.id}">${p.program_name}</option>`).join('');
+    }
+
+    async function syncFromCache() {
+        const name = document.getElementById('userName').value;
+        const { data: profile } = await supabase.from('profiles').select('*').eq('name_id', name).single();
+        if (profile) {
+            document.getElementById('birthDatetime').value = profile.birth_time;
+            document.getElementById('lat').value = profile.lat;
+            document.getElementById('lng').value = profile.lng;
+            document.getElementById('chartNotes').value = profile.notes || "";
+            document.getElementById('statusMsg').innerText = "Loaded from Cache";
+        }
+    }
+
+    async function runSupabaseProgram() {
+        const programId = document.getElementById('programSelect').value;
+        const inputData = {
+            name: document.getElementById('userName').value,
+            time: document.getElementById('birthDatetime').value,
+            lat: parseFloat(document.getElementById('lat').value),
+            lng: parseFloat(document.getElementById('lng').value),
+            cachedData: document.getElementById('chartNotes').value // Passes existing notes/data to the program
+        };
+
+        const { data } = await supabase.from('astrology_programs').select('script_body').eq('id', programId).single();
+        if (data) {
+            try {
+                const dynamicProgram = new Function('input', data.script_body);
+                const result = dynamicProgram(inputData);
+                document.getElementById('output').innerText = typeof result === 'object' ? JSON.stringify(result, null, 2) : result;
+            } catch (e) { document.getElementById('output').innerText = "Error: " + e.message; }
+        }
+    }
+
+    function appendOutputToNotes() {
+        const output = document.getElementById('output').innerText;
+        const notes = document.getElementById('chartNotes');
+        notes.value = "--- CALCULATED DATA BLOCK ---\n" + output + "\n\n" + notes.value;
+    }
+
+    async function saveToSupabase() {
+        const profile = {
+            name_id: document.getElementById('userName').value,
+            birth_time: document.getElementById('birthDatetime').value,
+            lat: document.getElementById('lat').value,
+            lng: document.getElementById('lng').value,
+            notes: document.getElementById('chartNotes').value
+        };
+        await supabase.from('profiles').upsert(profile);
+        document.getElementById('statusMsg').innerText = "Saved Successfully";
+    }
+
+    window.onload = loadPrograms;
+</script>
+</body>
+</html>
