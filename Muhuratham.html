@@ -1000,6 +1000,15 @@
             { id: 'yagnya', icon: '🔥', title: 'Yagnya', subtitle: 'Sacrificial ceremonies' }
         ];
 
+        // Nakshatra Array (Order matters for calculation)
+        const nakshatraOrder = [
+            "ashwini", "bharani", "krittika", "rohini", "mrigashira", "ardra",
+            "punarvasu", "pushya", "ashlesha", "magha", "purva-phalguni", "uttara-phalguni",
+            "hasta", "chitra", "swati", "vishakha", "anuradha", "jyestha",
+            "mula", "purva-ashadha", "uttara-ashadha", "shravana", "dhanishta", "shatabhisha",
+            "purva-bhadrapada", "uttara-bhadrapada", "revati"
+        ];
+
         // Star information
         const starData = {
             "ashwini": { name: "Ashwini", description: "Ashwini is the first Nakshatra in Vedic astrology..." },
@@ -1055,6 +1064,19 @@
             "yagnya": { type: "one-star", inputId: "compatibility-input", resultId: "compatibility-result" }
         };
 
+        // Navatara Interpretation Logic
+        const taraSystemMap = {
+            0: { name: "Ati Mitra Tara", desc: "Deep friendship, great support, and highly favorable conditions.", score: "Excellent" },
+            1: { name: "Janma Tara", desc: "Indicates birth, health, and vitality. Can be challenging but also transformative.", score: "Average" },
+            2: { name: "Sampat Tara", desc: "Represents wealth, prosperity, and material gains. Generally favorable.", score: "Excellent" },
+            3: { name: "Vipat Tara", desc: "Signifies obstacles, dangers, and challenges. Requires caution.", score: "Poor" },
+            4: { name: "Kshema Tara", desc: "Indicates well-being, prosperity, and success in ventures.", score: "Good" },
+            5: { name: "Pratyak Tara", desc: "Suggests opposition, obstacles, and need for perseverance.", score: "Poor" },
+            6: { name: "Sadhana Tara", desc: "Represents accomplishment through effort and spiritual practices.", score: "Good" },
+            7: { name: "Naidhana Tara", desc: "Associated with loss, destruction, and endings. Requires careful handling.", score: "Very Poor" },
+            8: { name: "Mitra Tara", desc: "Indicates friendship, support, and beneficial connections.", score: "Good" }
+        };
+
         // DOM elements
         const dropdownTrigger = document.getElementById('dropdown-trigger');
         const dropdownOptions = document.getElementById('dropdown-options');
@@ -1089,7 +1111,7 @@
         const SUPABASE_FUNCTION_URL = 'https://jusjpremtvalmqqtaoth.supabase.co/functions/v1/muhurat-api';
         
         // 🛑 PASTE YOUR SUPABASE ANON KEY HERE:
-        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp1c2pwcmVtdHZhbG1xcXRhb3RoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjIyODQyNzksImV4cCI6MjA3Nzg2MDI3OX0.XzE8MFLHhjcKKFJ4TqNX3NNhVyGEiytxufWx8IywTqU';
+        const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY_HERE';
 
         let currentPurpose = 'compatibility';
         let isDropdownOpen = false;
@@ -1212,7 +1234,7 @@
 
         star1Select.addEventListener('change', updateStarInfo);
         star2Select.addEventListener('change', updateStarInfo);
-        checkButton.addEventListener('click', checkCompatibility);
+        checkButton.addEventListener('click', processRequest);
 
         initializeDropdown();
 
@@ -1244,14 +1266,13 @@
             }
         }
 
-        // --- ENHANCED SUPABASE INTEGRATION LOGIC ---
-
-        function checkCompatibility() {
+        // Master function to route to Database OR Local Tara Math
+        function processRequest() {
             const star1 = star1Select.value;
             const star2 = star2Select.value;
             const pData = purposeData[currentPurpose];
             
-            // Final validation catch just in case
+            // Final validation catch
             if (pData.type === 'two-star' && (!star1 || !star2)) {
                 alert("Please select both stars to proceed.");
                 return;
@@ -1260,24 +1281,62 @@
                 return;
             }
             
-            // Only pull month and year if it's NOT just a compatibility check
-            let month = null;
-            let year = null;
-            
-            if (currentPurpose !== 'compatibility') {
-                month = monthSelect ? monthSelect.value : "All";
-                year = yearSelect ? yearSelect.value : "2026";
+            // Branch Logic: If "Compatibility", calculate locally. Otherwise, ping Database.
+            if (currentPurpose === 'compatibility') {
+                calculateTaraLocally(star1, star2);
+            } else {
+                let month = monthSelect ? monthSelect.value : "All";
+                let year = yearSelect ? yearSelect.value : "2026";
+                const finalStar2 = pData.type === 'two-star' ? star2 : null;
+                fetchMuhuratDataFromDatabase(currentPurpose, star1, finalStar2, month, year);
             }
-            
-            // If it is a one-star purpose, send star2 as null so the backend ignores it
-            const finalStar2 = pData.type === 'two-star' ? star2 : null;
-            
-            // Call the Supabase backend
-            fetchMuhuratData(currentPurpose, star1, finalStar2, month, year);
         }
 
-        async function fetchMuhuratData(purpose, star1, star2, month, year) {
-            // Check if anon key was added
+        // Mathematical Navatara Calculator (Runs instantly without backend)
+        function calculateTaraLocally(star1, star2) {
+            const idx1 = nakshatraOrder.indexOf(star1);
+            const idx2 = nakshatraOrder.indexOf(star2);
+
+            // Person 1 looking at Person 2
+            let count1to2 = (idx2 - idx1) + 1;
+            if (count1to2 <= 0) count1to2 += 27;
+            const tara1to2 = count1to2 % 9;
+
+            // Person 2 looking at Person 1
+            let count2to1 = (idx1 - idx2) + 1;
+            if (count2to1 <= 0) count2to1 += 27;
+            const tara2to1 = count2to1 % 9;
+
+            const res1 = taraSystemMap[tara1to2];
+            const res2 = taraSystemMap[tara2to1];
+
+            const name1 = starData[star1].name;
+            const name2 = starData[star2].name;
+
+            relationshipType.textContent = "Tara Compatibility";
+            relationshipDesc.textContent = `Vedic Star Relationship between ${name1} and ${name2}`;
+
+            let htmlOutput = `
+                <div style="background: rgba(0,0,0,0.2); padding: 20px; border-radius: 8px; margin-bottom: 15px; border-left: 4px solid #0fccce; text-align: left;">
+                    <h4 style="color: #0fccce; margin-bottom: 10px; font-size: 1.1rem;">From ${name1} to ${name2}</h4>
+                    <p><strong style="color: #fff; font-size: 1.2rem;">${res1.name}</strong></p>
+                    <p style="color: #b8b8b8; margin-top: 5px;">${res1.desc}</p>
+                    <span style="display: inline-block; background: rgba(15, 204, 206, 0.2); padding: 5px 10px; border-radius: 4px; font-size: 0.85rem; margin-top: 10px; font-weight: bold;">Impact: ${res1.score}</span>
+                </div>
+                
+                <div style="background: rgba(0,0,0,0.2); padding: 20px; border-radius: 8px; margin-bottom: 15px; border-left: 4px solid #e94560; text-align: left;">
+                    <h4 style="color: #e94560; margin-bottom: 10px; font-size: 1.1rem;">From ${name2} to ${name1}</h4>
+                    <p><strong style="color: #fff; font-size: 1.2rem;">${res2.name}</strong></p>
+                    <p style="color: #b8b8b8; margin-top: 5px;">${res2.desc}</p>
+                    <span style="display: inline-block; background: rgba(233, 69, 96, 0.2); padding: 5px 10px; border-radius: 4px; font-size: 0.85rem; margin-top: 10px; font-weight: bold;">Impact: ${res2.score}</span>
+                </div>
+            `;
+            
+            compatibilityInsights.innerHTML = htmlOutput;
+        }
+
+        // Database fetcher for Event Dates
+        async function fetchMuhuratDataFromDatabase(purpose, star1, star2, month, year) {
             if (SUPABASE_ANON_KEY === 'YOUR_SUPABASE_ANON_KEY_HERE') {
                 relationshipType.textContent = "Configuration Error";
                 relationshipDesc.textContent = "Missing Supabase Key.";
@@ -1285,7 +1344,6 @@
                 return;
             }
 
-            // Show loading state
             relationshipType.textContent = "Calculating...";
             relationshipDesc.textContent = "Fetching auspicious timings from the database...";
             compatibilityInsights.innerHTML = '<i class="fas fa-spinner fa-spin" style="font-size: 2rem; color: #0fccce; margin: 10px 0;"></i><br>Please wait while we pull data...';
@@ -1301,7 +1359,6 @@
                     body: JSON.stringify({ purpose, star1, star2, month, year })
                 });
 
-                // Detect exact server/CORS errors
                 if (!response.ok) {
                     const errorText = await response.text();
                     throw new Error(`Server Error (${response.status}): ${errorText || 'Check Supabase Edge Function logs.'}`);
@@ -1317,11 +1374,9 @@
                 if (data.success) {
                     displayResults(data.results, month, year, purpose);
                 } else {
-                    // Throw the exact error returned by your Deno edge function
                     throw new Error(data.error || "Unknown error processing data inside the edge function.");
                 }
             } catch (error) {
-                // Now displays EXACTLY why it failed in the UI to help you debug
                 relationshipType.textContent = "Data Fetch Error";
                 relationshipDesc.textContent = "There was a problem communicating with the database.";
                 compatibilityInsights.innerHTML = `<span style="color:#e94560; font-weight:bold;">Error Details:</span><br>${error.message}`;
@@ -1333,26 +1388,15 @@
         function displayResults(results, month, year, purpose) {
             if (results.length === 0) {
                 relationshipType.textContent = "No Data Found";
-                
-                if (purpose === 'compatibility') {
-                    relationshipDesc.textContent = `We couldn't find compatibility data for this combination.`;
-                } else {
-                    let timeFrameStr = month !== "All" ? `${month} ${year}` : `${year}`;
-                    relationshipDesc.textContent = `We couldn't find specific timings for this combination in ${timeFrameStr}.`;
-                }
-                
+                let timeFrameStr = month !== "All" ? `${month} ${year}` : `${year}`;
+                relationshipDesc.textContent = `We couldn't find specific timings for this combination in ${timeFrameStr}.`;
                 compatibilityInsights.textContent = "Try adjusting your parameters or consulting an astrologer for personalized dates.";
                 return;
             }
 
-            if (purpose === 'compatibility') {
-                relationshipType.textContent = "Compatibility Results";
-                relationshipDesc.textContent = "Based on your selected stars, here is the compatibility score.";
-            } else {
-                let timeFrameStr = month !== "All" ? `${month} ${year}` : `${year}`;
-                relationshipType.textContent = `${results.length} Auspicious Dates Found for ${timeFrameStr}`;
-                relationshipDesc.textContent = "Based on your selected stars and purpose, here are the recommended timings.";
-            }
+            let timeFrameStr = month !== "All" ? `${month} ${year}` : `${year}`;
+            relationshipType.textContent = `${results.length} Auspicious Dates Found for ${timeFrameStr}`;
+            relationshipDesc.textContent = "Based on your selected stars and purpose, here are the recommended timings.";
             
             // Build a dynamic HTML list based on the Excel rows returned from Supabase
             let htmlOutput = '<div style="text-align: left; background: rgba(0,0,0,0.2); padding: 15px; border-radius: 8px; max-height: 400px; overflow-y: auto;">';
