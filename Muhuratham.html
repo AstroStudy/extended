@@ -1076,7 +1076,7 @@
         const timeframeSelector = document.getElementById('timeframe-selector');
         const dynamicInputTitle = document.getElementById('dynamic-input-title');
         const dynamicResultTitle = document.getElementById('dynamic-result-title');
-        const taraSystemInfo = document.getElementById('tara-system-info'); // Grabbed new element
+        const taraSystemInfo = document.getElementById('tara-system-info');
         
         const star1Info = document.getElementById('star1-info');
         const star2Info = document.getElementById('star2-info');
@@ -1085,8 +1085,11 @@
         const compatibilityInsights = document.getElementById('compatibility-insights');
         const checkButton = document.getElementById('check-compatibility');
 
-        // IMPORTANT: Replace this with your actual deployed Supabase Edge Function URL
+        // IMPORTANT CONFIGURATION VARIABLES
         const SUPABASE_FUNCTION_URL = 'https://jusjpremtvalmqqtaoth.supabase.co/functions/v1/muhurat-api';
+        
+        // 🛑 PASTE YOUR SUPABASE ANON KEY HERE:
+        const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY_HERE';
 
         let currentPurpose = 'compatibility';
         let isDropdownOpen = false;
@@ -1274,6 +1277,14 @@
         }
 
         async function fetchMuhuratData(purpose, star1, star2, month, year) {
+            // Check if anon key was added
+            if (SUPABASE_ANON_KEY === 'YOUR_SUPABASE_ANON_KEY_HERE') {
+                relationshipType.textContent = "Configuration Error";
+                relationshipDesc.textContent = "Missing Supabase Key.";
+                compatibilityInsights.innerHTML = `<span style="color:#e94560; font-weight:bold;">Error:</span><br>You need to paste your Supabase Anon Key into the HTML file (around line 815) to fix the 401 Unauthorized error.`;
+                return;
+            }
+
             // Show loading state
             relationshipType.textContent = "Calculating...";
             relationshipDesc.textContent = "Fetching auspicious timings from the database...";
@@ -1285,6 +1296,7 @@
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
                     },
                     body: JSON.stringify({ purpose, star1, star2, month, year })
                 });
