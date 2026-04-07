@@ -898,7 +898,7 @@
                     </div>
                 </div>
                 
-                <div class="tara-system-info">
+                <div class="tara-system-info" id="tara-system-info">
                     <h2>The Tara System in Vedic Astrology</h2>
                     <p>The Tara (star) system in Vedic astrology determines the relationship between two stars based on their positions in the 27 Nakshatras (lunar mansions). This system is used to find auspicious timings for various life events.</p>
                     
@@ -1032,7 +1032,6 @@
         };
 
         // Purpose data for input sections WITH TYPES
-        // two-star means it requires two people. one-star means it only requires the individual.
         const purposeData = {
             "compatibility": { type: "two-star", inputId: "compatibility-input", resultId: "compatibility-result" },
             "marriage": { type: "two-star", inputId: "compatibility-input", resultId: "compatibility-result" },
@@ -1077,6 +1076,7 @@
         const timeframeSelector = document.getElementById('timeframe-selector');
         const dynamicInputTitle = document.getElementById('dynamic-input-title');
         const dynamicResultTitle = document.getElementById('dynamic-result-title');
+        const taraSystemInfo = document.getElementById('tara-system-info'); // Grabbed new element
         
         const star1Info = document.getElementById('star1-info');
         const star2Info = document.getElementById('star2-info');
@@ -1125,7 +1125,7 @@
             }
         }
 
-        // Dynamically hide/show date selectors AND second star based on purpose
+        // Dynamically hide/show date selectors, second star, AND Tara Info based on purpose
         function applyDynamicUI(purposeId) {
             const purpose = purposeOptions.find(p => p.id === purposeId);
             const pData = purposeData[purposeId];
@@ -1134,7 +1134,6 @@
             if (pData.type === 'one-star') {
                 star2Container.style.display = 'none';
                 star1Title.textContent = 'Select Your Birth Star';
-                // Clear the second star selection so it doesn't interfere
                 star2Select.value = ''; 
                 star2Info.style.display = 'none';
             } else {
@@ -1142,14 +1141,16 @@
                 star1Title.textContent = "First Person's Birth Star";
             }
             
-            // Toggle Timeframe selectors based on compatibility vs event
+            // Toggle Timeframe selectors AND Tara System Info block
             if (purposeId === 'compatibility') {
                 timeframeSelector.style.display = 'none';
+                taraSystemInfo.style.display = 'block'; // SHOW Tara info
                 dynamicInputTitle.textContent = 'Check Compatibility Between Two People';
                 dynamicResultTitle.textContent = 'Compatibility Analysis';
                 checkButton.textContent = 'Check Compatibility';
             } else {
                 timeframeSelector.style.display = 'flex';
+                taraSystemInfo.style.display = 'none'; // HIDE Tara info
                 dynamicInputTitle.textContent = `Find Auspicious Timings for ${purpose.title}`;
                 dynamicResultTitle.textContent = `${purpose.title} Timings`;
                 checkButton.textContent = 'Find Timings';
@@ -1234,15 +1235,13 @@
             // Button Validation Logic based on Purpose Type
             const pData = purposeData[currentPurpose];
             if (pData.type === 'one-star') {
-                // For events like Gruha Pravesam, only Star 1 is required
                 checkButton.disabled = !star1Select.value;
             } else {
-                // For Compatibility/Marriage, BOTH stars are required
                 checkButton.disabled = !(star1Select.value && star2Select.value);
             }
         }
 
-        // --- SUPABASE INTEGRATION LOGIC ---
+        // --- ENHANCED SUPABASE INTEGRATION LOGIC ---
 
         function checkCompatibility() {
             const star1 = star1Select.value;
@@ -1278,7 +1277,7 @@
             // Show loading state
             relationshipType.textContent = "Calculating...";
             relationshipDesc.textContent = "Fetching auspicious timings from the database...";
-            compatibilityInsights.innerHTML = '<i class="fas fa-spinner fa-spin" style="font-size: 2rem; color: #0fccce; margin: 10px 0;"></i><br>Please wait while we pull data from the Excel sheets...';
+            compatibilityInsights.innerHTML = '<i class="fas fa-spinner fa-spin" style="font-size: 2rem; color: #0fccce; margin: 10px 0;"></i><br>Please wait while we pull data...';
             checkButton.disabled = true;
 
             try {
@@ -1290,17 +1289,30 @@
                     body: JSON.stringify({ purpose, star1, star2, month, year })
                 });
 
-                const data = await response.json();
+                // Detect exact server/CORS errors
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    throw new Error(`Server Error (${response.status}): ${errorText || 'Check Supabase Edge Function logs.'}`);
+                }
+
+                let data;
+                try {
+                    data = await response.json();
+                } catch (parseError) {
+                    throw new Error("Received an invalid response from the server. Ensure the Edge Function is deployed correctly and returning valid JSON.");
+                }
 
                 if (data.success) {
                     displayResults(data.results, month, year, purpose);
                 } else {
-                    throw new Error(data.error);
+                    // Throw the exact error returned by your Deno edge function
+                    throw new Error(data.error || "Unknown error processing data inside the edge function.");
                 }
             } catch (error) {
-                relationshipType.textContent = "Error";
-                relationshipDesc.textContent = "Could not fetch data. Please try again later or check your database connection.";
-                compatibilityInsights.textContent = error.message;
+                // Now displays EXACTLY why it failed in the UI to help you debug
+                relationshipType.textContent = "Data Fetch Error";
+                relationshipDesc.textContent = "There was a problem communicating with the database.";
+                compatibilityInsights.innerHTML = `<span style="color:#e94560; font-weight:bold;">Error Details:</span><br>${error.message}`;
             } finally {
                 checkButton.disabled = false;
             }
