@@ -776,8 +776,8 @@
                     <h2 id="dynamic-input-title">Check Compatibility Between Two People</h2>
                     
                     <div class="selection-area">
-                        <div class="star-selector">
-                            <h3>First Person's Birth Star</h3>
+                        <div class="star-selector" id="star1-container">
+                            <h3 id="star1-title">First Person's Birth Star</h3>
                             <select id="star1">
                                 <option value="">Select a star</option>
                                 <option value="ashwini">Ashwini</option>
@@ -814,7 +814,7 @@
                             </div>
                         </div>
                         
-                        <div class="star-selector">
+                        <div class="star-selector" id="star2-container">
                             <h3>Second Person's Birth Star</h3>
                             <select id="star2">
                                 <option value="">Select a star</option>
@@ -888,9 +888,9 @@
                 
                 <div class="result-section" id="compatibility-result">
                     <h2 class="result-title" id="dynamic-result-title">Compatibility Analysis</h2>
-                    <div class="relationship-type" id="relationship-type">Please select both stars and click "Check Compatibility"</div>
+                    <div class="relationship-type" id="relationship-type">Please make your selection to begin</div>
                     <p class="relationship-description" id="relationship-desc">
-                        Your analysis will appear here after you make selections and click the check button.
+                        Your analysis will appear here after you click the check button.
                     </p>
                     <div class="auspicious-info">
                         <h3>Insights</h3>
@@ -1031,28 +1031,29 @@
             "revati": { name: "Revati", description: "Revati is the twenty-seventh Nakshatra, ruled by Pushan..." }
         };
 
-        // Purpose data for input sections
+        // Purpose data for input sections WITH TYPES
+        // two-star means it requires two people. one-star means it only requires the individual.
         const purposeData = {
-            "compatibility": { inputId: "compatibility-input", resultId: "compatibility-result" },
-            "marriage": { inputId: "compatibility-input", resultId: "compatibility-result" },
-            "engagement": { inputId: "compatibility-input", resultId: "compatibility-result" },
-            "gruhapravesam": { inputId: "compatibility-input", resultId: "compatibility-result" },
-            "namakaranam": { inputId: "compatibility-input", resultId: "compatibility-result" },
-            "annaprasana": { inputId: "compatibility-input", resultId: "compatibility-result" },
-            "upanayanam": { inputId: "compatibility-input", resultId: "compatibility-result" },
-            "seemantham": { inputId: "compatibility-input", resultId: "compatibility-result" },
-            "vahana": { inputId: "compatibility-input", resultId: "compatibility-result" },
-            "business": { inputId: "compatibility-input", resultId: "compatibility-result" },
-            "education": { inputId: "compatibility-input", resultId: "compatibility-result" },
-            "travel": { inputId: "compatibility-input", resultId: "compatibility-result" },
-            "property": { inputId: "compatibility-input", resultId: "compatibility-result" },
-            "vastu": { inputId: "compatibility-input", resultId: "compatibility-result" },
-            "medical": { inputId: "compatibility-input", resultId: "compatibility-result" },
-            "investment": { inputId: "compatibility-input", resultId: "compatibility-result" },
-            "legal": { inputId: "compatibility-input", resultId: "compatibility-result" },
-            "puja": { inputId: "compatibility-input", resultId: "compatibility-result" },
-            "fasting": { inputId: "compatibility-input", resultId: "compatibility-result" },
-            "yagnya": { inputId: "compatibility-input", resultId: "compatibility-result" }
+            "compatibility": { type: "two-star", inputId: "compatibility-input", resultId: "compatibility-result" },
+            "marriage": { type: "two-star", inputId: "compatibility-input", resultId: "compatibility-result" },
+            "engagement": { type: "two-star", inputId: "compatibility-input", resultId: "compatibility-result" },
+            "gruhapravesam": { type: "one-star", inputId: "compatibility-input", resultId: "compatibility-result" },
+            "namakaranam": { type: "one-star", inputId: "compatibility-input", resultId: "compatibility-result" },
+            "annaprasana": { type: "one-star", inputId: "compatibility-input", resultId: "compatibility-result" },
+            "upanayanam": { type: "one-star", inputId: "compatibility-input", resultId: "compatibility-result" },
+            "seemantham": { type: "one-star", inputId: "compatibility-input", resultId: "compatibility-result" },
+            "vahana": { type: "one-star", inputId: "compatibility-input", resultId: "compatibility-result" },
+            "business": { type: "one-star", inputId: "compatibility-input", resultId: "compatibility-result" },
+            "education": { type: "one-star", inputId: "compatibility-input", resultId: "compatibility-result" },
+            "travel": { type: "one-star", inputId: "compatibility-input", resultId: "compatibility-result" },
+            "property": { type: "one-star", inputId: "compatibility-input", resultId: "compatibility-result" },
+            "vastu": { type: "one-star", inputId: "compatibility-input", resultId: "compatibility-result" },
+            "medical": { type: "one-star", inputId: "compatibility-input", resultId: "compatibility-result" },
+            "investment": { type: "one-star", inputId: "compatibility-input", resultId: "compatibility-result" },
+            "legal": { type: "one-star", inputId: "compatibility-input", resultId: "compatibility-result" },
+            "puja": { type: "one-star", inputId: "compatibility-input", resultId: "compatibility-result" },
+            "fasting": { type: "one-star", inputId: "compatibility-input", resultId: "compatibility-result" },
+            "yagnya": { type: "one-star", inputId: "compatibility-input", resultId: "compatibility-result" }
         };
 
         // DOM elements
@@ -1067,6 +1068,10 @@
         
         const star1Select = document.getElementById('star1');
         const star2Select = document.getElementById('star2');
+        const star1Container = document.getElementById('star1-container');
+        const star2Container = document.getElementById('star2-container');
+        const star1Title = document.getElementById('star1-title');
+
         const monthSelect = document.getElementById('month-select');
         const yearSelect = document.getElementById('year-select');
         const timeframeSelector = document.getElementById('timeframe-selector');
@@ -1120,10 +1125,24 @@
             }
         }
 
-        // Dynamically hide/show date selectors based on purpose
+        // Dynamically hide/show date selectors AND second star based on purpose
         function applyDynamicUI(purposeId) {
             const purpose = purposeOptions.find(p => p.id === purposeId);
+            const pData = purposeData[purposeId];
             
+            // Toggle Star 2 based on whether the purpose requires 1 or 2 people
+            if (pData.type === 'one-star') {
+                star2Container.style.display = 'none';
+                star1Title.textContent = 'Select Your Birth Star';
+                // Clear the second star selection so it doesn't interfere
+                star2Select.value = ''; 
+                star2Info.style.display = 'none';
+            } else {
+                star2Container.style.display = 'block';
+                star1Title.textContent = "First Person's Birth Star";
+            }
+            
+            // Toggle Timeframe selectors based on compatibility vs event
             if (purposeId === 'compatibility') {
                 timeframeSelector.style.display = 'none';
                 dynamicInputTitle.textContent = 'Check Compatibility Between Two People';
@@ -1135,6 +1154,9 @@
                 dynamicResultTitle.textContent = `${purpose.title} Timings`;
                 checkButton.textContent = 'Find Timings';
             }
+
+            // Force validation to run again so the button disables/enables properly for the new layout
+            updateStarInfo();
         }
 
         // Select purpose from dropdown
@@ -1191,6 +1213,7 @@
         initializeDropdown();
 
         function updateStarInfo() {
+            // Display description for Star 1
             if (star1Select.value && starData[star1Select.value]) {
                 document.getElementById('star1-name').textContent = starData[star1Select.value].name;
                 document.getElementById('star1-desc').textContent = starData[star1Select.value].description;
@@ -1199,6 +1222,7 @@
                 star1Info.style.display = 'none';
             }
 
+            // Display description for Star 2
             if (star2Select.value && starData[star2Select.value]) {
                 document.getElementById('star2-name').textContent = starData[star2Select.value].name;
                 document.getElementById('star2-desc').textContent = starData[star2Select.value].description;
@@ -1207,10 +1231,14 @@
                 star2Info.style.display = 'none';
             }
 
-            if (star1Select.value && star2Select.value) {
-                checkButton.disabled = false;
+            // Button Validation Logic based on Purpose Type
+            const pData = purposeData[currentPurpose];
+            if (pData.type === 'one-star') {
+                // For events like Gruha Pravesam, only Star 1 is required
+                checkButton.disabled = !star1Select.value;
             } else {
-                checkButton.disabled = true;
+                // For Compatibility/Marriage, BOTH stars are required
+                checkButton.disabled = !(star1Select.value && star2Select.value);
             }
         }
 
@@ -1219,6 +1247,16 @@
         function checkCompatibility() {
             const star1 = star1Select.value;
             const star2 = star2Select.value;
+            const pData = purposeData[currentPurpose];
+            
+            // Final validation catch just in case
+            if (pData.type === 'two-star' && (!star1 || !star2)) {
+                alert("Please select both stars to proceed.");
+                return;
+            } else if (pData.type === 'one-star' && !star1) {
+                alert("Please select your birth star to proceed.");
+                return;
+            }
             
             // Only pull month and year if it's NOT just a compatibility check
             let month = null;
@@ -1229,13 +1267,11 @@
                 year = yearSelect ? yearSelect.value : "2026";
             }
             
-            if (!star1 || !star2) {
-                alert("Please select both stars to proceed.");
-                return;
-            }
+            // If it is a one-star purpose, send star2 as null so the backend ignores it
+            const finalStar2 = pData.type === 'two-star' ? star2 : null;
             
             // Call the Supabase backend
-            fetchMuhuratData(currentPurpose, star1, star2, month, year);
+            fetchMuhuratData(currentPurpose, star1, finalStar2, month, year);
         }
 
         async function fetchMuhuratData(purpose, star1, star2, month, year) {
