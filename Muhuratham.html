@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2140422184257609"
-     crossorigin="anonymous"></script>
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vedic Auspicious Timing Finder - Panchanga</title>
@@ -711,7 +710,6 @@
 <body>
     <div class="main-container">
         <div class="content-wrapper">
-            <!-- Navigation Menu -->
             <nav>
                 <ul>
                     <li><a href="https://parishodana.xyz" class="active">Home</a></li>
@@ -750,7 +748,6 @@
                 </ul>
             </nav>
             
-            <!-- Purpose Selector (Dropdown) -->
             <div class="purpose-selector">
                 <div class="purpose-header">
                     <h2>Select Purpose</h2>
@@ -770,16 +767,14 @@
                         </div>
                     </div>
                     <div class="dropdown-options" id="dropdown-options">
-                        <!-- Options will be populated by JavaScript -->
-                    </div>
+                        </div>
                 </div>
             </div>
             
-            <!-- Main Content Area -->
             <div class="main-content">
-                <!-- Compatibility Input Section -->
                 <div class="input-section active" id="compatibility-input">
-                    <h2>Check Compatibility Between Two People</h2>
+                    <h2 id="dynamic-input-title">Check Compatibility Between Two People</h2>
+                    
                     <div class="selection-area">
                         <div class="star-selector">
                             <h3>First Person's Birth Star</h3>
@@ -857,25 +852,52 @@
                             </div>
                         </div>
                     </div>
+                    
+                    <div id="timeframe-selector" class="selection-area" style="display: none;">
+                        <div class="star-selector">
+                            <h3>Select Month</h3>
+                            <select id="month-select">
+                                <option value="All">All Months</option>
+                                <option value="January">January</option>
+                                <option value="February">February</option>
+                                <option value="March">March</option>
+                                <option value="April">April</option>
+                                <option value="May">May</option>
+                                <option value="June">June</option>
+                                <option value="July">July</option>
+                                <option value="August">August</option>
+                                <option value="September">September</option>
+                                <option value="October">October</option>
+                                <option value="November">November</option>
+                                <option value="December">December</option>
+                            </select>
+                        </div>
+                        <div class="star-selector">
+                            <h3>Select Year</h3>
+                            <select id="year-select">
+                                <option value="2026" selected>2026</option>
+                                <option value="2027">2027</option>
+                            </select>
+                        </div>
+                    </div>
+
                     <div class="check-button-container">
                         <button id="check-compatibility" class="check-button" disabled>Check Compatibility</button>
                     </div>
                 </div>
                 
-                <!-- Compatibility Result Section -->
                 <div class="result-section" id="compatibility-result">
-                    <h2 class="result-title">Compatibility Analysis</h2>
+                    <h2 class="result-title" id="dynamic-result-title">Compatibility Analysis</h2>
                     <div class="relationship-type" id="relationship-type">Please select both stars and click "Check Compatibility"</div>
                     <p class="relationship-description" id="relationship-desc">
-                        Your compatibility analysis will appear here after you select both stars and click the check button.
+                        Your analysis will appear here after you make selections and click the check button.
                     </p>
                     <div class="auspicious-info">
-                        <h3>Compatibility Insights</h3>
-                        <p id="compatibility-insights">Detailed insights about your relationship compatibility will be displayed here.</p>
+                        <h3>Insights</h3>
+                        <p id="compatibility-insights">Detailed insights about your selection will be displayed here.</p>
                     </div>
                 </div>
                 
-                <!-- Tara System Info -->
                 <div class="tara-system-info">
                     <h2>The Tara System in Vedic Astrology</h2>
                     <p>The Tara (star) system in Vedic astrology determines the relationship between two stars based on their positions in the 27 Nakshatras (lunar mansions). This system is used to find auspicious timings for various life events.</p>
@@ -926,7 +948,6 @@
             </div>
         </div>
         
-        <!-- Advertisement Sidebar - Single Large Banner -->
         <div class="ad-sidebar">
             <div class="ad-banner">
                 <div class="ad-header">
@@ -981,278 +1002,57 @@
 
         // Star information
         const starData = {
-            "ashwini": {
-                name: "Ashwini",
-                description: "Ashwini is the first Nakshatra in Vedic astrology, ruled by the Ashwini Kumaras. It represents speed, healing, and new beginnings."
-            },
-            "bharani": {
-                name: "Bharani",
-                description: "Bharani is the second Nakshatra, ruled by Yama. It symbolizes bearing, sustaining, and transformation through challenges."
-            },
-            "krittika": {
-                name: "Krittika",
-                description: "Krittika is the third Nakshatra, ruled by Agni. It represents cutting, purification, and the power to burn away impurities."
-            },
-            "rohini": {
-                name: "Rohini",
-                description: "Rohini is the fourth Nakshatra, ruled by Brahma. It signifies growth, fertility, and the creative principle."
-            },
-            "mrigashira": {
-                name: "Mrigashira",
-                description: "Mrigashira is the fifth Nakshatra, ruled by Soma. It represents searching, exploring, and the quest for fulfillment."
-            },
-            "ardra": {
-                name: "Ardra",
-                description: "Ardra is the sixth Nakshatra, ruled by Rudra. It symbolizes transformation through hardship, storms, and eventual renewal."
-            },
-            "punarvasu": {
-                name: "Punarvasu",
-                description: "Punarvasu is the seventh Nakshatra, ruled by Aditi. It represents renewal, return, and the restoration of harmony."
-            },
-            "pushya": {
-                name: "Pushya",
-                description: "Pushya is the eighth Nakshatra, ruled by Brihaspati. It signifies nourishment, protection, and spiritual growth."
-            },
-            "ashlesha": {
-                name: "Ashlesha",
-                description: "Ashlesha is the ninth Nakshatra, ruled by the Nagas. It represents clinging, entanglement, and deep psychological patterns."
-            },
-            "magha": {
-                name: "Magha",
-                description: "Magha is the tenth Nakshatra, ruled by the Pitris. It symbolizes ancestry, tradition, and connection to the past."
-            },
-            "purva-phalguni": {
-                name: "Purva Phalguni",
-                description: "Purva Phalguni is the eleventh Nakshatra, ruled by Bhaga. It represents love, creativity, and celebration."
-            },
-            "uttara-phalguni": {
-                name: "Uttara Phalguni",
-                description: "Uttara Phalguni is the twelfth Nakshatra, ruled by Aryaman. It signifies patronage, support, and social connections."
-            },
-            "hasta": {
-                name: "Hasta",
-                description: "Hasta is the thirteenth Nakshatra, ruled by Savitr. It represents skill, dexterity, and the ability to manifest."
-            },
-            "chitra": {
-                name: "Chitra",
-                description: "Chitra is the fourteenth Nakshatra, ruled by Vishvakarma. It symbolizes artistry, brilliance, and cosmic order."
-            },
-            "swati": {
-                name: "Swati",
-                description: "Swati is the fifteenth Nakshatra, ruled by Vayu. It represents independence, movement, and adaptability."
-            },
-            "vishakha": {
-                name: "Vishakha",
-                description: "Vishakha is the sixteenth Nakshatra, ruled by Indra and Agni. It signifies determination, purpose, and achievement."
-            },
-            "anuradha": {
-                name: "Anuradha",
-                description: "Anuradha is the seventeenth Nakshatra, ruled by Mitra. It represents friendship, devotion, and success through alliances."
-            },
-            "jyestha": {
-                name: "Jyestha",
-                description: "Jyestha is the eighteenth Nakshatra, ruled by Indra. It symbolizes seniority, power, and protection."
-            },
-            "mula": {
-                name: "Mula",
-                description: "Mula is the nineteenth Nakshatra, ruled by Nirriti. It represents roots, foundation, and deep inquiry."
-            },
-            "purva-ashadha": {
-                name: "Purva Ashadha",
-                description: "Purva Ashadha is the twentieth Nakshatra, ruled by Apas. It signifies invincibility, purification, and universal appeal."
-            },
-            "uttara-ashadha": {
-                name: "Uttara Ashadha",
-                description: "Uttara Ashadha is the twenty-first Nakshatra, ruled by Vishvedevas. It represents universal victory, righteousness, and firm determination."
-            },
-            "shravana": {
-                name: "Shravana",
-                description: "Shravana is the twenty-second Nakshatra, ruled by Vishnu. It symbolizes listening, learning, and understanding."
-            },
-            "dhanishta": {
-                name: "Dhanishta",
-                description: "Dhanishta is the twenty-third Nakshatra, ruled by Vasus. It represents wealth, fame, and musical ability."
-            },
-            "shatabhisha": {
-                name: "Shatabhisha",
-                description: "Shatabhisha is the twenty-fourth Nakshatra, ruled by Varuna. It signifies healing, concealment, and cosmic secrets."
-            },
-            "purva-bhadrapada": {
-                name: "Purva Bhadrapada",
-                description: "Purva Bhadrapada is the twenty-fifth Nakshatra, ruled by Aja Ekapada. It represents transformation, spiritual fire, and purification."
-            },
-            "uttara-bhadrapada": {
-                name: "Uttara Bhadrapada",
-                description: "Uttara Bhadrapada is the twenty-sixth Nakshatra, ruled by Ahir Budhnya. It symbolizes stability, compassion, and spiritual wisdom."
-            },
-            "revati": {
-                name: "Revati",
-                description: "Revati is the twenty-seventh Nakshatra, ruled by Pushan. It represents nourishment, completion, and safe journeys."
-            }
-        };
-
-        // Relationship data
-        const relationshipData = {
-            "janma": {
-                name: "Janma Tara",
-                description: "This relationship indicates birth, health, and vitality. It can bring challenges but also opportunities for transformation and growth."
-            },
-            "sampat": {
-                name: "Sampat Tara",
-                description: "This relationship represents wealth, prosperity, and material gains. It is generally favorable for financial and business matters."
-            },
-            "vipat": {
-                name: "Vipat Tara",
-                description: "This relationship signifies obstacles, dangers, and challenges. It requires caution and careful planning in all endeavors."
-            },
-            "kshema": {
-                name: "Kshema Tara",
-                description: "This relationship indicates prosperity, well-being, and success in ventures. It brings stability and favorable outcomes."
-            },
-            "pratyak": {
-                name: "Pratyak Tara",
-                description: "This relationship suggests opposition, obstacles, and the need for perseverance. Success comes through determined effort."
-            },
-            "sadhana": {
-                name: "Sadhana Tara",
-                description: "This relationship represents accomplishment through effort and spiritual practices. It favors self-development and discipline."
-            },
-            "naidhana": {
-                name: "Naidhana Tara",
-                description: "This relationship is associated with loss, destruction, and endings. It requires careful handling and spiritual perspective."
-            },
-            "mitra": {
-                name: "Mitra Tara",
-                description: "This relationship indicates friendship, support, and beneficial connections. It brings harmony and cooperative energy."
-            },
-            "ati-mitra": {
-                name: "Ati Mitra Tara",
-                description: "This relationship represents deep friendship, great support, and highly favorable conditions. It brings exceptional harmony and success."
-            }
+            "ashwini": { name: "Ashwini", description: "Ashwini is the first Nakshatra in Vedic astrology..." },
+            "bharani": { name: "Bharani", description: "Bharani is the second Nakshatra, ruled by Yama..." },
+            "krittika": { name: "Krittika", description: "Krittika is the third Nakshatra, ruled by Agni..." },
+            "rohini": { name: "Rohini", description: "Rohini is the fourth Nakshatra, ruled by Brahma..." },
+            "mrigashira": { name: "Mrigashira", description: "Mrigashira is the fifth Nakshatra, ruled by Soma..." },
+            "ardra": { name: "Ardra", description: "Ardra is the sixth Nakshatra, ruled by Rudra..." },
+            "punarvasu": { name: "Punarvasu", description: "Punarvasu is the seventh Nakshatra, ruled by Aditi..." },
+            "pushya": { name: "Pushya", description: "Pushya is the eighth Nakshatra, ruled by Brihaspati..." },
+            "ashlesha": { name: "Ashlesha", description: "Ashlesha is the ninth Nakshatra, ruled by the Nagas..." },
+            "magha": { name: "Magha", description: "Magha is the tenth Nakshatra, ruled by the Pitris..." },
+            "purva-phalguni": { name: "Purva Phalguni", description: "Purva Phalguni is the eleventh Nakshatra..." },
+            "uttara-phalguni": { name: "Uttara Phalguni", description: "Uttara Phalguni is the twelfth Nakshatra..." },
+            "hasta": { name: "Hasta", description: "Hasta is the thirteenth Nakshatra, ruled by Savitr..." },
+            "chitra": { name: "Chitra", description: "Chitra is the fourteenth Nakshatra, ruled by Vishvakarma..." },
+            "swati": { name: "Swati", description: "Swati is the fifteenth Nakshatra, ruled by Vayu..." },
+            "vishakha": { name: "Vishakha", description: "Vishakha is the sixteenth Nakshatra..." },
+            "anuradha": { name: "Anuradha", description: "Anuradha is the seventeenth Nakshatra..." },
+            "jyestha": { name: "Jyestha", description: "Jyestha is the eighteenth Nakshatra, ruled by Indra..." },
+            "mula": { name: "Mula", description: "Mula is the nineteenth Nakshatra, ruled by Nirriti..." },
+            "purva-ashadha": { name: "Purva Ashadha", description: "Purva Ashadha is the twentieth Nakshatra..." },
+            "uttara-ashadha": { name: "Uttara Ashadha", description: "Uttara Ashadha is the twenty-first Nakshatra..." },
+            "shravana": { name: "Shravana", description: "Shravana is the twenty-second Nakshatra, ruled by Vishnu..." },
+            "dhanishta": { name: "Dhanishta", description: "Dhanishta is the twenty-third Nakshatra, ruled by Vasus..." },
+            "shatabhisha": { name: "Shatabhisha", description: "Shatabhisha is the twenty-fourth Nakshatra..." },
+            "purva-bhadrapada": { name: "Purva Bhadrapada", description: "Purva Bhadrapada is the twenty-fifth Nakshatra..." },
+            "uttara-bhadrapada": { name: "Uttara Bhadrapada", description: "Uttara Bhadrapada is the twenty-sixth Nakshatra..." },
+            "revati": { name: "Revati", description: "Revati is the twenty-seventh Nakshatra, ruled by Pushan..." }
         };
 
         // Purpose data for input sections
         const purposeData = {
-            "compatibility": {
-                name: "Compatibility",
-                inputId: "compatibility-input",
-                resultId: "compatibility-result",
-                type: "two-star"
-            },
-            "marriage": {
-                name: "Marriage",
-                inputId: "marriage-input",
-                resultId: "marriage-result",
-                type: "two-star"
-            },
-            "engagement": {
-                name: "Engagement",
-                inputId: "marriage-input",
-                resultId: "marriage-result",
-                type: "two-star"
-            },
-            "gruhapravesam": {
-                name: "Gruha Pravesam",
-                inputId: "general-input",
-                resultId: "general-result",
-                type: "one-star"
-            },
-            "namakaranam": {
-                name: "Namakaranam",
-                inputId: "general-input",
-                resultId: "general-result",
-                type: "one-star"
-            },
-            "annaprasana": {
-                name: "Annaprasana",
-                inputId: "general-input",
-                resultId: "general-result",
-                type: "one-star"
-            },
-            "upanayanam": {
-                name: "Upanayanam",
-                inputId: "general-input",
-                resultId: "general-result",
-                type: "one-star"
-            },
-            "seemantham": {
-                name: "Seemantham",
-                inputId: "general-input",
-                resultId: "general-result",
-                type: "one-star"
-            },
-            "vahana": {
-                name: "Vahana Purchase",
-                inputId: "general-input",
-                resultId: "general-result",
-                type: "one-star"
-            },
-            "business": {
-                name: "Business Start",
-                inputId: "general-input",
-                resultId: "general-result",
-                type: "one-star"
-            },
-            "education": {
-                name: "Vidyarambham",
-                inputId: "general-input",
-                resultId: "general-result",
-                type: "one-star"
-            },
-            "travel": {
-                name: "Travel",
-                inputId: "general-input",
-                resultId: "general-result",
-                type: "one-star"
-            },
-            "property": {
-                name: "Property",
-                inputId: "general-input",
-                resultId: "general-result",
-                type: "one-star"
-            },
-            "vastu": {
-                name: "Vastu",
-                inputId: "general-input",
-                resultId: "general-result",
-                type: "one-star"
-            },
-            "medical": {
-                name: "Medical",
-                inputId: "general-input",
-                resultId: "general-result",
-                type: "one-star"
-            },
-            "investment": {
-                name: "Investment",
-                inputId: "general-input",
-                resultId: "general-result",
-                type: "one-star"
-            },
-            "legal": {
-                name: "Legal Matters",
-                inputId: "general-input",
-                resultId: "general-result",
-                type: "one-star"
-            },
-            "puja": {
-                name: "Puja",
-                inputId: "general-input",
-                resultId: "general-result",
-                type: "one-star"
-            },
-            "fasting": {
-                name: "Vrata Arambham",
-                inputId: "general-input",
-                resultId: "general-result",
-                type: "one-star"
-            },
-            "yagnya": {
-                name: "Yagnya",
-                inputId: "general-input",
-                resultId: "general-result",
-                type: "one-star"
-            }
+            "compatibility": { inputId: "compatibility-input", resultId: "compatibility-result" },
+            "marriage": { inputId: "compatibility-input", resultId: "compatibility-result" },
+            "engagement": { inputId: "compatibility-input", resultId: "compatibility-result" },
+            "gruhapravesam": { inputId: "compatibility-input", resultId: "compatibility-result" },
+            "namakaranam": { inputId: "compatibility-input", resultId: "compatibility-result" },
+            "annaprasana": { inputId: "compatibility-input", resultId: "compatibility-result" },
+            "upanayanam": { inputId: "compatibility-input", resultId: "compatibility-result" },
+            "seemantham": { inputId: "compatibility-input", resultId: "compatibility-result" },
+            "vahana": { inputId: "compatibility-input", resultId: "compatibility-result" },
+            "business": { inputId: "compatibility-input", resultId: "compatibility-result" },
+            "education": { inputId: "compatibility-input", resultId: "compatibility-result" },
+            "travel": { inputId: "compatibility-input", resultId: "compatibility-result" },
+            "property": { inputId: "compatibility-input", resultId: "compatibility-result" },
+            "vastu": { inputId: "compatibility-input", resultId: "compatibility-result" },
+            "medical": { inputId: "compatibility-input", resultId: "compatibility-result" },
+            "investment": { inputId: "compatibility-input", resultId: "compatibility-result" },
+            "legal": { inputId: "compatibility-input", resultId: "compatibility-result" },
+            "puja": { inputId: "compatibility-input", resultId: "compatibility-result" },
+            "fasting": { inputId: "compatibility-input", resultId: "compatibility-result" },
+            "yagnya": { inputId: "compatibility-input", resultId: "compatibility-result" }
         };
 
         // DOM elements
@@ -1264,8 +1064,15 @@
         const selectedSubtitle = document.querySelector('.selected-text p');
         const inputSections = document.querySelectorAll('.input-section');
         const resultSections = document.querySelectorAll('.result-section');
+        
         const star1Select = document.getElementById('star1');
         const star2Select = document.getElementById('star2');
+        const monthSelect = document.getElementById('month-select');
+        const yearSelect = document.getElementById('year-select');
+        const timeframeSelector = document.getElementById('timeframe-selector');
+        const dynamicInputTitle = document.getElementById('dynamic-input-title');
+        const dynamicResultTitle = document.getElementById('dynamic-result-title');
+        
         const star1Info = document.getElementById('star1-info');
         const star2Info = document.getElementById('star2-info');
         const relationshipType = document.getElementById('relationship-type');
@@ -1273,15 +1080,15 @@
         const compatibilityInsights = document.getElementById('compatibility-insights');
         const checkButton = document.getElementById('check-compatibility');
 
+        // IMPORTANT: Replace this with your actual deployed Supabase Edge Function URL
+        const SUPABASE_FUNCTION_URL = 'https://jusjpremtvalmqqtaoth.supabase.co/functions/v1/muhurat-api';
+
         let currentPurpose = 'compatibility';
         let isDropdownOpen = false;
 
         // Initialize dropdown with options
         function initializeDropdown() {
-            // Clear existing options
             dropdownOptions.innerHTML = '';
-            
-            // Add each purpose as an option
             purposeOptions.forEach(purpose => {
                 const option = document.createElement('div');
                 option.className = 'purpose-option';
@@ -1289,7 +1096,6 @@
                     option.classList.add('active');
                 }
                 option.setAttribute('data-purpose', purpose.id);
-                
                 option.innerHTML = `
                     <div class="option-icon">${purpose.icon}</div>
                     <div class="option-text">
@@ -1297,13 +1103,11 @@
                         <p>${purpose.subtitle}</p>
                     </div>
                 `;
-                
                 option.addEventListener('click', () => selectPurpose(purpose));
                 dropdownOptions.appendChild(option);
             });
-            
-            // Set initial selected purpose
             updateSelectedPurpose(currentPurpose);
+            applyDynamicUI(currentPurpose);
         }
 
         // Update selected purpose display
@@ -1316,38 +1120,44 @@
             }
         }
 
+        // Dynamically hide/show date selectors based on purpose
+        function applyDynamicUI(purposeId) {
+            const purpose = purposeOptions.find(p => p.id === purposeId);
+            
+            if (purposeId === 'compatibility') {
+                timeframeSelector.style.display = 'none';
+                dynamicInputTitle.textContent = 'Check Compatibility Between Two People';
+                dynamicResultTitle.textContent = 'Compatibility Analysis';
+                checkButton.textContent = 'Check Compatibility';
+            } else {
+                timeframeSelector.style.display = 'flex';
+                dynamicInputTitle.textContent = `Find Auspicious Timings for ${purpose.title}`;
+                dynamicResultTitle.textContent = `${purpose.title} Timings`;
+                checkButton.textContent = 'Find Timings';
+            }
+        }
+
         // Select purpose from dropdown
         function selectPurpose(purpose) {
             currentPurpose = purpose.id;
             updateSelectedPurpose(purpose.id);
             closeDropdown();
             
-            // Remove active class from all purpose options
             document.querySelectorAll('.purpose-option').forEach(option => {
                 option.classList.remove('active');
             });
-            
-            // Add active class to selected option
             document.querySelector(`.purpose-option[data-purpose="${purpose.id}"]`).classList.add('active');
             
-            // Hide all input and result sections
-            inputSections.forEach(section => {
-                section.classList.remove('active');
-            });
+            inputSections.forEach(section => section.classList.remove('active'));
+            resultSections.forEach(section => section.classList.remove('active'));
             
-            resultSections.forEach(section => {
-                section.classList.remove('active');
-            });
-            
-            // Show the appropriate input section
             const inputId = purposeData[currentPurpose].inputId;
             document.getElementById(inputId).classList.add('active');
-            
-            // Show the appropriate result section
             document.getElementById(purposeData[currentPurpose].resultId).classList.add('active');
+            
+            applyDynamicUI(currentPurpose);
         }
 
-        // Toggle dropdown
         function toggleDropdown() {
             isDropdownOpen = !isDropdownOpen;
             if (isDropdownOpen) {
@@ -1359,7 +1169,6 @@
             }
         }
 
-        // Close dropdown
         function closeDropdown() {
             isDropdownOpen = false;
             dropdownOptions.classList.remove('active');
@@ -1369,24 +1178,19 @@
 
         // Event listeners
         dropdownTrigger.addEventListener('click', toggleDropdown);
-        
-        // Close dropdown when clicking outside
         document.addEventListener('click', (event) => {
             if (!dropdownTrigger.contains(event.target) && !dropdownOptions.contains(event.target)) {
                 closeDropdown();
             }
         });
 
-        // Star selection event listeners
         star1Select.addEventListener('change', updateStarInfo);
         star2Select.addEventListener('change', updateStarInfo);
         checkButton.addEventListener('click', checkCompatibility);
 
-        // Initialize
         initializeDropdown();
 
         function updateStarInfo() {
-            // Update star 1 info
             if (star1Select.value && starData[star1Select.value]) {
                 document.getElementById('star1-name').textContent = starData[star1Select.value].name;
                 document.getElementById('star1-desc').textContent = starData[star1Select.value].description;
@@ -1395,7 +1199,6 @@
                 star1Info.style.display = 'none';
             }
 
-            // Update star 2 info
             if (star2Select.value && starData[star2Select.value]) {
                 document.getElementById('star2-name').textContent = starData[star2Select.value].name;
                 document.getElementById('star2-desc').textContent = starData[star2Select.value].description;
@@ -1404,7 +1207,6 @@
                 star2Info.style.display = 'none';
             }
 
-            // Enable/disable check button based on selections
             if (star1Select.value && star2Select.value) {
                 checkButton.disabled = false;
             } else {
@@ -1412,69 +1214,100 @@
             }
         }
 
+        // --- SUPABASE INTEGRATION LOGIC ---
+
         function checkCompatibility() {
             const star1 = star1Select.value;
             const star2 = star2Select.value;
             
+            // Only pull month and year if it's NOT just a compatibility check
+            let month = null;
+            let year = null;
+            
+            if (currentPurpose !== 'compatibility') {
+                month = monthSelect ? monthSelect.value : "All";
+                year = yearSelect ? yearSelect.value : "2026";
+            }
+            
             if (!star1 || !star2) {
-                alert("Please select both stars to check compatibility.");
+                alert("Please select both stars to proceed.");
                 return;
             }
             
-            // Calculate and display relationship
-            calculateRelationship(star1, star2);
+            // Call the Supabase backend
+            fetchMuhuratData(currentPurpose, star1, star2, month, year);
         }
 
-        function calculateRelationship(star1, star2) {
-            // In a real implementation, this would calculate based on actual Vedic astrology rules
-            // For this example, we'll use a simplified approach
-            
-            // Get indices of selected stars
-            const stars = Object.keys(starData);
-            
-            const index1 = stars.indexOf(star1);
-            const index2 = stars.indexOf(star2);
-            
-            if (index1 === -1 || index2 === -1) return;
-            
-            // Calculate the difference in positions
-            let difference = Math.abs(index2 - index1);
-            
-            // In Vedic astrology, the relationship is determined by the count from one star to another
-            // This is a simplified representation for demonstration
-            const relationshipTypes = [
-                "janma", "sampat", "vipat", "kshema", "pratyak", 
-                "sadhana", "naidhana", "mitra", "ati-mitra"
-            ];
-            
-            // Determine relationship based on difference
-            const relationshipIndex = difference % 9;
-            const relationshipKey = relationshipTypes[relationshipIndex];
-            
-            // Display the relationship
-            relationshipType.textContent = relationshipData[relationshipKey].name;
-            relationshipDesc.textContent = relationshipData[relationshipKey].description;
-            
-            // Update compatibility insights based on relationship
-            updateCompatibilityInsights(relationshipKey);
+        async function fetchMuhuratData(purpose, star1, star2, month, year) {
+            // Show loading state
+            relationshipType.textContent = "Calculating...";
+            relationshipDesc.textContent = "Fetching auspicious timings from the database...";
+            compatibilityInsights.innerHTML = '<i class="fas fa-spinner fa-spin" style="font-size: 2rem; color: #0fccce; margin: 10px 0;"></i><br>Please wait while we pull data from the Excel sheets...';
+            checkButton.disabled = true;
+
+            try {
+                const response = await fetch(SUPABASE_FUNCTION_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ purpose, star1, star2, month, year })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    displayResults(data.results, month, year, purpose);
+                } else {
+                    throw new Error(data.error);
+                }
+            } catch (error) {
+                relationshipType.textContent = "Error";
+                relationshipDesc.textContent = "Could not fetch data. Please try again later or check your database connection.";
+                compatibilityInsights.textContent = error.message;
+            } finally {
+                checkButton.disabled = false;
+            }
         }
 
-        function updateCompatibilityInsights(relationshipKey) {
-            const insights = {
-                "janma": "This relationship indicates a karmic connection. There may be challenges initially, but these can lead to profound personal growth if both parties are willing to work through them.",
-                "sampat": "This pairing shows potential for material prosperity and mutual benefit. Financial and practical matters tend to work out well when you collaborate.",
-                "vipat": "This relationship may face obstacles and challenges. Careful planning and open communication are essential to navigate difficulties successfully.",
-                "kshema": "This is a harmonious relationship that promotes well-being and success. You support each other's growth and find stability together.",
-                "pratyak": "This relationship may involve some opposition or differences in approach. With patience and understanding, these can be resolved constructively.",
-                "sadhana": "This relationship encourages spiritual growth and self-development. You inspire each other to reach higher potentials through discipline and practice.",
-                "naidhana": "This relationship may involve significant transformations and endings. It's important to approach changes with wisdom and detachment.",
-                "mitra": "This is a friendly and supportive relationship. You enjoy each other's company and work well together in various situations.",
-                "ati-mitra": "This is an exceptionally harmonious relationship with deep friendship and mutual support. You understand each other well and create positive outcomes together."
-            };
+        function displayResults(results, month, year, purpose) {
+            if (results.length === 0) {
+                relationshipType.textContent = "No Data Found";
+                
+                if (purpose === 'compatibility') {
+                    relationshipDesc.textContent = `We couldn't find compatibility data for this combination.`;
+                } else {
+                    let timeFrameStr = month !== "All" ? `${month} ${year}` : `${year}`;
+                    relationshipDesc.textContent = `We couldn't find specific timings for this combination in ${timeFrameStr}.`;
+                }
+                
+                compatibilityInsights.textContent = "Try adjusting your parameters or consulting an astrologer for personalized dates.";
+                return;
+            }
+
+            if (purpose === 'compatibility') {
+                relationshipType.textContent = "Compatibility Results";
+                relationshipDesc.textContent = "Based on your selected stars, here is the compatibility score.";
+            } else {
+                let timeFrameStr = month !== "All" ? `${month} ${year}` : `${year}`;
+                relationshipType.textContent = `${results.length} Auspicious Dates Found for ${timeFrameStr}`;
+                relationshipDesc.textContent = "Based on your selected stars and purpose, here are the recommended timings.";
+            }
             
-            compatibilityInsights.textContent = insights[relationshipKey] || "Relationship analysis is not available for this combination.";
+            // Build a dynamic HTML list based on the Excel rows returned from Supabase
+            let htmlOutput = '<div style="text-align: left; background: rgba(0,0,0,0.2); padding: 15px; border-radius: 8px; max-height: 400px; overflow-y: auto;">';
+            
+            results.forEach((row) => {
+                htmlOutput += '<div style="border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px; margin-bottom: 10px;">';
+                for (const [key, value] of Object.entries(row)) {
+                    htmlOutput += `<strong style="color: #0fccce;">${key}:</strong> <span style="color: #b8b8b8;">${value}</span><br>`;
+                }
+                htmlOutput += '</div>';
+            });
+            
+            htmlOutput += '</div>';
+            compatibilityInsights.innerHTML = htmlOutput;
         }
     </script>
 </body>
 </html>
-
