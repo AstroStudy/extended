@@ -1,9 +1,12 @@
-                                                                    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vedic Auspicious Timing Finder - Panchanga</title>
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2140422184257609"
+         crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -426,7 +429,7 @@
             margin-bottom: 6px;
         }
 
-        /* Ad Sidebar - MODIFIED: image placeholder now an <img> with id */
+        /* Ad Sidebar - MODIFIED: Google AdSense instead of image */
         .ad-sidebar {
             width: 300px;
             min-width: 300px;
@@ -466,17 +469,10 @@
             color: #e94560;
             font-size: 1.5rem;
         }
-        /* Image banner area - easily replaceable */
         .ad-image {
             margin: 15px 0;
             border-radius: 12px;
             overflow: hidden;
-        }
-        .ad-image img {
-            width: 100%;
-            height: auto;
-            display: block;
-            border-radius: 12px;
         }
         .ad-button {
             background: linear-gradient(135deg, #e94560, #c62a4a);
@@ -581,7 +577,6 @@
                         <h3 id="star1-title">First Person's Birth Star</h3>
                         <select id="star1">
                             <option value="">Select a star</option>
-                            <!-- 27 nakshatras (same as original) -->
                             <option value="ashwini">Ashwini</option><option value="bharani">Bharani</option><option value="krittika">Krittika</option>
                             <option value="rohini">Rohini</option><option value="mrigashira">Mrigashira</option><option value="ardra">Ardra</option>
                             <option value="punarvasu">Punarvasu</option><option value="pushya">Pushya</option><option value="ashlesha">Ashlesha</option>
@@ -598,7 +593,6 @@
                         <h3>Second Person's Birth Star</h3>
                         <select id="star2">
                             <option value="">Select a star</option>
-                            <!-- same options -->
                             <option value="ashwini">Ashwini</option><option value="bharani">Bharani</option><option value="krittika">Krittika</option>
                             <option value="rohini">Rohini</option><option value="mrigashira">Mrigashira</option><option value="ardra">Ardra</option>
                             <option value="punarvasu">Punarvasu</option><option value="pushya">Pushya</option><option value="ashlesha">Ashlesha</option>
@@ -664,7 +658,7 @@
         </div>
     </div>
 
-    <!-- AD SIDEBAR - UPDATED WITH REPLACEABLE IMAGE -->
+    <!-- AD SIDEBAR - MODIFIED: Google AdSense ad unit replaces the static image -->
     <div class="ad-sidebar">
         <div class="ad-banner">
             <div class="ad-header">
@@ -673,8 +667,16 @@
                 <p>Your advertisement here</p>
             </div>
             <div class="ad-image">
-                <!-- Replace this <img> with your own image or marketing content -->
-                <img id="ad-banner-image" src="https://via.placeholder.com/300x400?text=Your+Ad+Image" alt="Advertisement">
+                <!-- Google AdSense ad unit (replace YOUR_AD_SLOT_ID with your actual ad slot) -->
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-2140422184257609"
+                     data-ad-slot="1234567890"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+                <script>
+                     (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
             </div>
             <p class="ad-description">Reach thousands of astrology enthusiasts daily.</p>
             <a href="#" class="ad-button">Partner With Us</a>
@@ -699,7 +701,7 @@
         { id: 'education', icon: '📚', title: 'Vidyarambham', subtitle: 'Start of education' },
         { id: 'travel', icon: '✈️', title: 'Travel', subtitle: 'Yatra shubha muhurtham' },
         { id: 'property', icon: '🏡', title: 'Property', subtitle: 'Property registration' },
-        { id: 'vastu', icon: '🔨', title: 'Construction or Vastu', subtitle: 'Construction start' },
+        { id: 'vastu', icon: '🔨', title: 'Vastu', subtitle: 'Construction start' },
         { id: 'medical', icon: '🏥', title: 'Medical', subtitle: 'Surgery or treatment start' },
         { id: 'investment', icon: '💰', title: 'Investment', subtitle: 'Financial investments' },
         { id: 'legal', icon: '⚖️', title: 'Legal Matters', subtitle: 'Court cases & agreements' },
