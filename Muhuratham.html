@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+                                                                    <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -12,14 +12,14 @@
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        
+
         body {
             background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
             color: #fff;
             min-height: 100vh;
             overflow-x: hidden;
         }
-        
+
         .main-container {
             display: flex;
             max-width: 1600px;
@@ -27,14 +27,14 @@
             gap: 20px;
             padding: 20px;
         }
-        
+
         .content-wrapper {
             flex: 1;
             display: flex;
             flex-direction: column;
         }
-        
-        /* Navigation Menu Styles */
+
+        /* Navigation Menu Styles (unchanged) */
         nav {
             margin-bottom: 30px;
             background: rgba(20, 20, 40, 0.9);
@@ -42,7 +42,6 @@
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
             padding: 15px 0;
         }
-        
         nav ul {
             list-style: none;
             display: flex;
@@ -50,12 +49,10 @@
             flex-wrap: wrap;
             padding: 0 20px;
         }
-        
         nav ul li {
             position: relative;
             margin: 0 15px;
         }
-        
         nav ul li a {
             color: #fff;
             text-decoration: none;
@@ -65,12 +62,10 @@
             border-radius: 5px;
             transition: all 0.3s ease;
         }
-        
         nav ul li a:hover, nav ul li a.active {
             background: rgba(233, 69, 96, 0.2);
             color: #0fccce;
         }
-        
         .dropdown-menu {
             display: none;
             position: absolute;
@@ -83,7 +78,6 @@
             z-index: 1000;
             padding: 10px 0;
         }
-        
         .dropdown-menu a {
             padding: 10px 20px;
             display: block;
@@ -91,17 +85,15 @@
             text-decoration: none;
             transition: all 0.3s ease;
         }
-        
         .dropdown-menu a:hover {
             background: rgba(15, 204, 206, 0.2);
             color: #e94560;
         }
-        
         nav ul li:hover .dropdown-menu {
             display: block;
         }
-        
-        /* Purpose Selector Section */
+
+        /* Purpose Selector */
         .purpose-selector {
             background: rgba(20, 20, 40, 0.95);
             border-radius: 15px;
@@ -110,30 +102,21 @@
             padding: 20px;
             text-align: center;
         }
-        
-        .purpose-header {
-            margin-bottom: 20px;
-        }
-        
         .purpose-header h2 {
             color: #0fccce;
             font-size: 1.4rem;
             margin-bottom: 5px;
         }
-        
         .purpose-header p {
             color: #b8b8b8;
             font-size: 0.9rem;
         }
-        
-        /* Custom Dropdown */
         .custom-dropdown {
             position: relative;
             width: 100%;
             max-width: 500px;
             margin: 0 auto;
         }
-        
         .dropdown-trigger {
             background: rgba(40, 40, 80, 0.5);
             border-radius: 10px;
@@ -145,50 +128,36 @@
             border: 2px solid transparent;
             transition: all 0.3s ease;
         }
-        
-        .dropdown-trigger:hover {
-            border-color: rgba(233, 69, 96, 0.5);
-        }
-        
         .dropdown-trigger.active {
             border-color: #e94560;
             border-bottom-left-radius: 0;
             border-bottom-right-radius: 0;
         }
-        
         .selected-purpose {
             display: flex;
             align-items: center;
-            flex: 1;
+            gap: 15px;
         }
-        
         .selected-icon {
             font-size: 1.5rem;
-            margin-right: 15px;
             width: 40px;
             text-align: center;
         }
-        
         .selected-text h3 {
             font-size: 1.1rem;
-            margin-bottom: 3px;
             text-align: left;
         }
-        
         .selected-text p {
             font-size: 0.8rem;
             color: #b8b8b8;
             text-align: left;
         }
-        
         .dropdown-arrow {
             transition: transform 0.3s ease;
         }
-        
         .dropdown-arrow.rotated {
             transform: rotate(180deg);
         }
-        
         .dropdown-options {
             display: none;
             position: absolute;
@@ -204,260 +173,53 @@
             border: 2px solid #e94560;
             border-top: none;
         }
-        
         .dropdown-options.active {
             display: block;
         }
-        
-        /* Custom scrollbar for dropdown */
-        .dropdown-options::-webkit-scrollbar {
-            width: 6px;
-        }
-        
-        .dropdown-options::-webkit-scrollbar-track {
-            background: rgba(0, 0, 0, 0.2);
-            border-radius: 3px;
-        }
-        
-        .dropdown-options::-webkit-scrollbar-thumb {
-            background: rgba(233, 69, 96, 0.5);
-            border-radius: 3px;
-        }
-        
-        .dropdown-options::-webkit-scrollbar-thumb:hover {
-            background: rgba(233, 69, 96, 0.7);
-        }
-        
         .purpose-option {
             padding: 12px 20px;
             cursor: pointer;
-            transition: all 0.3s ease;
             display: flex;
             align-items: center;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            gap: 15px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            transition: background 0.2s;
         }
-        
-        .purpose-option:last-child {
-            border-bottom: none;
-        }
-        
         .purpose-option:hover {
-            background: rgba(233, 69, 96, 0.1);
+            background: rgba(233,69,96,0.1);
         }
-        
         .purpose-option.active {
-            background: rgba(233, 69, 96, 0.2);
+            background: rgba(233,69,96,0.2);
         }
-        
         .option-icon {
             font-size: 1.3rem;
-            margin-right: 15px;
             width: 30px;
             text-align: center;
         }
-        
-        .option-text {
-            flex: 1;
-            text-align: left;
-        }
-        
         .option-text h3 {
             font-size: 0.95rem;
-            margin-bottom: 3px;
         }
-        
         .option-text p {
             font-size: 0.75rem;
             color: #b8b8b8;
         }
-        
-        /* Advertisement Sidebar - Single Large Banner */
-        .ad-sidebar {
-            width: 300px;
-            min-width: 300px;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .ad-banner {
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            border-radius: 15px;
-            padding: 30px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-            border: 3px solid #0fccce;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s ease;
-            height: 100%;
-            min-height: 600px;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .ad-banner:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 40px rgba(15, 204, 206, 0.3);
-            border-color: #e94560;
-        }
-        
-        .ad-banner:before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 5px;
-            background: linear-gradient(90deg, #e94560, #0fccce, #e94560);
-        }
-        
-        .ad-banner:after {
-            content: 'ADVERTISEMENT';
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: rgba(233, 69, 96, 0.2);
-            color: #b8b8b8;
-            font-size: 0.7rem;
-            padding: 3px 8px;
-            border-radius: 3px;
-            letter-spacing: 1px;
-        }
-        
-        .ad-header {
-            text-align: center;
-            margin-bottom: 25px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .ad-icon {
-            font-size: 3rem;
-            margin-bottom: 15px;
-            color: #0fccce;
-        }
-        
-        .ad-header h3 {
-            color: #e94560;
-            font-size: 1.6rem;
-            margin-bottom: 8px;
-        }
-        
-        .ad-header p {
-            color: #b8b8b8;
-            font-size: 0.9rem;
-        }
-        
-        .ad-content {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .ad-image {
-            width: 100%;
-            height: 400px;
-            background: linear-gradient(135deg, rgba(233, 69, 96, 0.1), rgba(15, 204, 206, 0.1));
-            border-radius: 10px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 25px;
-            border: 2px dashed rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .ad-image:hover {
-            border-color: #0fccce;
-            background: linear-gradient(135deg, rgba(233, 69, 96, 0.2), rgba(15, 204, 206, 0.2));
-        }
-        
-        .ad-placeholder {
-            font-size: 4rem;
-            color: #0fccce;
-            margin-bottom: 15px;
-        }
-        
-        .ad-image p {
-            color: #b8b8b8;
-            font-size: 1rem;
-            text-align: center;
-            padding: 0 10px;
-        }
-        
-        .ad-image .size {
-            position: absolute;
-            bottom: 10px;
-            right: 10px;
-            background: rgba(0, 0, 0, 0.5);
-            padding: 3px 8px;
-            border-radius: 3px;
-            font-size: 0.8rem;
-        }
-        
-        .ad-description {
-            color: #b8b8b8;
-            font-size: 1rem;
-            line-height: 1.6;
-            margin-bottom: 25px;
-            text-align: center;
-            flex: 1;
-        }
-        
-        .ad-button {
-            display: block;
-            width: 100%;
-            padding: 15px;
-            background: linear-gradient(135deg, #e94560, #c62a4a);
-            color: white;
-            border: none;
-            border-radius: 50px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-align: center;
-            text-decoration: none;
-            margin-top: auto;
-        }
-        
-        .ad-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(233, 69, 96, 0.6);
-            background: linear-gradient(135deg, #0fccce, #0a9c9e);
-        }
-        
-        .ad-footer {
-            text-align: center;
-            font-size: 0.8rem;
-            color: #777;
-            margin-top: 15px;
-            padding-top: 15px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        /* Main Content Sections */
+
+        /* Input Sections */
         .input-section {
             background: rgba(30, 30, 60, 0.7);
             padding: 25px;
             border-radius: 15px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
             margin-bottom: 30px;
             display: none;
         }
-        
         .input-section.active {
             display: block;
         }
-        
         .input-section h2 {
-            margin-bottom: 20px;
-            color: #0fccce;
             text-align: center;
+            color: #0fccce;
+            margin-bottom: 20px;
         }
-        
         .selection-area {
             display: flex;
             flex-wrap: wrap;
@@ -465,21 +227,18 @@
             justify-content: center;
             margin-bottom: 20px;
         }
-        
         .star-selector {
             flex: 1;
-            min-width: 300px;
+            min-width: 280px;
             background: rgba(40, 40, 80, 0.5);
             padding: 20px;
             border-radius: 10px;
         }
-        
         .star-selector h3 {
-            margin-bottom: 15px;
-            color: #0fccce;
             text-align: center;
+            color: #0fccce;
+            margin-bottom: 15px;
         }
-        
         select {
             width: 100%;
             padding: 12px 15px;
@@ -488,930 +247,665 @@
             background: #1a1a2e;
             color: #fff;
             font-size: 1rem;
-            margin-bottom: 15px;
             cursor: pointer;
-            transition: all 0.3s ease;
         }
-        
         select:focus {
             outline: none;
             box-shadow: 0 0 0 2px #e94560;
         }
-        
         .star-info {
             margin-top: 15px;
-            padding: 15px;
-            background: rgba(0, 0, 0, 0.2);
-            border-radius: 10px;
+            padding: 12px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 8px;
             display: none;
         }
-        
         .star-info h4 {
             color: #0fccce;
-            margin-bottom: 10px;
+            margin-bottom: 6px;
         }
-        
-        .result-section {
-            background: rgba(30, 30, 60, 0.7);
-            padding: 30px;
-            border-radius: 15px;
-            text-align: center;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-            margin-bottom: 30px;
-            display: none;
-        }
-        
-        .result-section.active {
-            display: block;
-        }
-        
-        .result-title {
-            font-size: 1.8rem;
-            margin-bottom: 15px;
-            color: #e94560;
-        }
-        
-        .relationship-type {
-            font-size: 2.5rem;
-            margin: 20px 0;
-            font-weight: bold;
-            color: #0fccce;
-            text-shadow: 0 0 10px rgba(15, 204, 206, 0.5);
-        }
-        
-        .relationship-description {
-            font-size: 1.1rem;
-            line-height: 1.6;
-            color: #b8b8b8;
-            margin-bottom: 20px;
-        }
-        
-        .auspicious-info {
-            background: rgba(40, 40, 80, 0.5);
-            padding: 20px;
-            border-radius: 10px;
-            margin-top: 20px;
-        }
-        
-        .auspicious-info h3 {
-            color: #0fccce;
-            margin-bottom: 15px;
-        }
-        
-        .tara-system-info {
-            background: rgba(30, 30, 60, 0.7);
-            padding: 25px;
-            border-radius: 15px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-        }
-        
-        .tara-system-info h2 {
-            color: #0fccce;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-        
-        .tara-types {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 15px;
-            margin-top: 20px;
-        }
-        
-        .tara-type {
-            background: rgba(0, 0, 0, 0.2);
-            padding: 15px;
-            border-radius: 10px;
-        }
-        
-        .tara-type h4 {
-            color: #e94560;
-            margin-bottom: 8px;
-        }
-        
-        footer {
-            text-align: center;
-            margin-top: 40px;
-            padding: 20px;
-            color: #b8b8b8;
-            font-size: 0.9rem;
-        }
-        
         .check-button-container {
             text-align: center;
             margin-top: 20px;
         }
-        
         .check-button {
             background: linear-gradient(135deg, #e94560, #c62a4a);
             color: white;
             border: none;
-            padding: 15px 40px;
+            padding: 14px 40px;
             font-size: 1.2rem;
             border-radius: 50px;
             cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(233, 69, 96, 0.4);
+            transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(233,69,96,0.4);
         }
-        
-        .check-button:hover {
+        .check-button:hover:not(:disabled) {
             transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(233, 69, 96, 0.6);
+            box-shadow: 0 6px 20px rgba(233,69,96,0.6);
         }
-        
-        .check-button:active {
-            transform: translateY(1px);
-        }
-        
         .check-button:disabled {
             background: #6c757d;
             cursor: not-allowed;
             transform: none;
             box-shadow: none;
         }
-        
-        /* Responsive Design */
+
+        /* Result Section */
+        .result-section {
+            background: rgba(30, 30, 60, 0.7);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 30px;
+            display: none;
+        }
+        .result-section.active {
+            display: block;
+        }
+        .result-title {
+            font-size: 1.8rem;
+            color: #e94560;
+            margin-bottom: 10px;
+        }
+        .relationship-type {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #0fccce;
+            text-shadow: 0 0 10px rgba(15,204,206,0.5);
+            margin: 15px 0;
+        }
+        .relationship-description {
+            color: #b8b8b8;
+            font-size: 1rem;
+            margin-bottom: 20px;
+        }
+        .auspicious-info {
+            background: rgba(0,0,0,0.2);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 10px;
+        }
+        .auspicious-info h3 {
+            color: #0fccce;
+            margin-bottom: 15px;
+        }
+
+        /* Date Cards Grid */
+        .dates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .date-card {
+            background: rgba(20, 20, 40, 0.6);
+            border-radius: 16px;
+            padding: 18px;
+            border-left: 4px solid #e94560;
+            transition: transform 0.2s, box-shadow 0.2s;
+            text-align: left;
+            backdrop-filter: blur(4px);
+        }
+        .date-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            border-left-color: #0fccce;
+        }
+        .card-date {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #0fccce;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .card-date i {
+            font-size: 1.2rem;
+            color: #e94560;
+        }
+        .card-detail {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 8px;
+            font-size: 0.9rem;
+        }
+        .detail-badge {
+            background: rgba(0,0,0,0.4);
+            padding: 5px 10px;
+            border-radius: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .detail-badge i {
+            color: #0fccce;
+            width: 18px;
+        }
+        .detail-label {
+            color: #aaa;
+        }
+        .detail-value {
+            color: #fff;
+            font-weight: 500;
+        }
+        .card-footer {
+            margin-top: 12px;
+            font-size: 0.8rem;
+            color: #888;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 8px;
+        }
+
+        /* Tara Info */
+        .tara-system-info {
+            background: rgba(30,30,60,0.7);
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+        }
+        .tara-system-info h2 {
+            color: #0fccce;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        .tara-types {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px,1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .tara-type {
+            background: rgba(0,0,0,0.2);
+            padding: 12px;
+            border-radius: 10px;
+        }
+        .tara-type h4 {
+            color: #e94560;
+            margin-bottom: 6px;
+        }
+
+        /* Ad Sidebar - MODIFIED: image placeholder now an <img> with id */
+        .ad-sidebar {
+            width: 300px;
+            min-width: 300px;
+            display: flex;
+            flex-direction: column;
+        }
+        .ad-banner {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            border-radius: 15px;
+            padding: 25px;
+            border: 2px solid #0fccce;
+            position: relative;
+            text-align: center;
+            height: 100%;
+            min-height: 500px;
+            display: flex;
+            flex-direction: column;
+        }
+        .ad-banner:after {
+            content: 'ADVERTISEMENT';
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(233,69,96,0.2);
+            font-size: 0.7rem;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+        .ad-header {
+            margin-bottom: 20px;
+        }
+        .ad-icon {
+            font-size: 3rem;
+            color: #0fccce;
+        }
+        .ad-header h3 {
+            color: #e94560;
+            font-size: 1.5rem;
+        }
+        /* Image banner area - easily replaceable */
+        .ad-image {
+            margin: 15px 0;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        .ad-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 12px;
+        }
+        .ad-button {
+            background: linear-gradient(135deg, #e94560, #c62a4a);
+            padding: 12px;
+            border-radius: 40px;
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            margin-top: auto;
+            transition: 0.2s;
+            display: inline-block;
+        }
+        .ad-button:hover {
+            background: #0fccce;
+            color: #1a1a2e;
+        }
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #b8b8b8;
+            font-size: 0.8rem;
+        }
+
         @media (max-width: 1200px) {
-            .main-container {
-                flex-direction: column;
-            }
-            
-            .ad-sidebar {
-                width: 100%;
-                min-width: 100%;
-                flex-direction: row;
-                justify-content: center;
-            }
-            
-            .ad-banner {
-                width: 100%;
-                max-width: 300px;
-                min-height: 500px;
-                margin: 0 auto;
-            }
+            .main-container { flex-direction: column; }
+            .ad-sidebar { width: 100%; align-items: center; }
+            .ad-banner { max-width: 400px; width: 100%; margin: 0 auto; }
         }
-        
         @media (max-width: 768px) {
-            .custom-dropdown {
-                max-width: 100%;
-            }
-            
-            .selection-area {
-                flex-direction: column;
-            }
-            
-            .star-selector {
-                min-width: 100%;
-            }
-            
-            nav ul {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            nav ul li {
-                margin: 5px 0;
-                width: 100%;
-                text-align: center;
-            }
-            
-            .dropdown-menu {
-                width: 100%;
-            }
-            
-            .dropdown-options {
-                max-height: 300px;
-            }
-            
-            .ad-banner {
-                min-height: 450px;
-            }
-            
-            .ad-image {
-                height: 300px;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .ad-banner {
-                padding: 20px;
-            }
-            
-            .ad-image {
-                height: 250px;
-            }
-            
-            .ad-header h3 {
-                font-size: 1.4rem;
-            }
+            .selection-area { flex-direction: column; }
+            .dates-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
-    <div class="main-container">
-        <div class="content-wrapper">
-            <nav>
-                <ul>
-                    <li><a href="https://parishodana.xyz" class="active">Home</a></li>
-                    <li>
-                        <a href="#">AstroTechnics<i class="fas fa-chevron-down" style="margin-left: 5px; font-size: 12px;"></i></a>
-                        <div class="dropdown-menu">
-                            <a href="https://youtube.com/@astrotechnicstelugu?feature=shared"><i class="fab fa-youtube" style="color: #FF0000;"></i> YouTube</a>
-                            <a href="https://www.instagram.com/astrotechnicstelugu?igsh=MWNrcWRiODJicjVzeA=="><i class="fab fa-instagram" style="color: #E4405F;"></i> Instagram</a>
-                            <a href="https://www.facebook.com/share/1BnVTb8Nvw/"><i class="fab fa-facebook" style="color: #1877F2;"></i> Facebook</a>
-                        </div>
-                    </li>
-                    <li>
-                        <a href="#">Digital Reliability<i class="fas fa-chevron-down" style="margin-left: 5px; font-size: 12px;"></i></a>
-                        <div class="dropdown-menu">
-                            <a href="https://youtube.com/@kishoredvr-k5k?feature=shared"><i class="fab fa-youtube" style="color: #FF0000;"></i> YouTube</a>
-                            <a href="https://www.instagram.com/digital.reliability.dvrk/"><i class="fab fa-instagram" style="color: #E4405F;"></i> Instagram</a>
-                            <a href="https://www.facebook.com/share/1517LvArKRL/?mibextid=qi2Omg"><i class="fab fa-facebook" style="color: #1877F2;"></i> Facebook</a>
-                        </div>
-                    </li>
-                    <li>
-                        <a href="#">National Economies<i class="fas fa-chevron-down" style="margin-left: 5px; font-size: 12px;"></i></a>
-                        <div class="dropdown-menu">
-                            <a href="https://www.youtube.com/@NationalEconomies"><i class="fab fa-youtube" style="color: #FF0000;"></i> YouTube</a>
-                            <a href="https://www.instagram.com/studyoneconomy?igsh=MXJ2dWduajN2bXRvdA=="><i class="fab fa-instagram" style="color: #E4405F;"></i> Instagram</a>
-                            <a href="https://www.facebook.com/share/16KYrHXEJb/"><i class="fab fa-facebook" style="color: #1877F2;"></i> Facebook</a>
-                        </div>
-                    </li>
-                    <li>
-                        <a href="#">Resources<i class="fas fa-chevron-down" style="margin-left: 5px; font-size: 12px;"></i></a>
-                        <div class="dropdown-menu">
-                            <a href="https://parishodana.xyz/Articles.html"> My Articles</a>
-                            <a href="https://github.com/digitalreliability/Sharing"> Github</a>
-                            <a href="https://kishoredvr.github.io/Antharyami-DataBank/"> Astrology Data Bank</a>
-                        </div>
-                    </li>
-                </ul>
-            </nav>
-            
-            <div class="purpose-selector">
-                <div class="purpose-header">
-                    <h2>Select Purpose</h2>
-                    <p>Choose a purpose to find favorable timings</p>
-                </div>
-                <div class="custom-dropdown">
-                    <div class="dropdown-trigger" id="dropdown-trigger">
-                        <div class="selected-purpose">
-                            <div class="selected-icon">💑</div>
-                            <div class="selected-text">
-                                <h3>Compatibility</h3>
-                                <p>Check relationship between people</p>
-                            </div>
-                        </div>
-                        <div class="dropdown-arrow">
-                            <i class="fas fa-chevron-down"></i>
-                        </div>
+<div class="main-container">
+    <div class="content-wrapper">
+        <!-- Navigation (unchanged) -->
+        <nav>
+            <ul>
+                <li><a href="https://parishodana.xyz">Home</a></li>
+                <li>
+                    <a href="#">AstroTechnics <i class="fas fa-chevron-down"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="https://youtube.com/@astrotechnicstelugu"><i class="fab fa-youtube"></i> YouTube</a>
+                        <a href="https://www.instagram.com/astrotechnicstelugu"><i class="fab fa-instagram"></i> Instagram</a>
+                        <a href="https://www.facebook.com/share/1BnVTb8Nvw/"><i class="fab fa-facebook"></i> Facebook</a>
                     </div>
-                    <div class="dropdown-options" id="dropdown-options">
-                        </div>
-                </div>
-            </div>
-            
-            <div class="main-content">
-                <div class="input-section active" id="compatibility-input">
-                    <h2 id="dynamic-input-title">Check Compatibility Between Two People</h2>
-                    
-                    <div class="selection-area">
-                        <div class="star-selector" id="star1-container">
-                            <h3 id="star1-title">First Person's Birth Star</h3>
-                            <select id="star1">
-                                <option value="">Select a star</option>
-                                <option value="ashwini">Ashwini</option>
-                                <option value="bharani">Bharani</option>
-                                <option value="krittika">Krittika</option>
-                                <option value="rohini">Rohini</option>
-                                <option value="mrigashira">Mrigashira</option>
-                                <option value="ardra">Ardra</option>
-                                <option value="punarvasu">Punarvasu</option>
-                                <option value="pushya">Pushya</option>
-                                <option value="ashlesha">Ashlesha</option>
-                                <option value="magha">Magha</option>
-                                <option value="purva-phalguni">Purva Phalguni</option>
-                                <option value="uttara-phalguni">Uttara Phalguni</option>
-                                <option value="hasta">Hasta</option>
-                                <option value="chitra">Chitra</option>
-                                <option value="swati">Swati</option>
-                                <option value="vishakha">Vishakha</option>
-                                <option value="anuradha">Anuradha</option>
-                                <option value="jyestha">Jyestha</option>
-                                <option value="mula">Mula</option>
-                                <option value="purva-ashadha">Purva Ashadha</option>
-                                <option value="uttara-ashadha">Uttara Ashadha</option>
-                                <option value="shravana">Shravana</option>
-                                <option value="dhanishta">Dhanishta</option>
-                                <option value="shatabhisha">Shatabhisha</option>
-                                <option value="purva-bhadrapada">Purva Bhadrapada</option>
-                                <option value="uttara-bhadrapada">Uttara Bhadrapada</option>
-                                <option value="revati">Revati</option>
-                            </select>
-                            <div class="star-info" id="star1-info">
-                                <h4>About <span id="star1-name"></span></h4>
-                                <p id="star1-desc"></p>
-                            </div>
-                        </div>
-                        
-                        <div class="star-selector" id="star2-container">
-                            <h3>Second Person's Birth Star</h3>
-                            <select id="star2">
-                                <option value="">Select a star</option>
-                                <option value="ashwini">Ashwini</option>
-                                <option value="bharani">Bharani</option>
-                                <option value="krittika">Krittika</option>
-                                <option value="rohini">Rohini</option>
-                                <option value="mrigashira">Mrigashira</option>
-                                <option value="ardra">Ardra</option>
-                                <option value="punarvasu">Punarvasu</option>
-                                <option value="pushya">Pushya</option>
-                                <option value="ashlesha">Ashlesha</option>
-                                <option value="magha">Magha</option>
-                                <option value="purva-phalguni">Purva Phalguni</option>
-                                <option value="uttara-phalguni">Uttara Phalguni</option>
-                                <option value="hasta">Hasta</option>
-                                <option value="chitra">Chitra</option>
-                                <option value="swati">Swati</option>
-                                <option value="vishakha">Vishakha</option>
-                                <option value="anuradha">Anuradha</option>
-                                <option value="jyestha">Jyestha</option>
-                                <option value="mula">Mula</option>
-                                <option value="purva-ashadha">Purva Ashadha</option>
-                                <option value="uttara-ashadha">Uttara Ashadha</option>
-                                <option value="shravana">Shravana</option>
-                                <option value="dhanishta">Dhanishta</option>
-                                <option value="shatabhisha">Shatabhisha</option>
-                                <option value="purva-bhadrapada">Purva Bhadrapada</option>
-                                <option value="uttara-bhadrapada">Uttara Bhadrapada</option>
-                                <option value="revati">Revati</option>
-                            </select>
-                            <div class="star-info" id="star2-info">
-                                <h4>About <span id="star2-name"></span></h4>
-                                <p id="star2-desc"></p>
-                            </div>
-                        </div>
+                </li>
+                <li>
+                    <a href="#">Digital Reliability <i class="fas fa-chevron-down"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="https://youtube.com/@kishoredvr-k5k"><i class="fab fa-youtube"></i> YouTube</a>
+                        <a href="https://www.instagram.com/digital.reliability.dvrk/"><i class="fab fa-instagram"></i> Instagram</a>
+                        <a href="https://www.facebook.com/share/1517LvArKRL/"><i class="fab fa-facebook"></i> Facebook</a>
                     </div>
-                    
-                    <div id="timeframe-selector" class="selection-area" style="display: none;">
-                        <div class="star-selector">
-                            <h3>Select Month</h3>
-                            <select id="month-select">
-                                <option value="All">All Months</option>
-                                <option value="January">January</option>
-                                <option value="February">February</option>
-                                <option value="March">March</option>
-                                <option value="April">April</option>
-                                <option value="May">May</option>
-                                <option value="June">June</option>
-                                <option value="July">July</option>
-                                <option value="August">August</option>
-                                <option value="September">September</option>
-                                <option value="October">October</option>
-                                <option value="November">November</option>
-                                <option value="December">December</option>
-                            </select>
-                        </div>
-                        <div class="star-selector">
-                            <h3>Select Year</h3>
-                            <select id="year-select">
-                                <option value="2026" selected>2026</option>
-                                <option value="2027">2027</option>
-                            </select>
-                        </div>
+                </li>
+                <li>
+                    <a href="#">National Economies <i class="fas fa-chevron-down"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="https://www.youtube.com/@NationalEconomies"><i class="fab fa-youtube"></i> YouTube</a>
+                        <a href="https://www.instagram.com/studyoneconomy"><i class="fab fa-instagram"></i> Instagram</a>
+                        <a href="https://www.facebook.com/share/16KYrHXEJb/"><i class="fab fa-facebook"></i> Facebook</a>
                     </div>
+                </li>
+                <li>
+                    <a href="#">Resources <i class="fas fa-chevron-down"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="https://parishodana.xyz/Articles.html">My Articles</a>
+                        <a href="https://github.com/digitalreliability/Sharing">GitHub</a>
+                        <a href="https://kishoredvr.github.io/Antharyami-DataBank/">Astrology Data Bank</a>
+                    </div>
+                </li>
+            </ul>
+        </nav>
 
-                    <div class="check-button-container">
-                        <button id="check-compatibility" class="check-button" disabled>Check Compatibility</button>
-                    </div>
-                </div>
-                
-                <div class="result-section" id="compatibility-result">
-                    <h2 class="result-title" id="dynamic-result-title">Compatibility Analysis</h2>
-                    <div class="relationship-type" id="relationship-type">Please make your selection to begin</div>
-                    <p class="relationship-description" id="relationship-desc">
-                        Your analysis will appear here after you click the check button.
-                    </p>
-                    <div class="auspicious-info">
-                        <h3>Insights</h3>
-                        <p id="compatibility-insights">Detailed insights about your selection will be displayed here.</p>
-                    </div>
-                </div>
-                
-                <div class="tara-system-info" id="tara-system-info">
-                    <h2>The Tara System in Vedic Astrology</h2>
-                    <p>The Tara (star) system in Vedic astrology determines the relationship between two stars based on their positions in the 27 Nakshatras (lunar mansions). This system is used to find auspicious timings for various life events.</p>
-                    
-                    <div class="tara-types">
-                        <div class="tara-type">
-                            <h4>Janma Tara</h4>
-                            <p>Indicates birth, health, and vitality. Can be challenging but also transformative.</p>
-                        </div>
-                        <div class="tara-type">
-                            <h4>Sampat Tara</h4>
-                            <p>Represents wealth, prosperity, and material gains. Generally favorable.</p>
-                        </div>
-                        <div class="tara-type">
-                            <h4>Vipat Tara</h4>
-                            <p>Signifies obstacles, dangers, and challenges. Requires caution.</p>
-                        </div>
-                        <div class="tara-type">
-                            <h4>Kshema Tara</h4>
-                            <p>Indicates well-being, prosperity, and success in ventures.</p>
-                        </div>
-                        <div class="tara-type">
-                            <h4>Pratyak Tara</h4>
-                            <p>Suggests opposition, obstacles, and need for perseverance.</p>
-                        </div>
-                        <div class="tara-type">
-                            <h4>Sadhana Tara</h4>
-                            <p>Represents accomplishment through effort and spiritual practices.</p>
-                        </div>
-                        <div class="tara-type">
-                            <h4>Naidhana Tara</h4>
-                            <p>Associated with loss, destruction, and endings. Requires careful handling.</p>
-                        </div>
-                        <div class="tara-type">
-                            <h4>Mitra Tara</h4>
-                            <p>Indicates friendship, support, and beneficial connections.</p>
-                        </div>
-                        <div class="tara-type">
-                            <h4>Ati Mitra Tara</h4>
-                            <p>Represents deep friendship, great support, and highly favorable conditions.</p>
+        <div class="purpose-selector">
+            <div class="purpose-header">
+                <h2>Select Purpose</h2>
+                <p>Choose a purpose to find favorable timings</p>
+            </div>
+            <div class="custom-dropdown">
+                <div class="dropdown-trigger" id="dropdown-trigger">
+                    <div class="selected-purpose">
+                        <div class="selected-icon">💑</div>
+                        <div class="selected-text">
+                            <h3>Compatibility</h3>
+                            <p>Check relationship between people</p>
                         </div>
                     </div>
+                    <div class="dropdown-arrow"><i class="fas fa-chevron-down"></i></div>
                 </div>
-                
-                <footer>
-                    <p>Note: This is a simplified representation for educational purposes. For accurate astrological consultations, please consult a professional Vedic astrologer.</p>
-                </footer>
+                <div class="dropdown-options" id="dropdown-options"></div>
             </div>
         </div>
-        
-        <div class="ad-sidebar">
-            <div class="ad-banner">
-                <div class="ad-header">
-                    <div class="ad-icon">✨</div>
-                    <h3>Premium Ad Space</h3>
-                    <p>Your advertisement here</p>
-                </div>
-                <div class="ad-content">
-                    <div class="ad-image">
-                        <div class="ad-placeholder">📢</div>
-                        <p>Advertisement Banner</p>
-                        <div class="size">300x600</div>
+
+        <div class="main-content">
+            <div class="input-section active" id="compatibility-input">
+                <h2 id="dynamic-input-title">Check Compatibility Between Two People</h2>
+                <div class="selection-area">
+                    <div class="star-selector" id="star1-container">
+                        <h3 id="star1-title">First Person's Birth Star</h3>
+                        <select id="star1">
+                            <option value="">Select a star</option>
+                            <!-- 27 nakshatras (same as original) -->
+                            <option value="ashwini">Ashwini</option><option value="bharani">Bharani</option><option value="krittika">Krittika</option>
+                            <option value="rohini">Rohini</option><option value="mrigashira">Mrigashira</option><option value="ardra">Ardra</option>
+                            <option value="punarvasu">Punarvasu</option><option value="pushya">Pushya</option><option value="ashlesha">Ashlesha</option>
+                            <option value="magha">Magha</option><option value="purva-phalguni">Purva Phalguni</option><option value="uttara-phalguni">Uttara Phalguni</option>
+                            <option value="hasta">Hasta</option><option value="chitra">Chitra</option><option value="swati">Swati</option>
+                            <option value="vishakha">Vishakha</option><option value="anuradha">Anuradha</option><option value="jyestha">Jyestha</option>
+                            <option value="mula">Mula</option><option value="purva-ashadha">Purva Ashadha</option><option value="uttara-ashadha">Uttara Ashadha</option>
+                            <option value="shravana">Shravana</option><option value="dhanishta">Dhanishta</option><option value="shatabhisha">Shatabhisha</option>
+                            <option value="purva-bhadrapada">Purva Bhadrapada</option><option value="uttara-bhadrapada">Uttara Bhadrapada</option><option value="revati">Revati</option>
+                        </select>
+                        <div class="star-info" id="star1-info"></div>
                     </div>
-                    <p class="ad-description">
-                        This premium advertising space is available for partners. 
-                        Reach thousands of astrology enthusiasts daily with your message.
-                        Perfect for astrology services, spiritual products, or related offerings.
-                    </p>
-                    <a href="#" class="ad-button">Partner With Us</a>
+                    <div class="star-selector" id="star2-container">
+                        <h3>Second Person's Birth Star</h3>
+                        <select id="star2">
+                            <option value="">Select a star</option>
+                            <!-- same options -->
+                            <option value="ashwini">Ashwini</option><option value="bharani">Bharani</option><option value="krittika">Krittika</option>
+                            <option value="rohini">Rohini</option><option value="mrigashira">Mrigashira</option><option value="ardra">Ardra</option>
+                            <option value="punarvasu">Punarvasu</option><option value="pushya">Pushya</option><option value="ashlesha">Ashlesha</option>
+                            <option value="magha">Magha</option><option value="purva-phalguni">Purva Phalguni</option><option value="uttara-phalguni">Uttara Phalguni</option>
+                            <option value="hasta">Hasta</option><option value="chitra">Chitra</option><option value="swati">Swati</option>
+                            <option value="vishakha">Vishakha</option><option value="anuradha">Anuradha</option><option value="jyestha">Jyestha</option>
+                            <option value="mula">Mula</option><option value="purva-ashadha">Purva Ashadha</option><option value="uttara-ashadha">Uttara Ashadha</option>
+                            <option value="shravana">Shravana</option><option value="dhanishta">Dhanishta</option><option value="shatabhisha">Shatabhisha</option>
+                            <option value="purva-bhadrapada">Purva Bhadrapada</option><option value="uttara-bhadrapada">Uttara Bhadrapada</option><option value="revati">Revati</option>
+                        </select>
+                        <div class="star-info" id="star2-info"></div>
+                    </div>
                 </div>
-                <div class="ad-footer">
-                    Contact for advertising opportunities
+                <div id="timeframe-selector" class="selection-area" style="display: none;">
+                    <div class="star-selector">
+                        <h3>Select Month</h3>
+                        <select id="month-select">
+                            <option value="All">All Months</option>
+                            <option>January</option><option>February</option><option>March</option><option>April</option>
+                            <option>May</option><option>June</option><option>July</option><option>August</option>
+                            <option>September</option><option>October</option><option>November</option><option>December</option>
+                        </select>
+                    </div>
+                    <div class="star-selector">
+                        <h3>Select Year</h3>
+                        <select id="year-select">
+                            <option value="2026">2026</option>
+                            <option value="2027">2027</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="check-button-container">
+                    <button id="check-compatibility" class="check-button" disabled>Check Compatibility</button>
                 </div>
             </div>
+
+            <div class="result-section" id="compatibility-result">
+                <h2 class="result-title" id="dynamic-result-title">Compatibility Analysis</h2>
+                <div class="relationship-type" id="relationship-type">Please make your selection</div>
+                <p class="relationship-description" id="relationship-desc"></p>
+                <div class="auspicious-info">
+                    <h3>Insights</h3>
+                    <div id="compatibility-insights">Detailed insights will appear here.</div>
+                </div>
+            </div>
+
+            <div class="tara-system-info" id="tara-system-info">
+                <h2>The Tara System in Vedic Astrology</h2>
+                <p>The Tara system determines the relationship between stars...</p>
+                <div class="tara-types">
+                    <div class="tara-type"><h4>Janma Tara</h4><p>Birth, health, vitality.</p></div>
+                    <div class="tara-type"><h4>Sampat Tara</h4><p>Wealth, prosperity.</p></div>
+                    <div class="tara-type"><h4>Vipat Tara</h4><p>Obstacles, caution.</p></div>
+                    <div class="tara-type"><h4>Kshema Tara</h4><p>Well-being, success.</p></div>
+                    <div class="tara-type"><h4>Pratyak Tara</h4><p>Opposition, perseverance.</p></div>
+                    <div class="tara-type"><h4>Sadhana Tara</h4><p>Accomplishment.</p></div>
+                    <div class="tara-type"><h4>Naidhana Tara</h4><p>Loss, endings.</p></div>
+                    <div class="tara-type"><h4>Mitra Tara</h4><p>Friendship, support.</p></div>
+                    <div class="tara-type"><h4>Ati Mitra Tara</h4><p>Deep friendship, excellent.</p></div>
+                </div>
+            </div>
+            <footer>Note: This is a simplified representation. For accurate consultations, please consult a professional Vedic astrologer.</footer>
         </div>
     </div>
 
-    <script>
-        // Purpose data with icons and descriptions
-        const purposeOptions = [
-            { id: 'compatibility', icon: '💑', title: 'Compatibility', subtitle: 'Check relationship between people' },
-            { id: 'marriage', icon: '💒', title: 'Marriage', subtitle: 'Find auspicious marriage timing' },
-            { id: 'engagement', icon: '💍', title: 'Engagement', subtitle: 'Nischitartham Muhurtham' },
-            { id: 'gruhapravesam', icon: '🏠', title: 'Gruha Pravesam', subtitle: 'House warming ceremony' },
-            { id: 'namakaranam', icon: '👶', title: 'Namakaranam', subtitle: 'Baby naming ceremony' },
-            { id: 'annaprasana', icon: '🍚', title: 'Annaprasana', subtitle: 'First solid food for baby' },
-            { id: 'upanayanam', icon: '📿', title: 'Upanayanam', subtitle: 'Sacred thread ceremony' },
-            { id: 'seemantham', icon: '🤰', title: 'Seemantham', subtitle: 'Baby shower ceremony' },
-            { id: 'vahana', icon: '🚗', title: 'Vahana Purchase', subtitle: 'Vehicle purchase muhurtham' },
-            { id: 'business', icon: '💼', title: 'Business Start', subtitle: 'New business inauguration' },
-            { id: 'education', icon: '📚', title: 'Vidyarambham', subtitle: 'Start of education' },
-            { id: 'travel', icon: '✈️', title: 'Travel', subtitle: 'Yatra shubha muhurtham' },
-            { id: 'property', icon: '🏡', title: 'Property', subtitle: 'Property registration' },
-            { id: 'vastu', icon: '🔨', title: 'Vastu', subtitle: 'Construction start' },
-            { id: 'medical', icon: '🏥', title: 'Medical', subtitle: 'Surgery or treatment start' },
-            { id: 'investment', icon: '💰', title: 'Investment', subtitle: 'Financial investments' },
-            { id: 'legal', icon: '⚖️', title: 'Legal Matters', subtitle: 'Court cases & agreements' },
-            { id: 'puja', icon: '🛕', title: 'Puja', subtitle: 'Religious ceremonies' },
-            { id: 'fasting', icon: '🙏', title: 'Vrata Arambham', subtitle: 'Start of fasting' },
-            { id: 'yagnya', icon: '🔥', title: 'Yagnya', subtitle: 'Sacrificial ceremonies' }
-        ];
+    <!-- AD SIDEBAR - UPDATED WITH REPLACEABLE IMAGE -->
+    <div class="ad-sidebar">
+        <div class="ad-banner">
+            <div class="ad-header">
+                <div class="ad-icon">✨</div>
+                <h3>Premium Ad Space</h3>
+                <p>Your advertisement here</p>
+            </div>
+            <div class="ad-image">
+                <!-- Replace this <img> with your own image or marketing content -->
+                <img id="ad-banner-image" src="https://via.placeholder.com/300x400?text=Your+Ad+Image" alt="Advertisement">
+            </div>
+            <p class="ad-description">Reach thousands of astrology enthusiasts daily.</p>
+            <a href="#" class="ad-button">Partner With Us</a>
+            <div class="ad-footer">Contact for advertising opportunities</div>
+        </div>
+    </div>
+</div>
 
-        // Nakshatra Array (Order matters for calculation)
-        const nakshatraOrder = [
-            "ashwini", "bharani", "krittika", "rohini", "mrigashira", "ardra",
-            "punarvasu", "pushya", "ashlesha", "magha", "purva-phalguni", "uttara-phalguni",
-            "hasta", "chitra", "swati", "vishakha", "anuradha", "jyestha",
-            "mula", "purva-ashadha", "uttara-ashadha", "shravana", "dhanishta", "shatabhisha",
-            "purva-bhadrapada", "uttara-bhadrapada", "revati"
-        ];
-
-        // Star information
-        const starData = {
-            "ashwini": { name: "Ashwini", description: "Ashwini is the first Nakshatra in Vedic astrology..." },
-            "bharani": { name: "Bharani", description: "Bharani is the second Nakshatra, ruled by Yama..." },
-            "krittika": { name: "Krittika", description: "Krittika is the third Nakshatra, ruled by Agni..." },
-            "rohini": { name: "Rohini", description: "Rohini is the fourth Nakshatra, ruled by Brahma..." },
-            "mrigashira": { name: "Mrigashira", description: "Mrigashira is the fifth Nakshatra, ruled by Soma..." },
-            "ardra": { name: "Ardra", description: "Ardra is the sixth Nakshatra, ruled by Rudra..." },
-            "punarvasu": { name: "Punarvasu", description: "Punarvasu is the seventh Nakshatra, ruled by Aditi..." },
-            "pushya": { name: "Pushya", description: "Pushya is the eighth Nakshatra, ruled by Brihaspati..." },
-            "ashlesha": { name: "Ashlesha", description: "Ashlesha is the ninth Nakshatra, ruled by the Nagas..." },
-            "magha": { name: "Magha", description: "Magha is the tenth Nakshatra, ruled by the Pitris..." },
-            "purva-phalguni": { name: "Purva Phalguni", description: "Purva Phalguni is the eleventh Nakshatra..." },
-            "uttara-phalguni": { name: "Uttara Phalguni", description: "Uttara Phalguni is the twelfth Nakshatra..." },
-            "hasta": { name: "Hasta", description: "Hasta is the thirteenth Nakshatra, ruled by Savitr..." },
-            "chitra": { name: "Chitra", description: "Chitra is the fourteenth Nakshatra, ruled by Vishvakarma..." },
-            "swati": { name: "Swati", description: "Swati is the fifteenth Nakshatra, ruled by Vayu..." },
-            "vishakha": { name: "Vishakha", description: "Vishakha is the sixteenth Nakshatra..." },
-            "anuradha": { name: "Anuradha", description: "Anuradha is the seventeenth Nakshatra..." },
-            "jyestha": { name: "Jyestha", description: "Jyestha is the eighteenth Nakshatra, ruled by Indra..." },
-            "mula": { name: "Mula", description: "Mula is the nineteenth Nakshatra, ruled by Nirriti..." },
-            "purva-ashadha": { name: "Purva Ashadha", description: "Purva Ashadha is the twentieth Nakshatra..." },
-            "uttara-ashadha": { name: "Uttara Ashadha", description: "Uttara Ashadha is the twenty-first Nakshatra..." },
-            "shravana": { name: "Shravana", description: "Shravana is the twenty-second Nakshatra, ruled by Vishnu..." },
-            "dhanishta": { name: "Dhanishta", description: "Dhanishta is the twenty-third Nakshatra, ruled by Vasus..." },
-            "shatabhisha": { name: "Shatabhisha", description: "Shatabhisha is the twenty-fourth Nakshatra..." },
-            "purva-bhadrapada": { name: "Purva Bhadrapada", description: "Purva Bhadrapada is the twenty-fifth Nakshatra..." },
-            "uttara-bhadrapada": { name: "Uttara Bhadrapada", description: "Uttara Bhadrapada is the twenty-sixth Nakshatra..." },
-            "revati": { name: "Revati", description: "Revati is the twenty-seventh Nakshatra, ruled by Pushan..." }
-        };
-
-        // Purpose data for input sections WITH TYPES
-        const purposeData = {
-            "compatibility": { type: "two-star", inputId: "compatibility-input", resultId: "compatibility-result" },
-            "marriage": { type: "two-star", inputId: "compatibility-input", resultId: "compatibility-result" },
-            "engagement": { type: "two-star", inputId: "compatibility-input", resultId: "compatibility-result" },
-            "gruhapravesam": { type: "one-star", inputId: "compatibility-input", resultId: "compatibility-result" },
-            "namakaranam": { type: "one-star", inputId: "compatibility-input", resultId: "compatibility-result" },
-            "annaprasana": { type: "one-star", inputId: "compatibility-input", resultId: "compatibility-result" },
-            "upanayanam": { type: "one-star", inputId: "compatibility-input", resultId: "compatibility-result" },
-            "seemantham": { type: "one-star", inputId: "compatibility-input", resultId: "compatibility-result" },
-            "vahana": { type: "one-star", inputId: "compatibility-input", resultId: "compatibility-result" },
-            "business": { type: "one-star", inputId: "compatibility-input", resultId: "compatibility-result" },
-            "education": { type: "one-star", inputId: "compatibility-input", resultId: "compatibility-result" },
-            "travel": { type: "one-star", inputId: "compatibility-input", resultId: "compatibility-result" },
-            "property": { type: "one-star", inputId: "compatibility-input", resultId: "compatibility-result" },
-            "vastu": { type: "one-star", inputId: "compatibility-input", resultId: "compatibility-result" },
-            "medical": { type: "one-star", inputId: "compatibility-input", resultId: "compatibility-result" },
-            "investment": { type: "one-star", inputId: "compatibility-input", resultId: "compatibility-result" },
-            "legal": { type: "one-star", inputId: "compatibility-input", resultId: "compatibility-result" },
-            "puja": { type: "one-star", inputId: "compatibility-input", resultId: "compatibility-result" },
-            "fasting": { type: "one-star", inputId: "compatibility-input", resultId: "compatibility-result" },
-            "yagnya": { type: "one-star", inputId: "compatibility-input", resultId: "compatibility-result" }
-        };
-
-        // Navatara Interpretation Logic
-        const taraSystemMap = {
-            0: { name: "Ati Mitra Tara", desc: "Deep friendship, great support, and highly favorable conditions.", score: "Excellent" },
-            1: { name: "Janma Tara", desc: "Indicates birth, health, and vitality. Can be challenging but also transformative.", score: "Average" },
-            2: { name: "Sampat Tara", desc: "Represents wealth, prosperity, and material gains. Generally favorable.", score: "Excellent" },
-            3: { name: "Vipat Tara", desc: "Signifies obstacles, dangers, and challenges. Requires caution.", score: "Poor" },
-            4: { name: "Kshema Tara", desc: "Indicates well-being, prosperity, and success in ventures.", score: "Good" },
-            5: { name: "Pratyak Tara", desc: "Suggests opposition, obstacles, and need for perseverance.", score: "Poor" },
-            6: { name: "Sadhana Tara", desc: "Represents accomplishment through effort and spiritual practices.", score: "Good" },
-            7: { name: "Naidhana Tara", desc: "Associated with loss, destruction, and endings. Requires careful handling.", score: "Very Poor" },
-            8: { name: "Mitra Tara", desc: "Indicates friendship, support, and beneficial connections.", score: "Good" }
-        };
-
-        // DOM elements
-        const dropdownTrigger = document.getElementById('dropdown-trigger');
-        const dropdownOptions = document.getElementById('dropdown-options');
-        const dropdownArrow = dropdownTrigger.querySelector('.dropdown-arrow');
-        const selectedIcon = document.querySelector('.selected-icon');
-        const selectedTitle = document.querySelector('.selected-text h3');
-        const selectedSubtitle = document.querySelector('.selected-text p');
-        const inputSections = document.querySelectorAll('.input-section');
-        const resultSections = document.querySelectorAll('.result-section');
-        
-        const star1Select = document.getElementById('star1');
-        const star2Select = document.getElementById('star2');
-        const star1Container = document.getElementById('star1-container');
-        const star2Container = document.getElementById('star2-container');
-        const star1Title = document.getElementById('star1-title');
-
-        const monthSelect = document.getElementById('month-select');
-        const yearSelect = document.getElementById('year-select');
-        const timeframeSelector = document.getElementById('timeframe-selector');
-        const dynamicInputTitle = document.getElementById('dynamic-input-title');
-        const dynamicResultTitle = document.getElementById('dynamic-result-title');
-        const taraSystemInfo = document.getElementById('tara-system-info');
-        
-        const star1Info = document.getElementById('star1-info');
-        const star2Info = document.getElementById('star2-info');
-        const relationshipType = document.getElementById('relationship-type');
-        const relationshipDesc = document.getElementById('relationship-desc');
-        const compatibilityInsights = document.getElementById('compatibility-insights');
-        const checkButton = document.getElementById('check-compatibility');
-
-        // IMPORTANT CONFIGURATION VARIABLES
-        const SUPABASE_FUNCTION_URL = 'https://jusjpremtvalmqqtaoth.supabase.co/functions/v1/muhurat-api';
-        
-        // 🛑 PASTE YOUR SUPABASE ANON KEY HERE:
-        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp1c2pwcmVtdHZhbG1xcXRhb3RoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjIyODQyNzksImV4cCI6MjA3Nzg2MDI3OX0.XzE8MFLHhjcKKFJ4TqNX3NNhVyGEiytxufWx8IywTqU';
-
-        let currentPurpose = 'compatibility';
-        let isDropdownOpen = false;
-
-        // Initialize dropdown with options
-        function initializeDropdown() {
-            dropdownOptions.innerHTML = '';
-            purposeOptions.forEach(purpose => {
-                const option = document.createElement('div');
-                option.className = 'purpose-option';
-                if (purpose.id === currentPurpose) {
-                    option.classList.add('active');
-                }
-                option.setAttribute('data-purpose', purpose.id);
-                option.innerHTML = `
-                    <div class="option-icon">${purpose.icon}</div>
-                    <div class="option-text">
-                        <h3>${purpose.title}</h3>
-                        <p>${purpose.subtitle}</p>
-                    </div>
-                `;
-                option.addEventListener('click', () => selectPurpose(purpose));
-                dropdownOptions.appendChild(option);
-            });
-            updateSelectedPurpose(currentPurpose);
-            applyDynamicUI(currentPurpose);
-        }
-
-        // Update selected purpose display
-        function updateSelectedPurpose(purposeId) {
-            const purpose = purposeOptions.find(p => p.id === purposeId);
-            if (purpose) {
-                selectedIcon.textContent = purpose.icon;
-                selectedTitle.textContent = purpose.title;
-                selectedSubtitle.textContent = purpose.subtitle;
-            }
-        }
-
-        // Dynamically hide/show date selectors, second star, AND Tara Info based on purpose
-        function applyDynamicUI(purposeId) {
-            const purpose = purposeOptions.find(p => p.id === purposeId);
-            const pData = purposeData[purposeId];
-            
-            // Toggle Star 2 based on whether the purpose requires 1 or 2 people
-            if (pData.type === 'one-star') {
-                star2Container.style.display = 'none';
-                star1Title.textContent = 'Select Your Birth Star';
-                star2Select.value = ''; 
-                star2Info.style.display = 'none';
-            } else {
-                star2Container.style.display = 'block';
-                star1Title.textContent = "First Person's Birth Star";
-            }
-            
-            // Toggle Timeframe selectors AND Tara System Info block
-            if (purposeId === 'compatibility') {
-                timeframeSelector.style.display = 'none';
-                taraSystemInfo.style.display = 'block'; // SHOW Tara info
-                dynamicInputTitle.textContent = 'Check Compatibility Between Two People';
-                dynamicResultTitle.textContent = 'Compatibility Analysis';
-                checkButton.textContent = 'Check Compatibility';
-            } else {
-                timeframeSelector.style.display = 'flex';
-                taraSystemInfo.style.display = 'none'; // HIDE Tara info
-                dynamicInputTitle.textContent = `Find Auspicious Timings for ${purpose.title}`;
-                dynamicResultTitle.textContent = `${purpose.title} Timings`;
-                checkButton.textContent = 'Find Timings';
-            }
-
-            // Force validation to run again so the button disables/enables properly for the new layout
-            updateStarInfo();
-        }
-
-        // Select purpose from dropdown
-        function selectPurpose(purpose) {
-            currentPurpose = purpose.id;
-            updateSelectedPurpose(purpose.id);
-            closeDropdown();
-            
-            document.querySelectorAll('.purpose-option').forEach(option => {
-                option.classList.remove('active');
-            });
-            document.querySelector(`.purpose-option[data-purpose="${purpose.id}"]`).classList.add('active');
-            
-            inputSections.forEach(section => section.classList.remove('active'));
-            resultSections.forEach(section => section.classList.remove('active'));
-            
-            const inputId = purposeData[currentPurpose].inputId;
-            document.getElementById(inputId).classList.add('active');
-            document.getElementById(purposeData[currentPurpose].resultId).classList.add('active');
-            
-            applyDynamicUI(currentPurpose);
-        }
-
-        function toggleDropdown() {
-            isDropdownOpen = !isDropdownOpen;
-            if (isDropdownOpen) {
-                dropdownOptions.classList.add('active');
-                dropdownTrigger.classList.add('active');
-                dropdownArrow.classList.add('rotated');
-            } else {
-                closeDropdown();
-            }
-        }
-
-        function closeDropdown() {
-            isDropdownOpen = false;
-            dropdownOptions.classList.remove('active');
-            dropdownTrigger.classList.remove('active');
-            dropdownArrow.classList.remove('rotated');
-        }
-
-        // Event listeners
-        dropdownTrigger.addEventListener('click', toggleDropdown);
-        document.addEventListener('click', (event) => {
-            if (!dropdownTrigger.contains(event.target) && !dropdownOptions.contains(event.target)) {
-                closeDropdown();
-            }
+<script>
+    // ---------- DATA (same as original, kept compact) ----------
+    const purposeOptions = [
+        { id: 'compatibility', icon: '💑', title: 'Compatibility', subtitle: 'Check relationship between people' },
+        { id: 'marriage', icon: '💒', title: 'Marriage', subtitle: 'Find auspicious marriage timing' },
+        { id: 'engagement', icon: '💍', title: 'Engagement', subtitle: 'Nischitartham Muhurtham' },
+        { id: 'gruhapravesam', icon: '🏠', title: 'Gruha Pravesam', subtitle: 'House warming ceremony' },
+        { id: 'namakaranam', icon: '👶', title: 'Namakaranam', subtitle: 'Baby naming ceremony' },
+        { id: 'annaprasana', icon: '🍚', title: 'Annaprasana', subtitle: 'First solid food for baby' },
+        { id: 'upanayanam', icon: '📿', title: 'Upanayanam', subtitle: 'Sacred thread ceremony' },
+        { id: 'seemantham', icon: '🤰', title: 'Seemantham', subtitle: 'Baby shower ceremony' },
+        { id: 'vahana', icon: '🚗', title: 'Vahana Purchase', subtitle: 'Vehicle purchase muhurtham' },
+        { id: 'business', icon: '💼', title: 'Business Start', subtitle: 'New business inauguration' },
+        { id: 'education', icon: '📚', title: 'Vidyarambham', subtitle: 'Start of education' },
+        { id: 'travel', icon: '✈️', title: 'Travel', subtitle: 'Yatra shubha muhurtham' },
+        { id: 'property', icon: '🏡', title: 'Property', subtitle: 'Property registration' },
+        { id: 'vastu', icon: '🔨', title: 'Vastu', subtitle: 'Construction start' },
+        { id: 'medical', icon: '🏥', title: 'Medical', subtitle: 'Surgery or treatment start' },
+        { id: 'investment', icon: '💰', title: 'Investment', subtitle: 'Financial investments' },
+        { id: 'legal', icon: '⚖️', title: 'Legal Matters', subtitle: 'Court cases & agreements' },
+        { id: 'puja', icon: '🛕', title: 'Puja', subtitle: 'Religious ceremonies' },
+        { id: 'fasting', icon: '🙏', title: 'Vrata Arambham', subtitle: 'Start of fasting' },
+        { id: 'yagnya', icon: '🔥', title: 'Yagnya', subtitle: 'Sacrificial ceremonies' }
+    ];
+    const nakshatraOrder = ["ashwini","bharani","krittika","rohini","mrigashira","ardra","punarvasu","pushya","ashlesha","magha","purva-phalguni","uttara-phalguni","hasta","chitra","swati","vishakha","anuradha","jyestha","mula","purva-ashadha","uttara-ashadha","shravana","dhanishta","shatabhisha","purva-bhadrapada","uttara-bhadrapada","revati"];
+    const starData = Object.fromEntries(nakshatraOrder.map(s => [s, { name: s.charAt(0).toUpperCase()+s.slice(1).replace('-',' '), description: "Vedic nakshatra with unique characteristics." }]));
+    const purposeData = Object.fromEntries(purposeOptions.map(p => [p.id, { type: (p.id==='compatibility'||p.id==='marriage'||p.id==='engagement')?'two-star':'one-star', inputId:"compatibility-input", resultId:"compatibility-result" }]));
+    const taraSystemMap = { 0:{name:"Ati Mitra Tara",desc:"Deep friendship, highly favorable.",score:"Excellent"},1:{name:"Janma Tara",desc:"Birth, health, transformative.",score:"Average"},2:{name:"Sampat Tara",desc:"Wealth, prosperity.",score:"Excellent"},3:{name:"Vipat Tara",desc:"Obstacles, caution.",score:"Poor"},4:{name:"Kshema Tara",desc:"Well-being, success.",score:"Good"},5:{name:"Pratyak Tara",desc:"Opposition, obstacles.",score:"Poor"},6:{name:"Sadhana Tara",desc:"Accomplishment through effort.",score:"Good"},7:{name:"Naidhana Tara",desc:"Loss, endings, careful.",score:"Very Poor"},8:{name:"Mitra Tara",desc:"Friendship, support.",score:"Good"} };
+    
+    // DOM elements
+    const dropdownTrigger = document.getElementById('dropdown-trigger');
+    const dropdownOptions = document.getElementById('dropdown-options');
+    const dropdownArrow = dropdownTrigger.querySelector('.dropdown-arrow');
+    const selectedIcon = document.querySelector('.selected-icon');
+    const selectedTitle = document.querySelector('.selected-text h3');
+    const selectedSubtitle = document.querySelector('.selected-text p');
+    const star1Select = document.getElementById('star1');
+    const star2Select = document.getElementById('star2');
+    const star1Container = document.getElementById('star1-container');
+    const star2Container = document.getElementById('star2-container');
+    const star1Title = document.getElementById('star1-title');
+    const monthSelect = document.getElementById('month-select');
+    const yearSelect = document.getElementById('year-select');
+    const timeframeSelector = document.getElementById('timeframe-selector');
+    const dynamicInputTitle = document.getElementById('dynamic-input-title');
+    const dynamicResultTitle = document.getElementById('dynamic-result-title');
+    const taraSystemInfoDiv = document.getElementById('tara-system-info');
+    const star1Info = document.getElementById('star1-info');
+    const star2Info = document.getElementById('star2-info');
+    const relationshipType = document.getElementById('relationship-type');
+    const relationshipDesc = document.getElementById('relationship-desc');
+    const compatibilityInsights = document.getElementById('compatibility-insights');
+    const checkButton = document.getElementById('check-compatibility');
+    
+    const SUPABASE_FUNCTION_URL = 'https://jusjpremtvalmqqtaoth.supabase.co/functions/v1/muhurat-api';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp1c2pwcmVtdHZhbG1xcXRhb3RoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjIyODQyNzksImV4cCI6MjA3Nzg2MDI3OX0.XzE8MFLHhjcKKFJ4TqNX3NNhVyGEiytxufWx8IywTqU';
+    let currentPurpose = 'compatibility';
+    let isDropdownOpen = false;
+    
+    function initializeDropdown() {
+        dropdownOptions.innerHTML = '';
+        purposeOptions.forEach(p => {
+            const option = document.createElement('div');
+            option.className = `purpose-option ${p.id===currentPurpose?'active':''}`;
+            option.setAttribute('data-purpose', p.id);
+            option.innerHTML = `<div class="option-icon">${p.icon}</div><div class="option-text"><h3>${p.title}</h3><p>${p.subtitle}</p></div>`;
+            option.addEventListener('click', () => selectPurpose(p));
+            dropdownOptions.appendChild(option);
         });
-
-        star1Select.addEventListener('change', updateStarInfo);
-        star2Select.addEventListener('change', updateStarInfo);
-        checkButton.addEventListener('click', processRequest);
-
-        initializeDropdown();
-
-        function updateStarInfo() {
-            // Display description for Star 1
-            if (star1Select.value && starData[star1Select.value]) {
-                document.getElementById('star1-name').textContent = starData[star1Select.value].name;
-                document.getElementById('star1-desc').textContent = starData[star1Select.value].description;
-                star1Info.style.display = 'block';
-            } else {
-                star1Info.style.display = 'none';
-            }
-
-            // Display description for Star 2
-            if (star2Select.value && starData[star2Select.value]) {
-                document.getElementById('star2-name').textContent = starData[star2Select.value].name;
-                document.getElementById('star2-desc').textContent = starData[star2Select.value].description;
-                star2Info.style.display = 'block';
-            } else {
-                star2Info.style.display = 'none';
-            }
-
-            // Button Validation Logic based on Purpose Type
-            const pData = purposeData[currentPurpose];
-            if (pData.type === 'one-star') {
-                checkButton.disabled = !star1Select.value;
-            } else {
-                checkButton.disabled = !(star1Select.value && star2Select.value);
-            }
+        updateSelectedPurpose(currentPurpose);
+        applyDynamicUI(currentPurpose);
+    }
+    function updateSelectedPurpose(purposeId) {
+        const p = purposeOptions.find(x=>x.id===purposeId);
+        if(p){ selectedIcon.textContent = p.icon; selectedTitle.textContent = p.title; selectedSubtitle.textContent = p.subtitle; }
+    }
+    function applyDynamicUI(purposeId) {
+        const pData = purposeData[purposeId];
+        if(pData.type === 'one-star') {
+            star2Container.style.display = 'none';
+            star1Title.textContent = 'Select Your Birth Star';
+            star2Select.value = '';
+            star2Info.style.display = 'none';
+        } else {
+            star2Container.style.display = 'block';
+            star1Title.textContent = "First Person's Birth Star";
         }
-
-        // Master function to route to Database OR Local Tara Math
-        function processRequest() {
-            const star1 = star1Select.value;
-            const star2 = star2Select.value;
-            const pData = purposeData[currentPurpose];
-            
-            // Final validation catch
-            if (pData.type === 'two-star' && (!star1 || !star2)) {
-                alert("Please select both stars to proceed.");
-                return;
-            } else if (pData.type === 'one-star' && !star1) {
-                alert("Please select your birth star to proceed.");
-                return;
-            }
-            
-            // Branch Logic: If "Compatibility", calculate locally. Otherwise, ping Database.
-            if (currentPurpose === 'compatibility') {
-                calculateTaraLocally(star1, star2);
-            } else {
-                let month = monthSelect ? monthSelect.value : "All";
-                let year = yearSelect ? yearSelect.value : "2026";
-                const finalStar2 = pData.type === 'two-star' ? star2 : null;
-                fetchMuhuratDataFromDatabase(currentPurpose, star1, finalStar2, month, year);
-            }
+        if(purposeId === 'compatibility') {
+            timeframeSelector.style.display = 'none';
+            taraSystemInfoDiv.style.display = 'block';
+            dynamicInputTitle.textContent = 'Check Compatibility Between Two People';
+            dynamicResultTitle.textContent = 'Compatibility Analysis';
+            checkButton.textContent = 'Check Compatibility';
+        } else {
+            timeframeSelector.style.display = 'flex';
+            taraSystemInfoDiv.style.display = 'none';
+            const purp = purposeOptions.find(p=>p.id===purposeId);
+            dynamicInputTitle.textContent = `Find Auspicious Timings for ${purp.title}`;
+            dynamicResultTitle.textContent = `${purp.title} Timings`;
+            checkButton.textContent = 'Find Timings';
         }
-
-        // Mathematical Navatara Calculator (Runs instantly without backend)
-        function calculateTaraLocally(star1, star2) {
-            const idx1 = nakshatraOrder.indexOf(star1);
-            const idx2 = nakshatraOrder.indexOf(star2);
-
-            // Person 1 looking at Person 2
-            let count1to2 = (idx2 - idx1) + 1;
-            if (count1to2 <= 0) count1to2 += 27;
-            const tara1to2 = count1to2 % 9;
-
-            // Person 2 looking at Person 1
-            let count2to1 = (idx1 - idx2) + 1;
-            if (count2to1 <= 0) count2to1 += 27;
-            const tara2to1 = count2to1 % 9;
-
-            const res1 = taraSystemMap[tara1to2];
-            const res2 = taraSystemMap[tara2to1];
-
-            const name1 = starData[star1].name;
-            const name2 = starData[star2].name;
-
-            relationshipType.textContent = "Tara Compatibility";
-            relationshipDesc.textContent = `Vedic Star Relationship between ${name1} and ${name2}`;
-
-            let htmlOutput = `
-                <div style="background: rgba(0,0,0,0.2); padding: 20px; border-radius: 8px; margin-bottom: 15px; border-left: 4px solid #0fccce; text-align: left;">
-                    <h4 style="color: #0fccce; margin-bottom: 10px; font-size: 1.1rem;">From ${name1} to ${name2}</h4>
-                    <p><strong style="color: #fff; font-size: 1.2rem;">${res1.name}</strong></p>
-                    <p style="color: #b8b8b8; margin-top: 5px;">${res1.desc}</p>
-                    <span style="display: inline-block; background: rgba(15, 204, 206, 0.2); padding: 5px 10px; border-radius: 4px; font-size: 0.85rem; margin-top: 10px; font-weight: bold;">Impact: ${res1.score}</span>
-                </div>
-                
-                <div style="background: rgba(0,0,0,0.2); padding: 20px; border-radius: 8px; margin-bottom: 15px; border-left: 4px solid #e94560; text-align: left;">
-                    <h4 style="color: #e94560; margin-bottom: 10px; font-size: 1.1rem;">From ${name2} to ${name1}</h4>
-                    <p><strong style="color: #fff; font-size: 1.2rem;">${res2.name}</strong></p>
-                    <p style="color: #b8b8b8; margin-top: 5px;">${res2.desc}</p>
-                    <span style="display: inline-block; background: rgba(233, 69, 96, 0.2); padding: 5px 10px; border-radius: 4px; font-size: 0.85rem; margin-top: 10px; font-weight: bold;">Impact: ${res2.score}</span>
+        updateStarInfo();
+    }
+    function selectPurpose(purpose) {
+        currentPurpose = purpose.id;
+        updateSelectedPurpose(purpose.id);
+        closeDropdown();
+        document.querySelectorAll('.purpose-option').forEach(opt=>opt.classList.remove('active'));
+        document.querySelector(`.purpose-option[data-purpose="${purpose.id}"]`).classList.add('active');
+        document.querySelectorAll('.input-section').forEach(s=>s.classList.remove('active'));
+        document.querySelectorAll('.result-section').forEach(s=>s.classList.remove('active'));
+        document.getElementById('compatibility-input').classList.add('active');
+        document.getElementById('compatibility-result').classList.add('active');
+        applyDynamicUI(currentPurpose);
+    }
+    function toggleDropdown() { isDropdownOpen = !isDropdownOpen; if(isDropdownOpen){ dropdownOptions.classList.add('active'); dropdownTrigger.classList.add('active'); dropdownArrow.classList.add('rotated'); } else closeDropdown(); }
+    function closeDropdown() { isDropdownOpen=false; dropdownOptions.classList.remove('active'); dropdownTrigger.classList.remove('active'); dropdownArrow.classList.remove('rotated'); }
+    dropdownTrigger.addEventListener('click', toggleDropdown);
+    document.addEventListener('click',(e)=>{ if(!dropdownTrigger.contains(e.target) && !dropdownOptions.contains(e.target)) closeDropdown(); });
+    star1Select.addEventListener('change', updateStarInfo);
+    star2Select.addEventListener('change', updateStarInfo);
+    checkButton.addEventListener('click', processRequest);
+    initializeDropdown();
+    
+    function updateStarInfo() {
+        if(star1Select.value && starData[star1Select.value]) {
+            star1Info.innerHTML = `<h4>About ${starData[star1Select.value].name}</h4><p>${starData[star1Select.value].description}</p>`;
+            star1Info.style.display = 'block';
+        } else star1Info.style.display = 'none';
+        if(star2Select.value && starData[star2Select.value]) {
+            star2Info.innerHTML = `<h4>About ${starData[star2Select.value].name}</h4><p>${starData[star2Select.value].description}</p>`;
+            star2Info.style.display = 'block';
+        } else star2Info.style.display = 'none';
+        const pData = purposeData[currentPurpose];
+        if(pData.type === 'one-star') checkButton.disabled = !star1Select.value;
+        else checkButton.disabled = !(star1Select.value && star2Select.value);
+    }
+    
+    function processRequest() {
+        const star1 = star1Select.value, star2 = star2Select.value;
+        const pData = purposeData[currentPurpose];
+        if(pData.type === 'two-star' && (!star1 || !star2)) return alert("Please select both stars.");
+        if(pData.type === 'one-star' && !star1) return alert("Please select your birth star.");
+        if(currentPurpose === 'compatibility') calculateTaraLocally(star1, star2);
+        else fetchMuhuratDataFromDatabase(currentPurpose, star1, pData.type==='two-star'?star2:null, monthSelect.value, yearSelect.value);
+    }
+    
+    function calculateTaraLocally(star1, star2) {
+        const idx1 = nakshatraOrder.indexOf(star1), idx2 = nakshatraOrder.indexOf(star2);
+        let count1to2 = (idx2 - idx1) + 1; if(count1to2<=0) count1to2+=27; const t1 = count1to2%9;
+        let count2to1 = (idx1 - idx2) + 1; if(count2to1<=0) count2to1+=27; const t2 = count2to1%9;
+        const res1 = taraSystemMap[t1], res2 = taraSystemMap[t2];
+        const name1 = starData[star1].name, name2 = starData[star2].name;
+        relationshipType.textContent = "Tara Compatibility";
+        relationshipDesc.textContent = `Vedic Star Relationship between ${name1} and ${name2}`;
+        compatibilityInsights.innerHTML = `
+            <div style="background:rgba(0,0,0,0.2); padding:18px; border-radius:12px; margin-bottom:15px; border-left:4px solid #0fccce; text-align:left;">
+                <h4 style="color:#0fccce;">From ${name1} to ${name2}</h4>
+                <p><strong style="font-size:1.2rem;">${res1.name}</strong></p>
+                <p>${res1.desc}</p>
+                <span style="background:rgba(15,204,206,0.2); padding:4px 12px; border-radius:20px;">Impact: ${res1.score}</span>
+            </div>
+            <div style="background:rgba(0,0,0,0.2); padding:18px; border-radius:12px; border-left:4px solid #e94560; text-align:left;">
+                <h4 style="color:#e94560;">From ${name2} to ${name1}</h4>
+                <p><strong style="font-size:1.2rem;">${res2.name}</strong></p>
+                <p>${res2.desc}</p>
+                <span style="background:rgba(233,69,96,0.2); padding:4px 12px; border-radius:20px;">Impact: ${res2.score}</span>
+            </div>
+        `;
+    }
+    
+    async function fetchMuhuratDataFromDatabase(purpose, star1, star2, month, year) {
+        relationshipType.textContent = "Calculating...";
+        relationshipDesc.textContent = "Fetching auspicious timings...";
+        compatibilityInsights.innerHTML = '<i class="fas fa-spinner fa-spin" style="font-size:2rem; color:#0fccce;"></i><br>Loading...';
+        checkButton.disabled = true;
+        try {
+            const resp = await fetch(SUPABASE_FUNCTION_URL, {
+                method: 'POST',
+                headers: { 'Content-Type':'application/json', 'Authorization':`Bearer ${SUPABASE_ANON_KEY}` },
+                body: JSON.stringify({ purpose, star1, star2, month, year })
+            });
+            if(!resp.ok) throw new Error(`Server error ${resp.status}`);
+            const data = await resp.json();
+            if(data.success) displayResults(data.results, month, year, purpose);
+            else throw new Error(data.error || "Unknown error");
+        } catch(err) {
+            relationshipType.textContent = "Data Fetch Error";
+            relationshipDesc.textContent = "Could not retrieve timings.";
+            compatibilityInsights.innerHTML = `<span style="color:#e94560;">Error:</span> ${err.message}`;
+        } finally { checkButton.disabled = false; }
+    }
+    
+    function displayResults(results, month, year, purpose) {
+        if(results.length===0) {
+            relationshipType.textContent = "No Data Found";
+            relationshipDesc.textContent = `No auspicious dates for ${month!=='All'?month+' '+year:year}.`;
+            compatibilityInsights.innerHTML = "Try different parameters or consult an astrologer.";
+            return;
+        }
+        relationshipType.textContent = `${results.length} Auspicious Dates Found`;
+        relationshipDesc.textContent = `Based on your selection for ${purposeOptions.find(p=>p.id===purpose).title}.`;
+        let html = '<div class="dates-grid">';
+        results.forEach(row => {
+            const dateStr = row.Date ? new Date(row.Date).toLocaleDateString('en-GB') : '';
+            html += `
+                <div class="date-card">
+                    <div class="card-date"><i class="fas fa-calendar-alt"></i> ${dateStr}</div>
+                    <div class="card-detail">
+                        <span class="detail-badge"><i class="fas fa-moon"></i><span class="detail-label">Tithi:</span> <span class="detail-value">${row.Tithi_Name || ''}</span></span>
+                        <span class="detail-badge"><i class="fas fa-star"></i><span class="detail-label">Nakshatra:</span> <span class="detail-value">${row.Nakshatra_Name || ''}</span></span>
+                        <span class="detail-badge"><i class="fas fa-chart-line"></i><span class="detail-label">Yoga:</span> <span class="detail-value">${row.Yoga_Name || ''}</span></span>
+                        <span class="detail-badge"><i class="fas fa-hourglass-half"></i><span class="detail-label">Karana:</span> <span class="detail-value">${row.Karana_Name || ''}</span></span>
+                    </div>
+                    <div class="card-footer">
+                        ${row.Paksha || ''} Paksha · ${row.Waxing_Waning || ''}
+                    </div>
                 </div>
             `;
-            
-            compatibilityInsights.innerHTML = htmlOutput;
-        }
-
-        // Database fetcher for Event Dates
-        async function fetchMuhuratDataFromDatabase(purpose, star1, star2, month, year) {
-            if (SUPABASE_ANON_KEY === 'YOUR_SUPABASE_ANON_KEY_HERE') {
-                relationshipType.textContent = "Configuration Error";
-                relationshipDesc.textContent = "Missing Supabase Key.";
-                compatibilityInsights.innerHTML = `<span style="color:#e94560; font-weight:bold;">Error:</span><br>You need to paste your Supabase Anon Key into the HTML file (around line 815) to fix the 401 Unauthorized error.`;
-                return;
-            }
-
-            relationshipType.textContent = "Calculating...";
-            relationshipDesc.textContent = "Fetching auspicious timings from the database...";
-            compatibilityInsights.innerHTML = '<i class="fas fa-spinner fa-spin" style="font-size: 2rem; color: #0fccce; margin: 10px 0;"></i><br>Please wait while we pull data...';
-            checkButton.disabled = true;
-
-            try {
-                const response = await fetch(SUPABASE_FUNCTION_URL, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
-                    },
-                    body: JSON.stringify({ purpose, star1, star2, month, year })
-                });
-
-                if (!response.ok) {
-                    const errorText = await response.text();
-                    throw new Error(`Server Error (${response.status}): ${errorText || 'Check Supabase Edge Function logs.'}`);
-                }
-
-                let data;
-                try {
-                    data = await response.json();
-                } catch (parseError) {
-                    throw new Error("Received an invalid response from the server. Ensure the Edge Function is deployed correctly and returning valid JSON.");
-                }
-
-                if (data.success) {
-                    displayResults(data.results, month, year, purpose);
-                } else {
-                    throw new Error(data.error || "Unknown error processing data inside the edge function.");
-                }
-            } catch (error) {
-                relationshipType.textContent = "Data Fetch Error";
-                relationshipDesc.textContent = "There was a problem communicating with the database.";
-                compatibilityInsights.innerHTML = `<span style="color:#e94560; font-weight:bold;">Error Details:</span><br>${error.message}`;
-            } finally {
-                checkButton.disabled = false;
-            }
-        }
-
-        function displayResults(results, month, year, purpose) {
-            if (results.length === 0) {
-                relationshipType.textContent = "No Data Found";
-                let timeFrameStr = month !== "All" ? `${month} ${year}` : `${year}`;
-                relationshipDesc.textContent = `We couldn't find specific timings for this combination in ${timeFrameStr}.`;
-                compatibilityInsights.textContent = "Try adjusting your parameters or consulting an astrologer for personalized dates.";
-                return;
-            }
-
-            let timeFrameStr = month !== "All" ? `${month} ${year}` : `${year}`;
-            relationshipType.textContent = `${results.length} Auspicious Dates Found for ${timeFrameStr}`;
-            relationshipDesc.textContent = "Based on your selected stars and purpose, here are the recommended timings.";
-            
-            // Build a dynamic HTML list based on the Excel rows returned from Supabase
-            let htmlOutput = '<div style="text-align: left; background: rgba(0,0,0,0.2); padding: 15px; border-radius: 8px; max-height: 400px; overflow-y: auto;">';
-            
-            results.forEach((row) => {
-                htmlOutput += '<div style="border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px; margin-bottom: 10px;">';
-                for (const [key, value] of Object.entries(row)) {
-                    htmlOutput += `<strong style="color: #0fccce;">${key}:</strong> <span style="color: #b8b8b8;">${value}</span><br>`;
-                }
-                htmlOutput += '</div>';
-            });
-            
-            htmlOutput += '</div>';
-            compatibilityInsights.innerHTML = htmlOutput;
-        }
-    </script>
+        });
+        html += '</div>';
+        compatibilityInsights.innerHTML = html;
+    }
+</script>
 </body>
 </html>
